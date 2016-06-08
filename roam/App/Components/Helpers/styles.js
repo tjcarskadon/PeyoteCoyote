@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 
   dateViewDate: {
     marginBottom: 10,
-    marginLeft: 40,
+    marginLeft: 28,
     fontSize: 20,
     fontWeight: "100",
     textAlign: 'right',
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   datePicker: {
     borderTopWidth: 1, 
     position: 'absolute', 
-    bottom: 120, 
+    bottom: 170, 
     right: 15, 
     left: 15, 
     height: 220, 
