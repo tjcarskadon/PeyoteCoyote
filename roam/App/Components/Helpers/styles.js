@@ -60,12 +60,32 @@ const styles = StyleSheet.create({
 
   dateViewDate: {
     marginBottom: 10,
-    marginLeft: 100,
+    marginLeft: 40,
     fontSize: 20,
     fontWeight: "100",
     textAlign: 'right',
     color: 'white',
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
+  },
+
+  datePicker: {
+    borderTopWidth: 1, 
+    position: 'absolute', 
+    bottom: 120, 
+    right: 15, 
+    left: 15, 
+    height: 220, 
+    borderColor: '#fff', 
+    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.3)',
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
+  },
+
+  datePickerLabel: {
+    textAlign: 'right'
   },
   buttonText: {
     fontSize: 18,
@@ -138,16 +158,6 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center'
   },
-  datePicker: {
-    borderTopWidth: 1, 
-    position: 'absolute', 
-    bottom: 0, 
-    right: 0, 
-    left: 0, 
-    height: 220, 
-    borderColor: '#CCC', 
-    backgroundColor: '#FFF',    
-  }
 });
 
 module.exports = styles;
