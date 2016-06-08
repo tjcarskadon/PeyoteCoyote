@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { SegmentedControls } from 'react-native-radio-buttons';
-const Confirmation = require('./Confirmation');
-const Separator = require('./Helpers/Separator');
-const styles = require('./Helpers/styles');
-const Host = require('./Host');
-const Geolocation = require('./Geolocation');
+
+var Confirmation = require('./Confirmation');
+var Separator = require('./Helpers/Separator');
+var styles = require('./Helpers/styles');
+var Host = require('./Host');
+var Geolocation = require('./Geolocation');
+var JoinView = require('./JoinView');
 
 const coordinates = {};
 
@@ -100,6 +102,14 @@ class Time extends Component {
   changeCoords(newCoords) {
     this.setState({coords: newCoords});
   }
+  handleJoin() {
+    console.log('Going to Join, yay!');
+    this.props.navigator.push({
+      title: 'Join a meeting',
+      component: JoinView
+    });
+  }
+
   render () {
     const options = [
       '1 hour',
@@ -127,11 +137,16 @@ class Time extends Component {
           onPress={this.handleSubmit.bind(this)} >
             <Text style={styles.buttonText}> Roam! </Text>
         </TouchableHighlight>
-         <TouchableHighlight
+        <TouchableHighlight
           style={styles.button}
           onPress={() => this.nav('Host', this.props.userEmail)}
           underlayColor="white" >
             <Text style={styles.buttonText}> Host a roam </Text>
+        </TouchableHighlight>  
+        <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleJoin.bind(this)} >
+            <Text style={styles.buttonText}> Join! </Text>
         </TouchableHighlight>
       </Image>
     );

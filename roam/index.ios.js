@@ -26,6 +26,9 @@ console.ignoredYellowBox = [
     // Other warnings you don't want like 'jsSchedulingOverhead',
   ];
 
+var Time = require('./App/Components/Time');
+
+
 class roam extends Component{
 
 renderScene (route, navigator) {
