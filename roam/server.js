@@ -53,7 +53,7 @@ app.post('/signup', function(req, res){
             console.log('Error hashing password', err);
           }
           data.password = hash;
-          //Creates new server in database
+          //Creates new user in database
           apoc.query('CREATE \
             (newUser:User {\
               firstName: "%firstName%", \
@@ -196,6 +196,7 @@ app.post('/roam', function(req, res) {
           })
           .exec().then(function(relationshipRes) {
              console.log('Relationship created', relationshipRes);
+             res.send("Created a roam");
           });
         });
       });
@@ -296,22 +297,35 @@ app.post('/cancel', function(req, res) {
 
 //endpoint for returning list of Pool/X roams
 app.post('/roamList', function(req, res){
+  var dateMS = Date.now();
   var userEmail = req.body.userEmail;
   var type = req.body.type;
+  var coords = boundingBoxGenerator(req); //bounding box coordinates
+  var times = roamOffGenerator(req); //time until roam ends
+
   console.log('getting all the group roams');
-  apoc.query('MATCH \
-      (m:Roam) WHERE \
-      m.creatorEmail <> "%email%" \
-      AND m.type = "%type%" \
-      AND m.status = "Pending" RETURN m',
+  apoc.query('MATCH (m:Roam) \
+      WHERE m.creatorRoamEnd > %currentDate% \
+        AND m.status = "Pending" \
+        AND m.creatorLatitude < %maxLat% \
+        AND m.creatorLatitude > %minLat% \
+        AND m.creatorLongitude < %maxLong% \
+        AND m.creatorLongitude > %minLong% \
+        AND m.creatorEmail <> "%userEmail%" \
+        AND m.type = "%type%" RETURN m',
       {
-        email: userEmail,
+        currentDate: dateMS,
+        maxLat: coords.maxLat,
+        minLat: coords.minLat,
+        maxLong: coords.maxLong,
+        minLong: coords.minLong,
+        userEmail: userEmail,
         type: type
   })
   .exec().then(function(roamsList){
-    console.log(groupRoams[0].data);
+    console.log(roamsList[0].data);
     //if there are Pool/X roams, send them
-    if (groupRoams[0].data.length > 0) {
+    if (roamsList[0].data.length > 0) {
       res.send(JSON.stringify(roamsList[0].data));
     } else {
       var message = 'No ' + type + ' Roams Available';
