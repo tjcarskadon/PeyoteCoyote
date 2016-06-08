@@ -188,7 +188,7 @@ app.post('/roam', function(req, res) {
               creatorEmail: "%creatorEmail%", \
               creatorRoamStart: %roamStart% \
             }) \
-            CREATE (n)-[:CREATED]->(m)',
+            CREATE (n)-[r:ATTENDING {host: true}]->(m)',
             {
               email:userEmail,
               creatorEmail: userEmail,
@@ -212,7 +212,7 @@ app.post('/roam', function(req, res) {
         (m:Roam) \
           WHERE id(m) = %id% \
           SET m.status="Active" \
-          CREATE (n)-[:JOINED]->(m) \
+          CREATE (n)-[r:ATTENDING {host: false}]->(m) \
           RETURN m',
           {email:userEmail, id:id}
         )
@@ -333,6 +333,24 @@ app.post('/roamList', function(req, res){
     }
   });
 });
+
+app.post('/joinRoam', function(req, res){
+  var id = req.body.id;
+  var userEmail = req.body.userEmail;
+  var type = req.body.type;
+  //create a relationship between the selected roam and the user
+  apoc.query('MATCH (n:User {email: "%email%"}), (m:Roam) \
+      WHERE id(m) = %id% \
+      CREATE (n)-[r:ATTENDING {host: false}]->(m) \
+      RETURN m',
+      {
+        id: id,
+        email: userEmail
+  })
+  .exec().then(function(roam){
+    res.send("Joined the roam");
+  })
+})
 
 app.listen(3000, function(){
   console.log('Example app listening on port 3000!');
