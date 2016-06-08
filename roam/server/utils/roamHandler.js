@@ -37,7 +37,7 @@ module.exports = (req, res) => {
         minLat: coords.minLat,
         maxLong: coords.maxLong,
         minLong: coords.minLong,
-        userEmail: userEmail
+        userEmail: userEmail,
         type: type}
   )
   .exec().then(function(matchResults) {
