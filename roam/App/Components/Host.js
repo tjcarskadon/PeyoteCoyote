@@ -39,6 +39,9 @@ toggleDatePicker(){
 
   render () {
 
+     var hr = this.state.date.getHours() > 12 ? this.state.date.getHours() - 12 : this.state.date.getHours();
+     var min = this.state.date.getMinutes() <=9 ? '0' + this.state.date.getMinutes() : this.state.date.getMinutes();
+     var suf = this.state.date.getHours() > 12 ? "PM" : "AM";
      var datePicker = (
       <View style={styles.datePicker}>
 
@@ -82,7 +85,7 @@ toggleDatePicker(){
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>
           </View>
           <View>
-            <Text style={styles.dateViewDate}>{ this.state.date.getMonth() }/{ this.state.date.getDate() }/{ this.state.date.getFullYear() }  {this.state.date.getHours()}:{this.state.date.getMinutes()} </Text>
+            <Text style={styles.dateViewDate}>{ this.state.date.getMonth() }/{ this.state.date.getDate() }/{ this.state.date.getFullYear() }  {hr}:{min} {suf} </Text>
           </View>
         </View>
         </TouchableWithoutFeedback>
