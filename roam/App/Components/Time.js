@@ -85,7 +85,7 @@ class Time extends Component {
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')} >
         <Geolocation region={this.props.region}/>
-        <Text style={styles.header}> pick time you asshole: </Text>
+        <Text style={styles.header}> pick a time: </Text>
         <SegmentedControls
           tint={'#ff0066'}
           selectedTint={'white'}

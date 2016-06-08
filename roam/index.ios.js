@@ -11,6 +11,12 @@ import {
 var Main = require('./App/Components/Main');
 var Time = require('./App/Components/Time');
 
+console.ignoredYellowBox = [
+    'Warning: Failed propType',
+    // Other warnings you don't want like 'jsSchedulingOverhead',
+  ];
+
+
 class roam extends Component{
   render() {
     return (
