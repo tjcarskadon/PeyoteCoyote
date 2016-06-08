@@ -23,7 +23,7 @@ class Host extends Component {
     super(props);
     this.state = {
       date: new Date(),
-      datePickerMode: 'hidden' 
+      datePickerMode: 'hidden',
     };
   }
 
@@ -43,7 +43,6 @@ toggleDatePicker(){
       <View style={styles.datePicker}>
 
         <TouchableOpacity onPress={this.toggleDatePicker.bind(this)} style={{ padding: 5, alignItems: 'flex-end' }}>
-          <Text>Done</Text>
         </TouchableOpacity>
       
         <DatePickerIOS
@@ -83,7 +82,7 @@ toggleDatePicker(){
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>
           </View>
           <View>
-            <Text style={styles.dateViewDate}>{ this.state.date.getMonth() }/{ this.state.date.getDate() }/{ this.state.date.getFullYear() }</Text>
+            <Text style={styles.dateViewDate}>{ this.state.date.getMonth() }/{ this.state.date.getDate() }/{ this.state.date.getFullYear() }  {this.state.date.getHours()}:{this.state.date.getMinutes()} </Text>
           </View>
         </View>
         </TouchableWithoutFeedback>
