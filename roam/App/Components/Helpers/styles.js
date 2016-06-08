@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     letterSpacing: 3
   },
+
   submit: {
     height: 50,
     padding: 10,
@@ -37,6 +38,39 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+  },
+
+  dateViewBox: {
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignItems: 'flex-start',
+    flexDirection: 'row'
+  },
+
+  dateViewLabel: {
+    marginBottom: 10,
+    fontSize: 20,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+    letterSpacing: 3
+  },
+
+  dateViewDate: {
+    height: 30,
+    padding: 10,
+    width: 75,
+    marginLeft: 50,
+    marginRight: 5,
+    marginBottom: 15,
+    fontSize: 12,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white',
+    backgroundColor: 'transparent'    
   },
   buttonText: {
     fontSize: 18,
