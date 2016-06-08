@@ -19,6 +19,8 @@ const signupHandler = require('./utils/signupHandler');
 const signinHandler = require('./utils/signinHandler');
 const roamHandler = require('./utils/roamHandler');
 const cancelRoamHandler = require('./utils/cancelRoamHandler');
+const joinRoamHandler = require('./utils/joinRoamHandler');
+const roamListHandler = require('./utils/roamListHandler');
 
 
 
@@ -31,8 +33,8 @@ var smtpConfig = {
   port: 465,
   secure: true, // use SSL
   auth: {
-    user: 'roamincenterprises@gmail.com',
-    pass: 'roamroam'
+    user: 'typosroam@gmail.com',
+    pass: 'typ0sr0am'
   }
 };
 
@@ -67,6 +69,18 @@ app.post('/roam', function(req, res) {
 //Cancellation of roam; only the creator has cancellation abilities
 app.post('/cancel', function(req, res) {
   cancelRoamHandler(req, res, transporter);
+
+});
+
+//List roam pools/x in the area;
+app.post('/roamList', function(req, res) {
+  roamListHandler(req, res);
+
+});
+
+//join roam pools/x in the area;
+app.post('/joinRoam', function(req, res) {
+  joinRoamHandler(req, res);
 
 });
 

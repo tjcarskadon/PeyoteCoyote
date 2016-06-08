@@ -15,6 +15,7 @@ module.exports = (req, res) => {
 
   let dateMS = Date.now();
   let userEmail = req.body.userEmail;
+  let type = req.body.type;
   // let {userEmail, type, hosted, host, description, price} = req.body;
   let coords = boundingBoxGenerator(req); //bounding box coordinates
   let times = roamOffGenerator(req); //time until roam ends
@@ -28,14 +29,16 @@ module.exports = (req, res) => {
         AND n.creatorLatitude > %minLat% \
         AND n.creatorLongitude < %maxLong% \
         AND n.creatorLongitude > %minLong% \
-        AND n.creatorEmail <> "%userEmail%" RETURN n',
+        AND n.creatorEmail <> "%userEmail%" \
+        AND n.type = "%type%" RETURN n',
       {
         currentDate:dateMS,
         maxLat: coords.maxLat,
         minLat: coords.minLat,
         maxLong: coords.maxLong,
         minLong: coords.minLong,
-        userEmail: userEmail}
+        userEmail: userEmail
+        type: type}
   )
   .exec().then(function(matchResults) {
 
@@ -67,7 +70,8 @@ module.exports = (req, res) => {
             creatorRoamEnd: %roamOffAfter%, \
             status: "Pending", \
             venueName: "%venueName%", \
-            venueAddress: "%venueAddress%"\
+            venueAddress: "%venueAddress%", \
+            type: "%type%" \
           })',
           {
             email: userEmail,
@@ -77,7 +81,8 @@ module.exports = (req, res) => {
             startRoam: times.startRoam,
             roamOffAfter: times.roamOffAfter,
             venueName: venueName,
-            venueAddress: venueAddress
+            venueAddress: venueAddress,
+            type: type
         })
         .exec().then(function(queryRes) {
 
@@ -88,13 +93,14 @@ module.exports = (req, res) => {
               creatorEmail: "%creatorEmail%", \
               creatorRoamStart: %roamStart% \
             }) \
-            CREATE (n)-[:CREATED]->(m)',
+            CREATE (n)-[r:ATTENDING {host: true}]->(m)',
             {
               email:userEmail,
               creatorEmail: userEmail,
               roamStart: times.startRoam
             }).exec().then(function(relationshipRes) {
              console.log('Relationship created', relationshipRes);
+             res.send("Created a roam");
           });
         });
       });
@@ -110,7 +116,7 @@ module.exports = (req, res) => {
         (m:Roam) \
           WHERE id(m) = %id% \
           SET m.status="Active" \
-          CREATE (n)-[:CREATED]->(m) \
+          CREATE (n)-[r:ATTENDING {host: false}]->(m) \
           RETURN m',
           {email:userEmail, id:id}
         )
@@ -122,7 +128,7 @@ module.exports = (req, res) => {
 
         //Generates an automatic email message
         var mailOptions = {
-          from: '"Roam" <Roamincenterprises@gmail.com>', // sender address
+          from: '"Typos Roam" <typosroam@gmail.com>', // sender address
           bcc: roamInfo.creatorEmail + ',' + userEmail, // List of users who are matched
           subject: 'Your Roam is Ready!', // Subject line
           text: 'Your Roam is at:' + roamInfo.venueName + ' Roam Address: ' + roamInfo.venueAddress, // plaintext body

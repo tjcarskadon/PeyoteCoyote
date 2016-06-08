@@ -20,8 +20,8 @@ var smtpConfig = {
   port: 465,
   secure: true, // use SSL
   auth: {
-    user: 'roamincenterprises@gmail.com',
-    pass: 'roamroam'
+    user: 'typosroam@gmail.com',
+    pass: 'typ0sr0am'
   }
 };
 
@@ -53,7 +53,7 @@ app.post('/signup', function(req, res){
             console.log('Error hashing password', err);
           }
           data.password = hash;
-          //Creates new server in database
+          //Creates new user in database
           apoc.query('CREATE \
             (newUser:User {\
               firstName: "%firstName%", \
@@ -109,11 +109,11 @@ app.post('/signin', function(req, res) {
 //Page to set up event between users, making API calls to YELP
 app.post('/roam', function(req, res) {
 
-	let dateMS = Date.now();
-  // let userEmail = req.body.userEmail;
-  let {userEmail, type, hosted, host, description, price} = req.body;
-  let coords = boundingBoxGenerator(req); //bounding box coordinates
-  let times = roamOffGenerator(req); //time until roam ends
+	var dateMS = Date.now();
+  var userEmail = req.body.userEmail;
+  var type = req.body.type;
+  var coords = boundingBoxGenerator(req); //bounding box coordinates
+  var times = roamOffGenerator(req); //time until roam ends
 
   //Checks to make sure if there is an existing pending roam within similar location by a different user
 	apoc.query('MATCH \
@@ -124,15 +124,17 @@ app.post('/roam', function(req, res) {
         AND n.creatorLatitude > %minLat% \
         AND n.creatorLongitude < %maxLong% \
         AND n.creatorLongitude > %minLong% \
-        AND n.creatorEmail <> "%userEmail%" RETURN n',
+        AND n.creatorEmail <> "%userEmail%" \
+        AND n.type = "%type%" RETURN n',
       {
         currentDate:dateMS,
         maxLat: coords.maxLat,
         minLat: coords.minLat,
         maxLong: coords.maxLong,
         minLong: coords.minLong,
-        userEmail: userEmail}
-  )
+        userEmail: userEmail,
+        type: type
+  })
   .exec().then(function(matchResults) {
 
     //if no match found create a pending roam node
@@ -163,7 +165,8 @@ app.post('/roam', function(req, res) {
             creatorRoamEnd: %roamOffAfter%, \
             status: "Pending", \
             venueName: "%venueName%", \
-            venueAddress: "%venueAddress%"\
+            venueAddress: "%venueAddress%", \
+            type: "%type%" \
           })',
           {
             email: userEmail,
@@ -173,7 +176,8 @@ app.post('/roam', function(req, res) {
             startRoam: times.startRoam,
             roamOffAfter: times.roamOffAfter,
             venueName: venueName,
-            venueAddress: venueAddress
+            venueAddress: venueAddress,
+            type: type
         })
         .exec().then(function(queryRes) {
 
@@ -184,13 +188,15 @@ app.post('/roam', function(req, res) {
               creatorEmail: "%creatorEmail%", \
               creatorRoamStart: %roamStart% \
             }) \
-            CREATE (n)-[:CREATED]->(m)',
+            CREATE (n)-[r:ATTENDING {host: true}]->(m)',
             {
               email:userEmail,
               creatorEmail: userEmail,
               roamStart: times.startRoam
-            }).exec().then(function(relationshipRes) {
+          })
+          .exec().then(function(relationshipRes) {
              console.log('Relationship created', relationshipRes);
+             res.send("Created a roam");
           });
         });
       });
@@ -206,7 +212,7 @@ app.post('/roam', function(req, res) {
         (m:Roam) \
           WHERE id(m) = %id% \
           SET m.status="Active" \
-          CREATE (n)-[:CREATED]->(m) \
+          CREATE (n)-[r:ATTENDING {host: false}]->(m) \
           RETURN m',
           {email:userEmail, id:id}
         )
@@ -218,7 +224,7 @@ app.post('/roam', function(req, res) {
 
         //Generates an automatic email message
         var mailOptions = {
-          from: '"Roam" <Roamincenterprises@gmail.com>', // sender address
+          from: '"Typos Roam" <typosroam@gmail.com>', // sender address
           bcc: roamInfo.creatorEmail + ',' + userEmail, // List of users who are matched
           subject: 'Your Roam is Ready!', // Subject line
           text: 'Your Roam is at:' + roamInfo.venueName + ' Roam Address: ' + roamInfo.venueAddress, // plaintext body
@@ -260,7 +266,7 @@ app.post('/cancel', function(req, res) {
 
       //Sends cancellation email
       var mailOptions = {
-        from: '"Roam" <Roamincenterprises@gmail.com>', // sender address
+        from: 'Typos Roam" <typosroam@gmail.com>', // sender address
         bcc: roamInfo.creatorEmail + ',' + userEmail,
         subject: 'Your Roam has been canceled!', // Subject line
         text: 'Your Roam at:' + roamInfo.venueName + ' Roam Address: ' + roamInfo.venueAddress + ' has been canceled.', // plaintext body
@@ -288,6 +294,63 @@ app.post('/cancel', function(req, res) {
       res.send("Your Roam has been canceled");
   });
 });
+
+//endpoint for returning list of Pool/X roams
+app.post('/roamList', function(req, res){
+  var dateMS = Date.now();
+  var userEmail = req.body.userEmail;
+  var type = req.body.type;
+  var coords = boundingBoxGenerator(req); //bounding box coordinates
+  var times = roamOffGenerator(req); //time until roam ends
+
+  console.log('getting all the group roams');
+  apoc.query('MATCH (m:Roam) \
+      WHERE m.creatorRoamEnd > %currentDate% \
+        AND m.status = "Pending" \
+        AND m.creatorLatitude < %maxLat% \
+        AND m.creatorLatitude > %minLat% \
+        AND m.creatorLongitude < %maxLong% \
+        AND m.creatorLongitude > %minLong% \
+        AND m.creatorEmail <> "%userEmail%" \
+        AND m.type = "%type%" RETURN m',
+      {
+        currentDate: dateMS,
+        maxLat: coords.maxLat,
+        minLat: coords.minLat,
+        maxLong: coords.maxLong,
+        minLong: coords.minLong,
+        userEmail: userEmail,
+        type: type
+  })
+  .exec().then(function(roamsList){
+    console.log(roamsList[0].data);
+    //if there are Pool/X roams, send them
+    if (roamsList[0].data.length > 0) {
+      res.send(JSON.stringify(roamsList[0].data));
+    } else {
+      var message = 'No ' + type + ' Roams Available';
+      res.send(message);
+    }
+  });
+});
+
+app.post('/joinRoam', function(req, res){
+  var id = req.body.id;
+  var userEmail = req.body.userEmail;
+  var type = req.body.type;
+  //create a relationship between the selected roam and the user
+  apoc.query('MATCH (n:User {email: "%email%"}), (m:Roam) \
+      WHERE id(m) = %id% \
+      CREATE (n)-[r:ATTENDING {host: false}]->(m) \
+      RETURN m',
+      {
+        id: id,
+        email: userEmail
+  })
+  .exec().then(function(roam){
+    res.send("Joined the roam");
+  })
+})
 
 app.listen(3000, function(){
   console.log('Example app listening on port 3000!');
