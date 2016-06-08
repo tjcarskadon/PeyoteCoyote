@@ -59,18 +59,13 @@ const styles = StyleSheet.create({
   },
 
   dateViewDate: {
-    height: 30,
-    padding: 10,
-    width: 75,
-    marginLeft: 50,
-    marginRight: 5,
-    marginBottom: 15,
-    fontSize: 12,
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 8,
+    marginBottom: 10,
+    marginLeft: 100,
+    fontSize: 20,
+    fontWeight: "100",
+    textAlign: 'right',
     color: 'white',
-    backgroundColor: 'transparent'    
+    backgroundColor: 'transparent',
   },
   buttonText: {
     fontSize: 18,

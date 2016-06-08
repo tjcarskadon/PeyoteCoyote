@@ -10,6 +10,7 @@ import {
 
 var Main = require('./App/Components/Main');
 var Time = require('./App/Components/Time');
+var Host = require('./App/Components/Host');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -23,8 +24,8 @@ class roam extends Component{
       <NavigatorIOS
       style={styles.container}
         initialRoute={{
-          title: 'Sign In',
-          component: Time
+          title: 'Host',
+          component: Host
         }} />
     );
   }
