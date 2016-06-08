@@ -56,6 +56,9 @@ toggleDatePicker(){
 
     return (
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
+      
+      <Text style={styles.header}>Host a roam</Text>
+
       <TextInput
           style={styles.submit} 
           autoCapitalize="none"
@@ -75,11 +78,17 @@ toggleDatePicker(){
       />
 
       <TouchableWithoutFeedback onPress={this.toggleDatePicker.bind(this)}>
-        <View>
-          <Text> "Enter a Date" </Text>
+        <View style={styles.dateViewBox}>
+          <View>
+            <Text style={styles.dateViewLabel}>Choose a Date:</Text>
+          </View>
+          <View>
+            <Text style={styles.dateViewDate}>{ this.state.date.getMonth() }/{ this.state.date.getDate() }/{ this.state.date.getFullYear() }</Text>
+          </View>
         </View>
-      </TouchableWithoutFeedback>
-      {this.state.datePickerMode == 'visible' ? datePicker : <View/>}
+        </TouchableWithoutFeedback>
+        {this.state.datePickerMode == 'visible' ? datePicker : <View/>}
+        
       </Image>
 
     );
