@@ -1,6 +1,8 @@
 'use strict';
 import React, { Component } from 'react';
-var styles = require('./Helpers/styles');
+const styles = require('./Helpers/styles');
+
+const Dte = require('./Dte');
 
 import {
   Image,  
@@ -21,47 +23,33 @@ class Host extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      date: new Date(),
+      date: new Date(), //have to get this date from the date picker now
       datePickerMode: 'hidden',
     };
   }
 
-handleLayoutChange(e){
-  let {x, y, width, height} = {... e.nativeEvent.layout};
-
-  this.setState(e.nativeEvent.layout);
-    //e.nativeEvent.layout: {x, y, width, height}}}.
-  }
-
-
-onDateChange (date) {
-    this.setState({date: date});
-  }
-
+  
+//TODO: Remove this 
 toggleDatePicker(){
   var mode = this.state.datePickerMode === 'hidden' ? 'visible' : 'hidden';
   this.setState({datePickerMode: mode});    
 }
 
+handleDatePage() {
+    this.setState({
+      isLoading: true
+    });
+    this.props.navigator.push({
+      title: 'Host a roam',
+      component: Dte
+    });
+    this.setState({
+      isLoading: false
+    });
+  }
+
 
   render () {
-
-     var hr = this.state.date.getHours() > 12 ? this.state.date.getHours() - 12 : this.state.date.getHours();
-     var min = this.state.date.getMinutes() <=9 ? '0' + this.state.date.getMinutes() : this.state.date.getMinutes();
-     var suf = this.state.date.getHours() > 12 ? "PM" : "AM";
-     var datePicker = (
-      <View style={styles.datePicker}>
-
-        <TouchableOpacity onPress={this.toggleDatePicker.bind(this)} style={{ padding: 5, alignItems: 'flex-end' }}>
-        </TouchableOpacity>
-      
-        <DatePickerIOS
-                  date={this.state.date}
-                  mode="datetime"
-                  onDateChange={ this.onDateChange.bind(this) }
-                />
-      </View>
-    );
 
     return (
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
@@ -77,17 +65,17 @@ toggleDatePicker(){
           // value={this.state.email} 
       />
       
-      <TouchableWithoutFeedback onPress={this.toggleDatePicker.bind(this)}>
+      <TouchableHighlight onPress={this.handleDatePage.bind(this)}>
         <View style={styles.dateViewBox}>
           <View>
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>
           </View>
           <View>
-            <Text style={styles.dateViewDate}>{ this.state.date.getMonth() }/{ this.state.date.getDate() }/{ this.state.date.getFullYear() }  {hr}:{min} {suf} </Text>
+            <Text style={styles.dateViewDate}> > </Text>
           </View>
         </View>
-        </TouchableWithoutFeedback>
-        {this.state.datePickerMode == 'visible' ? datePicker : <View/>}
+      </TouchableHighlight>
+
       <View style={styles.locViewBox}>
           <View>
             <Text style={styles.locViewLabel}>Pick a Location:</Text>
