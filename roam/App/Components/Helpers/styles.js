@@ -108,6 +108,16 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     textAlign: 'center'
+  },
+  datePicker: {
+    borderTopWidth: 1, 
+    position: 'absolute', 
+    bottom: 0, 
+    right: 0, 
+    left: 0, 
+    height: 220, 
+    borderColor: '#CCC', 
+    backgroundColor: '#FFF',    
   }
 });
 
