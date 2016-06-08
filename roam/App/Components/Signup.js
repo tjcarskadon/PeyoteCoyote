@@ -61,11 +61,11 @@ class SignUp extends Component {
           email: this.state.email,
         })
       })
-      // .then((res) => {
-      //   return res.json();
-      // })
       .then((res) => {
-        res = res.json();
+        return res.json();
+      })
+      .then((res) => {
+        // res = res.json();
         console.log('RESPONSE FROM SERVER ON SIGNUP PAGE', res);
         if (res.message === 'User created') {
           this.props.navigator.push({
