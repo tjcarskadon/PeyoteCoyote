@@ -20,8 +20,8 @@ var smtpConfig = {
   port: 465,
   secure: true, // use SSL 
   auth: {
-    user: 'roamincenterprises@gmail.com',
-    pass: 'roamroam'
+    user: 'typosroam@gmail.com',
+    pass: 'typ0sr0am'
   }
 };
 

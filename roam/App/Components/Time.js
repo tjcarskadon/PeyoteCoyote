@@ -4,6 +4,7 @@ import { SegmentedControls } from 'react-native-radio-buttons';
 var Confirmation = require('./Confirmation');
 var Separator = require('./Helpers/Separator');
 var styles = require('./Helpers/styles');
+var Host = require('./Host');
 
 var coordinates = {};
 
@@ -60,6 +61,19 @@ class Time extends Component {
     });
   }
 
+  handleHost() {
+    this.setState({
+      isLoading: true
+    });
+    this.props.navigator.push({
+      title: 'Host a roam',
+      component: Host
+    });
+    this.setState({
+      isLoading: false
+    });
+  }
+
   render () {
     const options = [
       '1 hour',
@@ -71,7 +85,7 @@ class Time extends Component {
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')} >
         <Geolocation region={this.props.region}/>
-        <Text style={styles.header}> pick time : </Text>
+        <Text style={styles.header}> pick time you asshole: </Text>
         <SegmentedControls
           tint={'#ff0066'}
           selectedTint={'white'}
@@ -85,6 +99,12 @@ class Time extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)} >
             <Text style={styles.buttonText}> Roam! </Text>
+        </TouchableHighlight>
+         <TouchableHighlight
+          style={styles.button}
+          onPress={this.handleHost.bind(this)}
+          underlayColor="white" >
+            <Text style={styles.buttonText}> Host a roam </Text>
         </TouchableHighlight>
       </Image>
     );
