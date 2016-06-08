@@ -23,7 +23,7 @@ module.exports = (req, res, transporter) => {
 
       //Sends cancellation email
       var mailOptions = {
-        from: '"Roam" <Roamincenterprises@gmail.com>', // sender address
+        from: '"Typos Roam" <typosroam@gmail.com>', // sender address
         bcc: roamInfo.creatorEmail + ',' + userEmail,
         subject: 'Your Roam has been canceled!', // Subject line
         text: 'Your Roam at:' + roamInfo.venueName + ' Roam Address: ' + roamInfo.venueAddress + ' has been canceled.', // plaintext body
