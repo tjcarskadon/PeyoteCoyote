@@ -38,6 +38,22 @@ toggleDatePicker(){
 }
 
   render () {
+
+     var datePicker = (
+      <View style={styles.datePicker}>
+
+        <TouchableOpacity onPress={this.toggleDatePicker.bind(this)} style={{ padding: 5, alignItems: 'flex-end' }}>
+          <Text>Done</Text>
+        </TouchableOpacity>
+      
+        <DatePickerIOS
+                  date={this.state.date}
+                  mode="datetime"
+                  onDateChange={ this.onDateChange.bind(this) }
+                />
+      </View>
+    );
+
     return (
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
       <TextInput
@@ -47,33 +63,23 @@ toggleDatePicker(){
           placeholderTextColor="white"
           // onChangeText={(text) => this.setState({email: text})} ###do something with this
           // value={this.state.email} 
-          />
-      <TouchableWithoutFeedback onPress={this.toggleDatePicker.bind(this)}>
-      <View>
-        <Text> Choose a date: </Text>
-      </View>  
-      </TouchableWithoutFeedback>
-       <View style={ styles.datePicker }>
-
-        <TouchableOpacity onPress={this.toggleDatePicker.bind(this)} style={{ padding: 5, alignItems: 'flex-end' }}>
-          <Text>Done</Text>
-        </TouchableOpacity>
+      />
       
-        <DatePickerIOS
-          date={this.state.date}
-          mode="datetime"
-          onDateChange={ this.onDateChange.bind(this) }
-        />
-      </View>
-
-        <TextInput
+      <TextInput
         style={styles.submit} 
         autoCapitalize="none"
         placeholder="Enter roam description"
         placeholderTextColor="white"
           // onChangeText={(text) => this.setState({email: text})} ###do something with this
           // value={this.state.email} 
-          />
+      />
+
+      <TouchableWithoutFeedback onPress={this.toggleDatePicker.bind(this)}>
+        <View>
+          <Text> "Enter a Date" </Text>
+        </View>
+      </TouchableWithoutFeedback>
+      {this.state.datePickerMode == 'visible' ? datePicker : <View/>}
       </Image>
 
     );
