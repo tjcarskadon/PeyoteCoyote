@@ -58,7 +58,7 @@ toggleDatePicker(){
 
     return (
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-      
+      <View style={styles.hostContainer}>
       <Text style={styles.header}>Host a roam</Text>
 
       <TextInput
@@ -70,15 +70,6 @@ toggleDatePicker(){
           // value={this.state.email} 
       />
       
-      <TextInput
-        style={styles.submit} 
-        autoCapitalize="none"
-        placeholder="Enter roam description"
-        placeholderTextColor="white"
-          // onChangeText={(text) => this.setState({email: text})} ###do something with this
-          // value={this.state.email} 
-      />
-
       <TouchableWithoutFeedback onPress={this.toggleDatePicker.bind(this)}>
         <View style={styles.dateViewBox}>
           <View>
@@ -90,9 +81,24 @@ toggleDatePicker(){
         </View>
         </TouchableWithoutFeedback>
         {this.state.datePickerMode == 'visible' ? datePicker : <View/>}
-        
+      <View style={styles.locViewBox}>
+          <View>
+            <Text style={styles.locViewLabel}>Pick a Location:</Text>
+          </View>
+          <View>
+            <Text style={styles.locViewNext}> > </Text>
+          </View>
+        </View>  
+      <TextInput
+        style={styles.submit} 
+        autoCapitalize="none"
+        placeholder="Enter roam description"
+        placeholderTextColor="white"
+          // onChangeText={(text) => this.setState({email: text})} ###do something with this
+          // value={this.state.email} 
+      />
+    </View>
       </Image>
-
     );
   }
 }

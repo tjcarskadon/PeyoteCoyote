@@ -40,6 +40,13 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
+  hostContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 0,
+    borderWidth: 1,
+  },
+
   dateViewBox: {
     backgroundColor: 'transparent',
     flex: 1,
@@ -70,11 +77,13 @@ const styles = StyleSheet.create({
 
   datePicker: {
     borderTopWidth: 1, 
-    position: 'absolute', 
-    bottom: 170, 
-    right: 15, 
-    left: 15, 
-    height: 220, 
+    position: 'relative', 
+    marginRight: 30,
+    marginTop: 10,
+    marginBottom: 10,
+    right: 10, 
+    left: 10, 
+    height: 200, 
     borderColor: '#fff', 
     borderRadius: 10,
     backgroundColor: 'rgba(255,255,255,0.3)',
@@ -87,6 +96,39 @@ const styles = StyleSheet.create({
   datePickerLabel: {
     textAlign: 'right'
   },
+
+  locViewBox: {
+    backgroundColor: 'transparent',
+    position: 'relative',
+    marginBottom: 310,
+    flex: 1,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: "#fff"
+  },
+
+  locViewLabel: {
+    marginBottom: 10,
+    fontSize: 20,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+    letterSpacing: 3
+  },
+
+  locViewDate: {
+    marginBottom: 10,
+    marginLeft: 28,
+    fontSize: 20,
+    fontWeight: "100",
+    textAlign: 'right',
+    color: 'white',
+    backgroundColor: 'transparent'
+  },
+
   buttonText: {
     fontSize: 18,
     color: 'white',
