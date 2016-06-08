@@ -79,8 +79,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1, 
     position: 'relative', 
     marginRight: 30,
-    marginTop: 10,
-    marginBottom: 10,
+    bottom: 0, 
     right: 10, 
     left: 10, 
     height: 200, 
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
   locViewBox: {
     backgroundColor: 'transparent',
     position: 'relative',
-    marginBottom: 310,
+    marginBottom: 110,
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',

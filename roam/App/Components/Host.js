@@ -16,7 +16,6 @@ import {
   ActivityIndicatorIOS,
 } from 'react-native';
 
-
 class Host extends Component {
   
   constructor (props) {
@@ -27,15 +26,23 @@ class Host extends Component {
     };
   }
 
+handleLayoutChange(e){
+  let {x, y, width, height} = {... e.nativeEvent.layout};
+
+  this.setState(e.nativeEvent.layout);
+    //e.nativeEvent.layout: {x, y, width, height}}}.
+  }
+
+
 onDateChange (date) {
     this.setState({date: date});
   }
 
 toggleDatePicker(){
   var mode = this.state.datePickerMode === 'hidden' ? 'visible' : 'hidden';
-  console.log('=========>', this.state.datePickerMode);
   this.setState({datePickerMode: mode});    
 }
+
 
   render () {
 

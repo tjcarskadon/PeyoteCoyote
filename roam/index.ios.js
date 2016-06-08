@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 
 var Main = require('./App/Components/Main');
+//These are just here for dev. Change the title and 
+//component in <NaigatorIOS to put back the signin /up
 var Time = require('./App/Components/Time');
 var Host = require('./App/Components/Host');
 
