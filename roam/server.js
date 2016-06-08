@@ -109,10 +109,11 @@ app.post('/signin', function(req, res) {
 //Page to set up event between users, making API calls to YELP
 app.post('/roam', function(req, res) {
 
-	var dateMS = Date.now();
-  var userEmail = req.body.userEmail;
-  var coords = boundingBoxGenerator(req); //bounding box coordinates
-  var times = roamOffGenerator(req); //time until roam ends
+	let dateMS = Date.now();
+  // let userEmail = req.body.userEmail;
+  let {userEmail, type, hosted, host, description, price} = req.body;
+  let coords = boundingBoxGenerator(req); //bounding box coordinates
+  let times = roamOffGenerator(req); //time until roam ends
 
   //Checks to make sure if there is an existing pending roam within similar location by a different user
 	apoc.query('MATCH \
