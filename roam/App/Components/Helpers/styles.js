@@ -75,11 +75,18 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
 
+  dateContainer: {
+    flex: 1,
+    flexDirection: 'column'
+
+  },
+
   datePicker: {
-    borderTopWidth: 1, 
+    borderTopWidth: 1,
     position: 'relative', 
     marginRight: 30,
-    bottom: 0, 
+    marginTop: 10,
+    marginBottom: 150,
     right: 10, 
     left: 10, 
     height: 200, 
