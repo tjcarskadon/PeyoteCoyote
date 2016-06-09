@@ -35,12 +35,15 @@ class Time extends Component {
 
   handleSubmit() {
     console.log('Sending ROAM request!', coordinates);
-    this.props.navigator.push({
-      title: 'Confirmation',
-      email: this.props.navigator.navigationContext._currentRoute.email,
-      component: Confirmation
-    });
-
+    console.log('EMAIL!!!!', this.props.email);
+    //Leave this as a breadcrumb incase we go back to NavigatorIOS
+    // this.props.navigator.push({
+    //   title: 'Confirmation',
+    //   email: this.props.navigator.navigationContext._currentRoute.email,
+    //   component: Confirmation
+    // });
+    this.nav('Confirmation', this.props.email);
+    
     fetch('http://localhost:3000/roam', {
       method: 'POST',
       headers: {
@@ -50,7 +53,8 @@ class Time extends Component {
       body: JSON.stringify({
         time: this.state.selectedOption,
         coordinates: coordinates,
-        userEmail: this.props.navigator.navigationContext._currentRoute.email
+        userEmail: this.props.email
+        // userEmail: this.props.navigator.navigationContext._currentRoute.email
       })
     })
     .then((res) => {
@@ -61,6 +65,7 @@ class Time extends Component {
     });
   }
 
+  //BreadCrubm incase we go back to NaviatorIOS
   // handleHost() {
   //   this.setState({
   //     isLoading: true
@@ -74,9 +79,12 @@ class Time extends Component {
   //   });
   // }
 
-  nav () {
+  nav (path, email) {
     this.props.navigator.push({
-      name: 'Host'
+      name: path,
+      passProps: {
+        email: email
+      }
     })
   }
   render () {
@@ -99,15 +107,16 @@ class Time extends Component {
           allowFontScaling={false}
           fontWeight={'bold'}
           onSelection={this.handleSelected.bind(this)}
-          selectedOption={this.state.selectedOption} />
+          selectedOption={this.state.selectedOption} 
+          />
         <TouchableHighlight
           style={styles.button}
-          onPress={this.handleSubmit.bind(this)} >
+          onPress={this.nav('Confirmation')} >
             <Text style={styles.buttonText}> Roam! </Text>
         </TouchableHighlight>
          <TouchableHighlight
           style={styles.button}
-          onPress={this.nav.bind(this)}
+          onPress={() => this.nav('Host')}
           underlayColor="white" >
             <Text style={styles.buttonText}> Host a roam </Text>
         </TouchableHighlight>

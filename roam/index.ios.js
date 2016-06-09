@@ -16,7 +16,10 @@ const Time = require('./App/Components/Time');
 const Host = require('./App/Components/Host');
 const Dte = require('./App/Components/Dte');
 const styles = require('./App/Components/Helpers/styles');
-const Location = require('./App/Components/Location');
+const Location = require('./App/Components/Location');''
+const Signup = require('./App/Components/Signup');
+const Pending = require('./App/Components/PendingRoam');
+const Conf =  require('./App/Components/Confirmation');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -26,6 +29,18 @@ console.ignoredYellowBox = [
 class roam extends Component{
 
 renderScene (route, navigator) {
+    if(route.name === 'Main') {
+      return <Main navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'Conf') {
+      return <Conf navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'Pending') {
+      return <Pending navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'Signup') {
+      return <Signup navigator={navigator} {...route.passProps}/>
+    }
     if(route.name === 'Dte') {
       return <Dte navigator={navigator} {...route.passProps}/>
     }
@@ -44,7 +59,7 @@ renderScene (route, navigator) {
     return (
       <Navigator
       style={{flex: 1}}
-      initialRoute={{name: 'Dte'}}
+      initialRoute={{name: 'Main'}}
       renderScene={ this.renderScene }
       navigationBar={
              <Navigator.NavigationBar 
