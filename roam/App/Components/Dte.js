@@ -1,7 +1,8 @@
 'use strict';
 import React, { Component } from 'react';
-var styles = require('./Helpers/styles');
-var Host = require('./Host');
+const styles = require('./Helpers/styles');
+const df = require('./Helpers/dateFormat');
+const Host = require('./Host');
 
 import {
   Image,  
@@ -30,25 +31,6 @@ class Dte extends Component {
     this.setState({date: date});
   }
 
-formatDate () {
-  let month = this.state.date.getMonth() + 1; 
-  console.log('===========>', this.state.date);
-  let day = this.state.date.getDate(); 
-  let year = this.state.date.getFullYear();
-
-  return month + "/" + day + "/" + year;
-
-}
-
-formatTime () {
-   let hr = this.state.date.getHours() > 12 ? this.state.date.getHours() - 12 : this.state.date.getHours();
-   let min = this.state.date.getMinutes() <=9 ? '0' + this.state.date.getMinutes() : this.state.date.getMinutes();
-   let suf = this.state.date.getHours() > 12 ? 'PM' : 'AM';
-
-  return hr + ':' + min + ' ' + suf;
-
-}
-
  nav(date, time) {
     this.props.navigator.push({
       name: 'Host',
@@ -69,7 +51,7 @@ formatTime () {
           <Text style={styles.dateViewLabel}>Choose a Date:</Text>
         </View>
         <View>
-            <Text style={styles.dateViewDate}>{this.formatDate()}  {this.formatTime()}</Text>
+            <Text style={styles.dateViewDate}>{df.formatDate(this)}  {df.formatTime(this)}</Text>
         </View>
       </View>
       <View style={styles.datePicker}>
@@ -81,7 +63,7 @@ formatTime () {
       <View>
          <TouchableHighlight
           style={styles.button}
-          onPress={() => this.nav(this.formatDate(), this.formatTime())}
+          onPress={() => this.nav(df.formatDate(this), df.formatTime(this))}
           underlayColor="white" >
             <Text style={styles.buttonText}>Test</Text>
         </TouchableHighlight>

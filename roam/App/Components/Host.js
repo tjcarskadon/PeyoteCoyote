@@ -28,11 +28,6 @@ class Host extends Component {
     };
   }
 
-//TODO: Remove this 
-toggleDatePicker(){
-  var mode = this.state.datePickerMode === 'hidden' ? 'visible' : 'hidden';
-  this.setState({datePickerMode: mode});    
-}
 
 nav () {
     this.props.navigator.push({
@@ -47,7 +42,6 @@ nav () {
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
       <View style={styles.hostContainer}>
       <Text style={styles.header}>Host a roam</Text>
-      <Text>{this.props.date}{this.props.time} </Text>
 
       <TextInput
           style={styles.submit} 
@@ -64,7 +58,10 @@ nav () {
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>
           </View>
           <View>
-            <Text style={styles.dateViewDate}> > </Text>
+            <Text style={styles.dateViewTime}>{this.props.date}  {this.props.time}</Text>
+          </View>
+         <View>
+            <Text style={styles.dateViewNext}>></Text>
           </View>
         </View>
       </TouchableHighlight>

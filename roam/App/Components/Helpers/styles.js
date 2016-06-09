@@ -83,6 +83,28 @@ const styles = StyleSheet.create({
     letterSpacing: 3
   },
 
+  dateViewTime: {
+    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+    letterSpacing: 2
+  },
+
+  dateViewNext: {
+    marginBottom: 10,
+    marginLeft: 150,
+    fontSize: 18,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'right',
+    color: 'white',
+    backgroundColor: 'transparent',
+  },
+
   dateViewDate: {
     marginBottom: 10,
     marginLeft: 28,
@@ -96,7 +118,6 @@ const styles = StyleSheet.create({
   dateContainer: {
     flex: 1,
     flexDirection: 'column'
-
   },
 
   datePicker: {
