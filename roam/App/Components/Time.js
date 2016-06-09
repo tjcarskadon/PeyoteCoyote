@@ -150,7 +150,8 @@ class Time extends Component {
         </TouchableHighlight>  
         <TouchableHighlight
           style={styles.button}
-          onPress={this.handleJoin.bind(this)} >
+          onPress={() => this.nav('JoinView')} 
+          underlayColor="white" >
             <Text style={styles.buttonText}> Join! </Text>
         </TouchableHighlight>
       </Image>

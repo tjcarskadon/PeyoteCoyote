@@ -1,3 +1,4 @@
+'use strict'
 import React, { Component } from 'react';
 var defaultStyles = require('./Helpers/styles');
 var Geolocation = require('./Geolocation');

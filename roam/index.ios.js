@@ -20,7 +20,7 @@ const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
-var JoinView = require('./App/Components/JoinView');
+const JoinView = require('./App/Components/JoinView');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -49,6 +49,9 @@ renderScene (route, navigator) {
     }
     if(route.name === 'Host') {
       return <Host navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'JoinView') {
+      return <JoinView navigator={navigator} {...route.passProps}/>
     }
      if(route.name === 'Time') {
       return <Time navigator={navigator} {...route.passProps}/>
