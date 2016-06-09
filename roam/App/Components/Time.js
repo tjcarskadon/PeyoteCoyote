@@ -111,7 +111,7 @@ class Time extends Component {
   }
 
   changeCoords(newCoords) {
-    this.state.coords = newCoords;
+    this.setState({coords: newCoords});
   }
 
   render () {
