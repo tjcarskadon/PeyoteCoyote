@@ -25,7 +25,7 @@ class Host extends Component {
     super(props);
     this.state = {
       date: new Date(),
-      flag: false
+      flag: false,
     };
   }
 
@@ -46,7 +46,6 @@ onBlur () {
   this.setState({
     flag: false
   })
-  
 }
 
 clearText () {
@@ -91,6 +90,7 @@ clearText () {
         </View>  
       </TouchableHighlight>
       <TextInput
+        ref={component => this._textInput = component} 
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
         placeholder="Enter roam description"
@@ -98,6 +98,7 @@ clearText () {
         placeholderTextColor="white"
         onFocus = {() => this.onFocus()}
         onBlur = {() => {
+          this.clearText();
           this.onBlur();
         }}
         multiline = {true}
