@@ -17,7 +17,7 @@ const Host = require('./App/Components/Host');
 const Dte = require('./App/Components/Dte');
 const styles = require('./App/Components/Helpers/styles');
 const Location = require('./App/Components/Location');''
-const Signup = require('./App/Components/Signup');
+const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
 
@@ -38,8 +38,8 @@ renderScene (route, navigator) {
     if(route.name === 'Pending') {
       return <Pending navigator={navigator} {...route.passProps}/>
     }
-    if(route.name === 'Signup') {
-      return <Signup navigator={navigator} {...route.passProps}/>
+    if(route.name === 'SignUp') {
+      return <SignUp navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Dte') {
       return <Dte navigator={navigator} {...route.passProps}/>

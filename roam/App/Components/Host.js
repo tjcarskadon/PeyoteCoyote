@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 const styles = require('./Helpers/styles');
 const df = require('./Helpers/dateFormat');
+const Confirmation = require('./Confirmation');
 
 const Dte = require('./Dte');
 
@@ -110,7 +111,7 @@ clearText () {
     <View style={styles.startRoam}>
       <TouchableHighlight
           style={styles.button}
-          onPress={this.nav.bind(this)}
+          onPress={() => this.nav('Confirmation')}
           underlayColor="white" >
             <Text style={styles.buttonText}> Start roam </Text>
       </TouchableHighlight>
