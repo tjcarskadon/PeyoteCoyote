@@ -51,7 +51,7 @@ class Time extends Component {
     //   component: Confirmation
     // });
     this.nav('Confirmation', this.props.email);
-    
+
     fetch('http://localhost:3000/roam', {
       method: 'POST',
       headers: {
@@ -60,9 +60,9 @@ class Time extends Component {
       },
       body: JSON.stringify({
         time: this.state.selectedOption,
-        coordinates: coordinates,
-        // userEmail: this.props.email
-        userEmail: this.props.navigator.navigationContext._currentRoute.email
+        coordinates: this.state.coords,
+        userEmail: this.props.email
+        // userEmail: this.props.navigator.navigationContext._currentRoute.email
       })
     })
     .then((res) => {
@@ -119,7 +119,7 @@ class Time extends Component {
           allowFontScaling={false}
           fontWeight={'bold'}
           onSelection={this.handleSelected.bind(this)}
-          selectedOption={this.state.selectedOption} 
+          selectedOption={this.state.selectedOption}
           />
         <TouchableHighlight
           style={styles.button}

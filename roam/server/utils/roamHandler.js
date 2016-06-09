@@ -13,11 +13,13 @@ const roamPool = require('./poolRoam');
 
 module.exports = (data, res) => {
 
+  console.log('data: ', data);
+
   //TODO: use destructor
   let userInput = {
     dateMS: Date.now(),
     email: data.userEmail,
-    coords: boundingBoxGenerator(data),
+    coords: boundingBoxGenerator(data.coordinates),
     times: roamOffGenerator(data),
     type: 'pool', // data.type, //TODO: change 'type' to 'roamMode'
     isHost: true
