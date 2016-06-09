@@ -18,12 +18,14 @@ class Geolocation extends Component {
     //load settings from props otherwise use defaults
     var showUserLocation = this.props.showUser === undefined ? true : this.props.showUser;
     var changePosFunction = this.props.onChangeCoords === undefined ? () => {} : this.props.onChangeCoords;  
+<<<<<<< 3633ad8ff32365fa67e90e0db5d22e844b3d4d5d
     var markers = this.props.markers === undefined ? null : this.props.markers;
+=======
+>>>>>>> FEAT - implement map marker move, show participants, JoinView styling
 
     this.state = {
       showUserLocation: showUserLocation,
       changePosFunction: changePosFunction,
-      markers: markers  
     };
   };
 

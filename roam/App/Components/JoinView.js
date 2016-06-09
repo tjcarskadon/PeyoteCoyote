@@ -25,8 +25,6 @@ class JoinView extends Component {
             title: 'Union Square',
               latitude: 40.7359,
               longitude: -73.9911
-            // latitude: 37.787998,
-            // longitude: -122.4096314
           },
           date: 'June 3, 2016 @ 8:00PM',
           cost: '$18'
@@ -34,8 +32,8 @@ class JoinView extends Component {
         
         {
           title: 'Swinger getaway', 
-          attending: 1, 
-          capacity: 1000,
+          attending: 56, 
+          capacity: 99,
           description: 'EVERY WEEK SWINGERS SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT.',
           marker: {
             title: 'Tenderloin',
@@ -61,27 +59,47 @@ class JoinView extends Component {
   handleEnroll() {
     console.log('it seems like you like it');
     
-    this.setState({title:'Second title'});
-    console.log(this.state.title);
-    this.render();  
   }
 
-
+// <View>
+//               <Image style={styles.capacityIcon} source={require('../../imgs/capacity.png')}/>
+//               <Text style={styles.cardCapacity}>{this.state.roams[0].capacity}</Text>
+//             </View>
 
   render() {
     return (
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
           <View style={styles.card}>
             <View style={styles.cardTitleWrap}>
-              <Text style={styles.header}>{this.state.roams[0].title}</Text>
+              <Text style={styles.cardHeader}>{this.state.roams[0].title}</Text>
             </View>
             <View style={styles.cardMap}>
-              <Text style={styles.location}>Event Location:</Text>
               <Geolocation showUser={false} markers = {[this.state.roams[0].marker]}/>
             </View>
-            <View style={styles.cardAttendingWrap}>
-              <Text style={styles.cardAttending}>Attending: {this.state.roams[0].attending}</Text>
-              <Text style={styles.cardCapacity}>Capacity: {this.state.roams[0].capacity}</Text>
+            
+            <View style={styles.icons}>
+              <View style={styles.cardAttendingWrap}>
+                <View>
+                  <Image style={styles.participantsIcon} source={require('../../imgs/participants.png')}/>
+                </View>
+                <View style={styles.participantsWrap}>
+                  <Text style={styles.participantsText}> {this.state.roams[0].attending}</Text>
+                </View>
+              </View>
+
+              <View style={styles.cardCapacityWrap}>
+                <View>
+                  <Image style={styles.capacityIcon} source={require('../../imgs/capacity.png')}/>
+                </View>
+                <View style={styles.capacityWrap}>
+                  <Text style={styles.capacityText}> {this.state.roams[0].capacity}</Text>
+                </View>
+              </View>
+            </View>
+
+
+            <View style={styles.cardDescriptionWrap}>
+              <Text style={styles.cardDescription}>{this.state.roams[0].description}</Text>
             </View>
             <View style={styles.cardControls}>
               <TouchableHighlight 
@@ -92,7 +110,7 @@ class JoinView extends Component {
               <TouchableHighlight 
                 style = {styles.cardButton} 
                 onPress = {this.handleEnroll.bind(this)} >
-                <Text style={styles.buttonText}>Change title</Text>
+                <Text style={styles.buttonText}>Enroll</Text>
               </TouchableHighlight>
             </View>
           </View>
