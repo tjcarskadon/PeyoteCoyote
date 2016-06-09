@@ -31,7 +31,7 @@ class Dte extends Component {
   }
 
 formatDate () {
-  let month = this.state.date.getMonth(); 
+  let month = this.state.date.getMonth() + 1; 
   console.log('===========>', this.state.date);
   let day = this.state.date.getDate(); 
   let year = this.state.date.getFullYear();
