@@ -20,13 +20,13 @@ const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
+var JoinView = require('./App/Components/JoinView');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
     // Other warnings you don't want like 'jsSchedulingOverhead',
   ];
 
-var Time = require('./App/Components/Time');
 
 
 class roam extends Component{

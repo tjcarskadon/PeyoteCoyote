@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: 'white',
     textAlign: 'center'
-  },
+  }
 });
 
 module.exports = styles;

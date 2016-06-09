@@ -110,6 +110,10 @@ class Time extends Component {
     });
   }
 
+  changeCoords(newCoords) {
+    this.state.coords = newCoords;
+  }
+
   render () {
     const options = [
       '1 hour',
@@ -120,8 +124,9 @@ class Time extends Component {
     return (
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')} >
+        <Text style={styles.location}>Your Current Location:</Text>
         <Geolocation onChangeCoords = {this.changeCoords.bind(this)} />
-        <Text style={styles.header}> pick a time: </Text>
+        <Text style={styles.header}> pick time : </Text>
         <SegmentedControls
           tint={'#ff0066'}
           selectedTint={'white'}
@@ -152,10 +157,6 @@ class Time extends Component {
     );
   }
 }
-
-
-
-
 
 
 module.exports = Time;
