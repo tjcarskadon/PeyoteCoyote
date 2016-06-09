@@ -28,25 +28,17 @@ class Host extends Component {
     };
   }
 
-  
 //TODO: Remove this 
 toggleDatePicker(){
   var mode = this.state.datePickerMode === 'hidden' ? 'visible' : 'hidden';
   this.setState({datePickerMode: mode});    
 }
 
-handleDatePage() {
-    this.setState({
-      isLoading: true
-    });
+nav () {
     this.props.navigator.push({
-      title: 'Host a roam',
-      component: Dte
+      name: 'Dte'
     });
-    this.setState({
-      isLoading: false
-    });
-  }
+}
 
 
   render () {
@@ -55,6 +47,7 @@ handleDatePage() {
       <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
       <View style={styles.hostContainer}>
       <Text style={styles.header}>Host a roam</Text>
+      <Text>{this.props.date}{this.props.time} </Text>
 
       <TextInput
           style={styles.submit} 
@@ -65,7 +58,7 @@ handleDatePage() {
           // value={this.state.email} 
       />
       
-      <TouchableHighlight onPress={this.handleDatePage.bind(this)}>
+      <TouchableHighlight onPress={this.nav.bind(this)}>
         <View style={styles.dateViewBox}>
           <View>
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>

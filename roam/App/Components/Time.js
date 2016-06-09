@@ -61,19 +61,24 @@ class Time extends Component {
     });
   }
 
-  handleHost() {
-    this.setState({
-      isLoading: true
-    });
-    this.props.navigator.push({
-      title: 'Host a roam',
-      component: Host
-    });
-    this.setState({
-      isLoading: false
-    });
-  }
+  // handleHost() {
+  //   this.setState({
+  //     isLoading: true
+  //   });
+  //   this.props.navigator.push({
+  //     title: 'Host a roam',
+  //     component: Host
+  //   });
+  //   this.setState({
+  //     isLoading: false
+  //   });
+  // }
 
+  nav () {
+    this.props.navigator.push({
+      name: 'Host'
+    })
+  }
   render () {
     const options = [
       '1 hour',
@@ -102,7 +107,7 @@ class Time extends Component {
         </TouchableHighlight>
          <TouchableHighlight
           style={styles.button}
-          onPress={this.handleHost.bind(this)}
+          onPress={this.nav.bind(this)}
           underlayColor="white" >
             <Text style={styles.buttonText}> Host a roam </Text>
         </TouchableHighlight>
