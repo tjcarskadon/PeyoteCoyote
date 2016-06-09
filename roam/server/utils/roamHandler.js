@@ -8,8 +8,8 @@ var generateEmail = require('./emailGenerator');
 var boundingBoxGenerator = require('./boundingBoxGenerator');
 var roamOffGenerator = require('./roamOffGenerator');
 
-const roamMatch = require('./matchRoam');
-const roamPool = require('./poolRoam');
+const roamMatch = require('./roamMatch');
+const roamPool = require('./roamPool');
 
 module.exports = (data, res) => {
 
