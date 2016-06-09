@@ -20,7 +20,7 @@ const signupHandler = require('./utils/signupHandler');
 const signinHandler = require('./utils/signinHandler');
 const roamHandler = require('./utils/roamHandler');
 const cancelRoamHandler = require('./utils/cancelRoamHandler');
-const joinRoamHandler = require('./utils/joinRoamHandler');
+// const joinRoamHandler = require('./utils/joinRoamHandler');
 const roamListHandler = require('./utils/roamListHandler');
 
 
@@ -51,7 +51,7 @@ app.get('/', function(req, res){
 
 //Post to server on signup page
 app.post('/signup', function(req, res) {
-  signupHandler(req.data, res);
+  signupHandler(req.body, res);
 
 });
 
