@@ -27,13 +27,18 @@ class Host extends Component {
     this.state = {
       date: new Date(),
       flag: false,
+      titleText: '',
+      descText: ''
     };
   }
 
-
 nav (path) {
     this.props.navigator.push({
-      name: path
+      name: path,
+      passProps: {
+        titleText: this.state.titleText,
+        descText: this.state.descText
+      }
     });
 }
 
@@ -63,12 +68,12 @@ clearText () {
       <TextInput
           style={styles.submit} 
           autoCapitalize="none"
-          placeholder="Enter Event Title"
+          placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
           placeholderTextColor="white"
-          // onChangeText={(text) => this.setState({email: text})} ###do something with this
-          // value={this.state.email} 
+          onChangeText={(text) => this.setState({titleText: text})}
+          // value={this.state.titleText} 
       />
-      
+      <Text> {this.state.titleText} </Text>
       <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={styles.dateViewBox}>
           <View>

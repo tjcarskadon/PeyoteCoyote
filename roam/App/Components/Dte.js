@@ -36,7 +36,9 @@ class Dte extends Component {
       name: 'Host',
       passProps: {
         date: date,
-        time: time
+        time: time,
+        titleText: this.props.titleText,
+        descText: this.props.descText
       }
     })
   }
