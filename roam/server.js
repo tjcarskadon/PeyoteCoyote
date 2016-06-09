@@ -7,6 +7,7 @@ var crypto = require('crypto');
 var yelp = require('./App/Utils/api');
 var nodemailer = require('nodemailer');
 var gmailKeys = require('./App/Utils/apiKeys').gmailKeys;
+var gPass = require('./App/Utils/apiKeys').password;
 var formattedDateHtml = require('./App/Utils/dateFormatter');
 var generateEmail = require('./App/Utils/emailGenerator');
 var boundingBoxGenerator = require('./App/Utils/boundingBoxGenerator');
@@ -21,7 +22,7 @@ var smtpConfig = {
   secure: true, // use SSL
   auth: {
     user: 'typosroam@gmail.com',
-    pass: 'typ0sr0am'
+    pass: gPass
   }
 };
 
