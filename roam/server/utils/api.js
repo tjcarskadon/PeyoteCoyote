@@ -9,7 +9,6 @@ let yelp = new Yelp({
   token: yelpKeys.token,
   token_secret: yelpKeys.token_secret
 });
-
 yelp.searchYelp = (searchPreferences, callback) => {
 
   yelp.search(searchPreferences)
