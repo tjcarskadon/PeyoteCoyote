@@ -20,7 +20,8 @@ const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
-const JoinView = require('./App/Components/JoinView');
+const Join = require('./App/Components/Join');
+const NoRoamsLeft = require('./App/Components/NoRoamsLeft');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -50,8 +51,11 @@ renderScene (route, navigator) {
     if(route.name === 'Host') {
       return <Host navigator={navigator} {...route.passProps}/>
     }
-    if(route.name === 'JoinView') {
-      return <JoinView navigator={navigator} {...route.passProps}/>
+    if(route.name === 'Join') {
+      return <Join navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'NoRoamsLeft') {
+      return <NoRoamsLeft navigator={navigator} {... route.passProps}/>
     }
      if(route.name === 'Time') {
       return <Time navigator={navigator} {...route.passProps}/>
@@ -61,11 +65,13 @@ renderScene (route, navigator) {
     }
 }
 
+
+
   render() {
     return (
       <Navigator
       style={{flex: 1}}
-      initialRoute={{name: 'Main'}}
+      initialRoute={{name: 'Join'}}
       renderScene={ this.renderScene }
       navigationBar={
              <Navigator.NavigationBar 

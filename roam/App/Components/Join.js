@@ -23,9 +23,9 @@ class JoinView extends Component {
           capacity: 30,
           description: 'EVERY WEEK PUB CRAWL SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT OUT IN SF.',
           marker: {
-            title: 'Union Square',
+              title: 'Union Square',
               latitude: 40.7359,
-              longitude: -73.9911
+              longitude: -73.9911,
           },
           date: 'June 3, 2016 @ 8:00PM',
           price: '$18'
@@ -44,17 +44,29 @@ class JoinView extends Component {
           date: 'June 9, 2016 @ 9:00PM',
           price: '$0'
         }
-      ]
+      ],
+      currentRoamIndex: 0
     };
-
+    this.state.currentRoam = this.state.roams[this.state.currentRoamIndex];
   }
   handleReject() {
     console.log('you don\'t like it');
-    var roams = this.state.roams;
-    roams.splice(0,1);
-    this.setState({roams: roams});
+    if (this.state.currentRoamIndex < this.state.roams.length - 1 ) {
+      this.state.currentRoamIndex++;
+      this.setState({currentRoam: this.state.roams[this.state.currentRoamIndex]})
+    } else {
+      console.log('NEXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+      this.props.navigator.push({name: 'NoRoamsLeft'});
+      this.props.navigator.push({
+      name: 'NoRoamsLeft',
+      passProps: {
+        email: null
+      }
+    })
+    }
     console.log('ROAMS:' + JSON.stringify(this.state.roams));
     console.log('MARKER', this.state.roams[0].marker);
+
   }
 
   handleEnroll() {
@@ -73,15 +85,15 @@ class JoinView extends Component {
           <View style={styles.card}>
             
             <View style={styles.cardTitleWrap}>
-              <Text style={styles.cardHeader}>{this.state.roams[0].title}</Text>
+              <Text style={styles.cardHeader}>{this.state.currentRoam.title}</Text>
             </View>
             
             <View style={styles.cardTimeWrap}>
-              <Text style={styles.cardTimeText}>{this.state.roams[0].date}</Text>
+              <Text style={styles.cardTimeText}>{this.state.currentRoam.date}</Text>
             </View>
             
             <View style={styles.cardMap}>
-              <Geolocation showUser={false} markers = {[this.state.roams[0].marker]}/>
+              <Geolocation showUser={false} markers = {[this.state.currentRoam.marker]}/>
             </View>
 
             
@@ -92,7 +104,7 @@ class JoinView extends Component {
                   <Image style={styles.priceIcon} source={require('../../imgs/dollar.png')}/>
                 </View>
                 <View style={styles.priceTextWrap}>
-                  <Text style={styles.priceText}> {this.state.roams[0].price}</Text>
+                  <Text style={styles.priceText}> {this.state.currentRoam.price}</Text>
                 </View>
               </View>
               
@@ -100,8 +112,8 @@ class JoinView extends Component {
                 <View>
                   <Image style={styles.participantsIcon} source={require('../../imgs/participants.png')}/>
                 </View>
-                <View style={styles.participantsWrap}>
-                  <Text style={styles.participantsText}> {this.state.roams[0].attending}</Text>
+                <View style={styles.participantsTextWrap}>
+                  <Text style={styles.participantsText}> {this.state.currentRoam.attending}</Text>
                 </View>
               </View>
 
@@ -109,17 +121,14 @@ class JoinView extends Component {
                 <View>
                   <Image style={styles.capacityIcon} source={require('../../imgs/capacity.png')}/>
                 </View>
-                <View style={styles.capacityWrap}>
-                  <Text style={styles.capacityText}> {this.state.roams[0].capacity}</Text>
+                <View style={styles.capacityTextWrap}>
+                  <Text style={styles.capacityText}> {this.state.currentRoam.capacity}</Text>
                 </View>
               </View>
-
-
             </View>
 
-
             <View style={styles.cardDescriptionWrap}>
-              <Text style={styles.cardDescription}>{this.state.roams[0].description}</Text>
+              <Text style={styles.cardDescription}>{this.state.currentRoam.description}</Text>
             </View>
             <View style={styles.cardControls}>
               <TouchableHighlight 
@@ -152,13 +161,12 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'rgba(255,255,255,0.5)',
     borderColor: 'white',
-    borderBottomWidth: 5,
     borderRadius: 8,
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     paddingLeft: 20,
-    paddingRight: 20
-
+    paddingRight: 20,
+    height: 530
   },
 
   cardTitleWrap: {
@@ -214,11 +222,14 @@ const styles = StyleSheet.create({
     
   },
   icons: {
-    backgroundColor: 'red',
+    backgroundColor: 'rgba(255,255,255,0.75)',
     marginTop: -80,
-    height: 40,
-    marginLeft: -35
-    
+    // marginLeft: -35,
+    // flex:1,
+    // flexDirection:'row',
+    width: 280,
+    height: 40
+
   },
 
   cardAttendingWrap: {
@@ -247,42 +258,45 @@ const styles = StyleSheet.create({
   priceIcon: {
     width: 32,
     resizeMode: 'contain',
-    marginTop: -312,
-    marginLeft: -10
-  },
-  participantsIcon: {
-    width:18,
-    resizeMode: 'contain',
-    marginTop: -348,
-    marginLeft: 125
-  },
-  capacityIcon: {
-    // marginTop: -388,
-    marginLeft: 180,
-    width:30,
-    resizeMode: 'contain',
-  },
-  participantsWrap: {
-    // marginTop: -271,
-    marginLeft: -5
-  },
-  capacityWrap: {
-    // marginTop: -271,
-    marginLeft: -3
+    marginTop: -235,
+    marginLeft: 7
   },
   priceTextWrap: {
-    // marginTop: -71,
+    marginTop: 5,
     marginLeft: -4
   },
 
+  participantsIcon: {
+    width:18,
+    resizeMode: 'contain',
+    marginTop: -86,
+    marginLeft: 145
+  },
+  participantsTextWrap: {
+    marginTop: -7,
+    marginLeft: -5
+  },
+  
+  capacityIcon: {
+    marginTop: -137,
+    marginLeft: 200,
+    width:30,
+    resizeMode: 'contain',
+  },
+  capacityTextWrap: {
+    marginTop: -20,
+    marginLeft: -3
+  },
+
   cardDescriptionWrap: {
-    marginTop: -100,
-    paddingLeft: 20,
-    paddingRight: 20,
+    marginTop: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 80
     
   }, 
   cardControls: {
-    marginTop: 50,
+    // marginBottom: 50,
     flexDirection: 'row',
     alignItems: 'center'
   },

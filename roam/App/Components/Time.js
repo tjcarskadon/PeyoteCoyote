@@ -6,7 +6,7 @@ var Separator = require('./Helpers/Separator');
 var styles = require('./Helpers/styles');
 var Host = require('./Host');
 var Geolocation = require('./Geolocation');
-var JoinView = require('./JoinView');
+var Join = require('./Join');
 
 const coordinates = {};
 
@@ -65,6 +65,7 @@ class Time extends Component {
         time: this.state.selectedOption
         // coordinates: this.state.coords,
         // userEmail: this.props.navigator.navigationContext._currentRoute.email
+
       })
     })
     .then((res) => {
@@ -106,7 +107,7 @@ class Time extends Component {
     console.log('Going to Join, yay!');
     this.props.navigator.push({
       title: 'Join a meeting',
-      component: JoinView
+      component: Join
     });
   }
 
@@ -150,7 +151,7 @@ class Time extends Component {
         </TouchableHighlight>  
         <TouchableHighlight
           style={styles.button}
-          onPress={() => this.nav('JoinView')} 
+          onPress={() => this.nav('Join')} 
           underlayColor="white" >
             <Text style={styles.buttonText}> Join! </Text>
         </TouchableHighlight>
