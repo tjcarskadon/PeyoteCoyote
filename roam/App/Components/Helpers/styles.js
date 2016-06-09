@@ -7,6 +7,24 @@ import {
 } from 'react-native';
 
 const styles = StyleSheet.create({
+  leftNavButtonText: {
+    fontSize: 18,
+    marginLeft:13,
+    marginTop:2
+  },
+  rightNavButtonText: {
+    fontSize: 18,
+    marginRight:13,
+    marginTop:2
+  },
+  nav: {
+    height: 60,
+    backgroundColor: '#efefef'
+  },
+  navTitle: {
+    marginTop:4,
+    fontSize:16
+  },
   title: {
     marginBottom: 20,
     fontSize: 70,

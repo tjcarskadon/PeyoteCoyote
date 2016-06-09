@@ -9,20 +9,18 @@ import {
   TouchableHighlight
 } from 'react-native';
 
-var Main = require('./App/Components/Main');
+const Main = require('./App/Components/Main');
 //These are just here for dev. Change the title and 
 //component in <NaigatorIOS to put back the signin /up
-var Time = require('./App/Components/Time');
-var Host = require('./App/Components/Host');
-var Dte = require('./App/Components/Dte');
+const Time = require('./App/Components/Time');
+const Host = require('./App/Components/Host');
+const Dte = require('./App/Components/Dte');
+const styles = require('./App/Components/Helpers/styles');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
     // Other warnings you don't want like 'jsSchedulingOverhead',
   ];
-
-
-
 
 class roam extends Component{
 
@@ -42,7 +40,7 @@ renderScene (route, navigator) {
     return (
       <Navigator
       style={{flex: 1}}
-      initialRoute={{name: 'Host'}}
+      initialRoute={{name: 'Time'}}
       renderScene={ this.renderScene }
       navigationBar={
              <Navigator.NavigationBar 
@@ -74,16 +72,16 @@ const NavigationBarRouteMapper = {
                               </TouchableHighlight> )
   },
   Title(route, navigator, index, navState) {
-    return <Text style={ styles.title }>roam</Text>
+    return <Text style={ styles.navTitle }>roam</Text>
   }
 };
 
 
-const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    backgroundColor: 'red'
-  },
-});
+// const styles = StyleSheet.create({
+//   container:{
+//     flex: 1,
+//     backgroundColor: 'red'
+//   },
+// });
 
 AppRegistry.registerComponent('roam', () => roam);
