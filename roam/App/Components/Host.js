@@ -27,8 +27,8 @@ class Host extends Component {
     this.state = {
       date: new Date(),
       flag: false,
-      titleText: '',
-      descText: ''
+      titleText: this.props.titleText || '',
+      descText: this.props.descText || ''
     };
   }
 
@@ -54,10 +54,6 @@ onBlur () {
   })
 }
 
-clearText () {
-  this._textInput.setNativeProps({text: ''});
-}
-
   render () {
 
     return (
@@ -71,9 +67,8 @@ clearText () {
           placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({titleText: text})}
-          // value={this.state.titleText} 
+          value={this.state.titleText} 
       />
-      <Text> {this.state.titleText} </Text>
       <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={styles.dateViewBox}>
           <View>
@@ -100,17 +95,14 @@ clearText () {
         ref={component => this._textInput = component}
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
-        placeholder="Enter roam description"
+        placeholder={this.props.descText ? this.props.descText : "Enter roam description"}
         autoCorrect={false}
         placeholderTextColor="white"
         onFocus = {() => this.onFocus()}
-        onBlur = {() => {
-          this.clearText();
-          this.onBlur();
-        }}
+        onBlur = {() => this.onBlur()}
         multiline = {true}
-          // onChangeText={(text) => this.setState({email: text})} ###do something with this
-          // value={this.state.email} 
+        onChangeText={(text) => this.setState({descText: text})}
+        value={this.state.descText} 
       />
     </View>
     <View style={styles.startRoam}>
