@@ -7,6 +7,24 @@ import {
 } from 'react-native';
 
 const styles = StyleSheet.create({
+  leftNavButtonText: {
+    fontSize: 18,
+    marginLeft:13,
+    marginTop:2
+  },
+  rightNavButtonText: {
+    fontSize: 18,
+    marginRight:13,
+    marginTop:2
+  },
+  nav: {
+    height: 60,
+    backgroundColor: '#efefef'
+  },
+  navTitle: {
+    marginTop:4,
+    fontSize:16
+  },
   title: {
     marginBottom: 20,
     fontSize: 70,
@@ -27,6 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     letterSpacing: 3
   },
+
   submit: {
     height: 50,
     padding: 10,
@@ -38,6 +57,132 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     color: 'white'
   },
+
+  desc: {
+    height: 50,
+    padding: 10,
+    marginRight: 5,
+    marginBottom: 175,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white'
+
+  },
+
+  bigInput: {
+      height: 300,
+      padding: 10,
+      marginRight: 5,
+      marginBottom: 175,
+      fontSize: 18,
+      borderWidth: 1,
+      borderColor: 'white',
+      borderRadius: 8,
+      color: 'white'
+    },
+
+  hostContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    padding: 0,
+  },
+
+  dateViewBox: {
+    backgroundColor: 'transparent',
+    flex: 1,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+    position: 'relative'
+
+  },
+
+  dateViewLabel: {
+    marginBottom: 10,
+    fontSize: 20,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+    letterSpacing: 3
+  },
+
+  dateViewTime: {
+    marginBottom: 10,
+    marginLeft: 25,
+    fontSize: 18,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+    letterSpacing: 2
+  },
+
+  dateViewDate: {
+    marginBottom: 10,
+    marginLeft: 28,
+    fontSize: 20,
+    fontWeight: "100",
+    textAlign: 'right',
+    color: 'white',
+    backgroundColor: 'transparent'
+  },
+
+  dateContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+
+  datePicker: {
+    borderTopWidth: 1,
+    position: 'relative', 
+    marginBottom: 70,  
+    borderColor: '#fff', 
+    height: 220,
+    bottom: 100,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.3)'
+  },
+
+  datePickerLabel: {
+    textAlign: 'right'
+  },
+
+  locViewBox: {
+    backgroundColor: 'transparent',
+    position: 'relative',
+    marginBottom: 10,
+    flex: 1,
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+  },
+
+  locViewLabel: {
+    marginBottom: 10,
+    fontSize: 20,
+    fontWeight: "100",
+    fontFamily: 'Gill Sans',
+    textAlign: 'left',
+    color: 'white',
+    backgroundColor: 'transparent',
+    letterSpacing: 3
+  },
+
+  locViewDate: {
+    marginBottom: 10,
+    marginLeft: 28,
+    fontSize: 20,
+    fontWeight: "100",
+    textAlign: 'right',
+    color: 'white',
+    backgroundColor: 'transparent'
+  },
+
   buttonText: {
     fontSize: 18,
     color: 'white',
@@ -103,12 +248,17 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingBottom: 10
   },
+  startRoam: {
+    position: 'absolute',
+    bottom: 0,
+    left: 22
+  },
   location: {
     backgroundColor: 'transparent',
     fontSize: 25,
     color: 'white',
     textAlign: 'center'
-  }
+  },
 });
 
 module.exports = styles;

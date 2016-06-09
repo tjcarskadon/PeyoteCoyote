@@ -27,6 +27,15 @@ class Main extends Component {
     };
   }
 
+  nav (path, email) {
+    this.props.navigator.push({
+      name: path,
+      passProps: {
+        email: email
+      }
+    })
+  }
+
   handleEmail(event) {
     this.setState({
       email: event.nativeEvent.text
@@ -78,11 +87,13 @@ class Main extends Component {
         if(res.message === 'Incorrect email/password combination!'){
           this.setState({errorMessage: res.message, error: true, isLoading: false});
         } else{
-          this.props.navigator.push({
-            title: 'When are you free?',
-            email: this.state.email.toLowerCase(),
-            component: Time
-          });
+          this.nav('Time',this.state.email.toLowerCase());
+          //Leave this as a breadcrumb if we go back to NavigatorIOS
+          // this.props.navigator.push({
+          //   title: 'When are you free?',
+          //   email: this.state.email.toLowerCase(),
+          //   component: Time
+          // });
           this.setState({
             isLoading: false
           });
@@ -95,16 +106,19 @@ class Main extends Component {
   }
 
   handleSignUp() {
-    this.setState({
-      isLoading: true
-    });
-    this.props.navigator.push({
-      title: 'Sign Up',
-      component: SignUp
-    });
-    this.setState({
-      isLoading: false
-    });
+
+    this.nav('SignUp', null);
+    //Leave this as breadcrumb incase we go back to NavigatorIOS
+    // this.setState({
+    //   isLoading: true
+    // });
+    // this.props.navigator.push({
+    //   title: 'Sign Up',
+    //   component: SignUp
+    // });
+    // this.setState({
+    //   isLoading: false
+    // });
   }
 
   render() {

@@ -8,7 +8,7 @@ class Confirmation extends Component {
     //we will cancel roam from here
     //remove the roam from db
     //take the user back to the 'Time' page
-    console.log('email is:', this.props.navigator.navigationContext._currentRoute.email);
+    console.log('email is:', this.props.email);
 
     this.props.navigator.pop();
 
@@ -19,7 +19,7 @@ class Confirmation extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userEmail: this.props.navigator.navigationContext._currentRoute.email
+        userEmail: this.props.email
       })
     })
     .then((res) => {

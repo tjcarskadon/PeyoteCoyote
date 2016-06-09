@@ -18,6 +18,7 @@ import {
 class SignUp extends Component {
   constructor(props) {
     super(props);
+    console.log('SignUp loaded!!!!!!!!!!!');
     this.state = {
       firstName: '',
       lastName: '',
@@ -28,6 +29,15 @@ class SignUp extends Component {
       error: false,
       errorMessage: ''
     };
+  }
+
+  nav(email) {
+    this.props.navigator.push({
+      name: 'Time',
+      passProps: {
+        email: email
+      }
+    })
   }
 
   handleSubmit() {
@@ -65,14 +75,15 @@ class SignUp extends Component {
         return res.json();
       })
       .then((res) => {
-        // res = res.json();
         console.log('RESPONSE FROM SERVER ON SIGNUP PAGE', res);
         if (res.message === 'User created') {
-          this.props.navigator.push({
-            title: 'Select Time',
-            email: this.state.email.toLowerCase(),
-            component: Time
-          });
+          this.nav(this.state.email.toLowerCase());
+          //Leave this as a breadcrumb incase we go back to NavigatorIOS
+          // this.props.navigator.push({
+          //   title: 'Select Time',
+          //   email: this.state.email.toLowerCase(),
+          //   component: Time
+          // });
           //Set isloading to false after conditions
           this.setState({
             isLoading: false
