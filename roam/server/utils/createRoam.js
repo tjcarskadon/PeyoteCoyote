@@ -1,5 +1,6 @@
 var apoc = require('apoc');
 
+//creates a roam node
 module.exports = (userInput, venue, res) => {
 
   const { coords, email, times , type} = userInput;

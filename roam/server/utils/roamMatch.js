@@ -8,26 +8,7 @@ const startRoam = require('./startRoam');
 module.exports = (userInput, res) => {
 
   const { coords, email, dateMS } = userInput;
-  //FILE:
-  //match user w/ an existing roam
-  // apoc.query('MATCH (m:Roam) \
-  //     WHERE m.creatorRoamEnd > %currentDate% \
-  //       AND m.status = "Pending" \
-  //       AND m.creatorLatitude < %maxLat% \
-  //       AND m.creatorLatitude > %minLat% \
-  //       AND m.creatorLongitude < %maxLong% \
-  //       AND m.creatorLongitude > %minLong% \
-  //       AND m.creatorEmail <> "%email%" \
-  //       AND m.type = "%type%" RETURN m',
-  //     {
-  //       currentDate: dateMS,
-  //       maxLat: coords.maxLat,
-  //       minLat: coords.minLat,
-  //       maxLong: coords.maxLong,
-  //       minLong: coords.minLong,
-  //       email: email
-  //       // type: type
-  //     })
+
   getRoams(userInput, res)
   .exec().then( (roamsList) => {
     //if matches, join nearest match
@@ -38,8 +19,26 @@ module.exports = (userInput, res) => {
 
     //else, create autoRoam
     } else {
+
+      let searchParams = {
+          term: 'Bars',
+          limit: 20,
+          sort: 0,
+          radius_filter: 3200, //2-mile radius
+          bounds:
+            coords.maxLat + ',' +
+            coords.minLong + '|' +
+            coords.minLat  + ',' +
+            coords.maxLong
+        };
+
+        yelp.searchYelp(searchParams, function(venue) {
+
+        startRoam(userInput, venue, res);
+
+      });
+
       console.log('create an auto roam');
-      startRoam(userInput, res);
     }
   });
 

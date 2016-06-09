@@ -22,7 +22,8 @@ module.exports = (data, res) => {
     coords: boundingBoxGenerator(data.coordinates),
     times: roamOffGenerator(data),
     type: 'pool', // data.type, //TODO: change 'type' to 'roamMode'
-    isHost: true
+    isHost: false,
+    roamId: 46
   };
 
   if (userInput.type === 'roam') {
