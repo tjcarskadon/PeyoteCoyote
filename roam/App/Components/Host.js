@@ -1,6 +1,7 @@
 'use strict';
 import React, { Component } from 'react';
 const styles = require('./Helpers/styles');
+const df = require('./Helpers/dateFormat');
 
 const Dte = require('./Dte');
 
@@ -23,8 +24,8 @@ class Host extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      date: new Date(), //have to get this date from the date picker now
-      datePickerMode: 'hidden',
+      date: new Date(),
+      flag: false
     };
   }
 
@@ -35,6 +36,17 @@ nav () {
     });
 }
 
+onFocus () {
+  this.setState({
+    flag: true
+  })
+}
+
+onBlur () {
+  this.setState({
+    flag: false
+  })
+}
 
   render () {
 
@@ -58,10 +70,7 @@ nav () {
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>
           </View>
           <View>
-            <Text style={styles.dateViewTime}>{this.props.date}  {this.props.time}</Text>
-          </View>
-         <View>
-            <Text style={styles.dateViewNext}>></Text>
+            <Text style={styles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
           </View>
         </View>
       </TouchableHighlight>
@@ -75,10 +84,12 @@ nav () {
           </View>
         </View>  
       <TextInput
-        style={styles.submit} 
+        style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
         placeholder="Enter roam description"
         placeholderTextColor="white"
+        onFocus = {() => this.onFocus()}
+        onBlur = {() => this.onBlur()}
           // onChangeText={(text) => this.setState({email: text})} ###do something with this
           // value={this.state.email} 
       />
