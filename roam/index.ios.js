@@ -40,7 +40,7 @@ renderScene (route, navigator) {
     return (
       <Navigator
       style={{flex: 1}}
-      initialRoute={{name: 'Time'}}
+      initialRoute={{name: 'Host'}}
       renderScene={ this.renderScene }
       navigationBar={
              <Navigator.NavigationBar 
