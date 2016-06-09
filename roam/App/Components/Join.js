@@ -57,12 +57,6 @@ class JoinView extends Component {
     } else {
       console.log('NEXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
       this.props.navigator.push({name: 'NoRoamsLeft'});
-      this.props.navigator.push({
-      name: 'NoRoamsLeft',
-      passProps: {
-        email: null
-      }
-    })
     }
     console.log('ROAMS:' + JSON.stringify(this.state.roams));
     console.log('MARKER', this.state.roams[0].marker);
@@ -71,7 +65,8 @@ class JoinView extends Component {
 
   handleEnroll() {
     console.log('it seems like you like it');
-    
+    //TODO: SEND REQUEST TO SERVER
+    this.props.navigator.push({name: 'EnrollConfirmation'});
   }
 
 // <View>

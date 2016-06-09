@@ -22,6 +22,7 @@ const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
 const Join = require('./App/Components/Join');
 const NoRoamsLeft = require('./App/Components/NoRoamsLeft');
+const EnrollConfirmation = require('./App/Components/EnrollConfirmation');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -56,6 +57,9 @@ renderScene (route, navigator) {
     }
     if(route.name === 'NoRoamsLeft') {
       return <NoRoamsLeft navigator={navigator} {... route.passProps}/>
+    }
+    if(route.name === 'EnrollConfirmation') {
+      return <EnrollConfirmation navigator={navigator} {... route.passProps}/>
     }
      if(route.name === 'Time') {
       return <Time navigator={navigator} {...route.passProps}/>
