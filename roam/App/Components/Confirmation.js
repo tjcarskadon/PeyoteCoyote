@@ -10,7 +10,7 @@ class Confirmation extends Component {
     //take the user back to the 'Time' page
     console.log('email is:', this.props.email);
 
-    // this.props.navigator.pop();
+    this.props.navigator.pop();
 
     fetch('http://localhost:3000/cancel', {
       method: 'POST',
@@ -19,7 +19,7 @@ class Confirmation extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        userEmail: this.props.navigator.navigationContext._currentRoute.email
+        userEmail: this.props.email
       })
     })
     .then((res) => {

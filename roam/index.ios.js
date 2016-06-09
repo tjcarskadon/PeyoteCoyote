@@ -19,7 +19,7 @@ const styles = require('./App/Components/Helpers/styles');
 const Location = require('./App/Components/Location');''
 const Signup = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
-const Conf =  require('./App/Components/Confirmation');
+const Confirmation =  require('./App/Components/Confirmation');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -32,8 +32,8 @@ renderScene (route, navigator) {
     if(route.name === 'Main') {
       return <Main navigator={navigator} {...route.passProps}/>
     }
-    if(route.name === 'Conf') {
-      return <Conf navigator={navigator} {...route.passProps}/>
+    if(route.name === 'Confirmation') {
+      return <Confirmation navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Pending') {
       return <Pending navigator={navigator} {...route.passProps}/>
