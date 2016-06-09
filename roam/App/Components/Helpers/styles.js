@@ -58,11 +58,34 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
+  desc: {
+    height: 50,
+    padding: 10,
+    marginRight: 5,
+    marginBottom: 15,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white'
+  },
+
+  bigInput: {
+      height: 300,
+      padding: 10,
+      marginRight: 5,
+      marginBottom: 15,
+      fontSize: 18,
+      borderWidth: 1,
+      borderColor: 'white',
+      borderRadius: 8,
+      color: 'white'
+    },
+
   hostContainer: {
     flex: 1,
     flexDirection: 'column',
     padding: 0,
-    borderWidth: 1,
   },
 
   dateViewBox: {
@@ -85,6 +108,7 @@ const styles = StyleSheet.create({
 
   dateViewTime: {
     marginBottom: 10,
+    marginLeft: 25,
     fontSize: 18,
     fontWeight: "100",
     fontFamily: 'Gill Sans',
@@ -92,17 +116,6 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: 'transparent',
     letterSpacing: 2
-  },
-
-  dateViewNext: {
-    marginBottom: 10,
-    marginLeft: 150,
-    fontSize: 18,
-    fontWeight: "100",
-    fontFamily: 'Gill Sans',
-    textAlign: 'right',
-    color: 'white',
-    backgroundColor: 'transparent',
   },
 
   dateViewDate: {
@@ -149,8 +162,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: "#fff"
   },
 
   locViewLabel: {
