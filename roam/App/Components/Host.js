@@ -30,9 +30,9 @@ class Host extends Component {
   }
 
 
-nav () {
+nav (path) {
     this.props.navigator.push({
-      name: 'Dte'
+      name: path
     });
 }
 
@@ -46,6 +46,11 @@ onBlur () {
   this.setState({
     flag: false
   })
+  
+}
+
+clearText () {
+  this._textInput.setNativeProps({text: ''});
 }
 
   render () {
@@ -64,7 +69,7 @@ onBlur () {
           // value={this.state.email} 
       />
       
-      <TouchableHighlight onPress={this.nav.bind(this)}>
+      <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={styles.dateViewBox}>
           <View>
             <Text style={styles.dateViewLabel}>Choose a Date:</Text>
@@ -75,6 +80,7 @@ onBlur () {
         </View>
       </TouchableHighlight>
 
+     <TouchableHighlight onPress={() => this.nav('Location')}>
       <View style={styles.locViewBox}>
           <View>
             <Text style={styles.locViewLabel}>Pick a Location:</Text>
@@ -83,13 +89,18 @@ onBlur () {
             <Text style={styles.locViewNext}> > </Text>
           </View>
         </View>  
+      </TouchableHighlight>
       <TextInput
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
         placeholder="Enter roam description"
+        autoCorrect={false}
         placeholderTextColor="white"
         onFocus = {() => this.onFocus()}
-        onBlur = {() => this.onBlur()}
+        onBlur = {() => {
+          this.onBlur();
+        }}
+        multiline = {true}
           // onChangeText={(text) => this.setState({email: text})} ###do something with this
           // value={this.state.email} 
       />

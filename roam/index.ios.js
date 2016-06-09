@@ -16,6 +16,7 @@ const Time = require('./App/Components/Time');
 const Host = require('./App/Components/Host');
 const Dte = require('./App/Components/Dte');
 const styles = require('./App/Components/Helpers/styles');
+const Location = require('./App/Components/Location');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -33,6 +34,9 @@ renderScene (route, navigator) {
     }
      if(route.name === 'Time') {
       return <Time navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'Location') {
+      return <Location navigator={navigator} {...route.passProps}/>
     }
 }
 
