@@ -71,7 +71,7 @@ clearText () {
       <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={styles.dateViewBox}>
           <View>
-            <Text style={styles.dateViewLabel}>Choose a Date:</Text>
+            <Text style={styles.dateViewLabel}>Selected Date:</Text>
           </View>
           <View>
             <Text style={styles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
@@ -89,8 +89,9 @@ clearText () {
           </View>
         </View>  
       </TouchableHighlight>
+     <View> 
       <TextInput
-        ref={component => this._textInput = component} 
+        ref={component => this._textInput = component}
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
         placeholder="Enter roam description"
@@ -105,6 +106,16 @@ clearText () {
           // onChangeText={(text) => this.setState({email: text})} ###do something with this
           // value={this.state.email} 
       />
+    </View>
+    <View style={styles.startRoam}>
+      <TouchableHighlight
+          style={styles.button}
+          onPress={this.nav.bind(this)}
+          underlayColor="white" >
+            <Text style={styles.buttonText}> Start roam </Text>
+      </TouchableHighlight>
+
+    </View>
     </View>
       </Image>
     );

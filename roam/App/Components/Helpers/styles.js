@@ -62,19 +62,20 @@ const styles = StyleSheet.create({
     height: 50,
     padding: 10,
     marginRight: 5,
-    marginBottom: 275,
+    marginBottom: 175,
     fontSize: 18,
     borderWidth: 1,
     borderColor: 'white',
     borderRadius: 8,
     color: 'white'
+
   },
 
   bigInput: {
       height: 300,
       padding: 10,
       marginRight: 5,
-      marginBottom: 275,
+      marginBottom: 175,
       fontSize: 18,
       borderWidth: 1,
       borderColor: 'white',
@@ -92,7 +93,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     flex: 1,
     alignItems: 'flex-start',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    position: 'relative'
+
   },
 
   dateViewLabel: {
@@ -130,25 +133,20 @@ const styles = StyleSheet.create({
 
   dateContainer: {
     flex: 1,
-    flexDirection: 'column'
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: 10,
   },
 
   datePicker: {
     borderTopWidth: 1,
     position: 'relative', 
-    marginRight: 30,
-    marginTop: 10,
-    marginBottom: 150,
-    right: 10, 
-    left: 10, 
-    height: 200, 
+    marginBottom: 70,  
     borderColor: '#fff', 
+    height: 220,
+    bottom: 100,
     borderRadius: 10,
-    backgroundColor: 'rgba(255,255,255,0.3)',
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start'
+    backgroundColor: 'rgba(255,255,255,0.3)'
   },
 
   datePickerLabel: {
@@ -158,7 +156,7 @@ const styles = StyleSheet.create({
   locViewBox: {
     backgroundColor: 'transparent',
     position: 'relative',
-    marginBottom: 110,
+    marginBottom: 10,
     flex: 1,
     alignItems: 'flex-start',
     flexDirection: 'row',
@@ -249,6 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     fontSize: 25,
     paddingBottom: 10
+  },
+  startRoam: {
+    position: 'absolute',
+    bottom: 0,
+    left: 22
   },
   location: {
     backgroundColor: 'transparent',
