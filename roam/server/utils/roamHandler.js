@@ -1,7 +1,6 @@
 'use strict'
 
 var apoc = require('apoc');
-var yelp = require('./api');
 var formattedDateHtml = require('./dateFormatter');
 var generateEmail = require('./emailGenerator');
 
@@ -13,15 +12,13 @@ const roamPool = require('./roamPool');
 
 module.exports = (data, res) => {
 
-  console.log('data: ', data);
-
   //TODO: use destructor
   let userInput = {
     dateMS: Date.now(),
     email: data.userEmail,
     coords: boundingBoxGenerator(data.coordinates),
     times: roamOffGenerator(data),
-    type: 'pool', // data.type, //TODO: change 'type' to 'roamMode'
+    type: 'roam', // data.type, //TODO: change 'type' to 'roamMode'
     isHost: false,
     roamId: 46
   };

@@ -14,6 +14,7 @@ module.exports = (userInput, venue, res) => {
     venueAddress: venue.location.display_address.join(' ')
   }
 
+  console.log('startRoam');
   //create a roam (node)
   createRoam(userInput, roamVenue, res)
   .exec()
