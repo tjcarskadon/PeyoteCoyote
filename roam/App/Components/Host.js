@@ -29,7 +29,9 @@ class Host extends Component {
       flag: false,
       titleText: this.props.titleText || '',
       descText: this.props.descText || '',
-      locName: this.props.locName || ''
+      locName: this.props.locName || '',
+      cost: this.props.cost || '',
+      capacity: this.props.capacity || ''
     };
   }
 
@@ -87,10 +89,33 @@ onBlur () {
             <Text style={styles.locViewLabel}>Pick a Location:</Text>
           </View>
           <View>
-            <Text style={styles.locViewNext}>{this.props.locName} </Text>
+            <Text style={styles.locViewNext}>{this.props.locText} </Text>
           </View>
         </View>  
-      </TouchableHighlight>
+    </TouchableHighlight>
+    <View>
+    <View style={styles.smallSubContainer}> 
+       <TextInput
+          style={styles.smallSubmit} 
+          autoCapitalize="none"
+          placeholder='$'
+          placeholderTextColor='white'
+          autoCorrect={false}
+          onChangeText={(text) => this.setState({cost: text})}
+        />
+      </View>
+      <View> 
+       <TextInput
+          style={styles.smallSubmit} 
+          autoCapitalize="none"
+          placeholder='Capacity'
+          placeholderTextColor='white'
+          autoCorrect={false}
+          onChangeText={(text) => this.setState({capacity: text})}
+        />
+      </View>
+    </View>
+
      <View> 
       <TextInput
         style={this.state.flag ? styles.bigInput : styles.desc} 
