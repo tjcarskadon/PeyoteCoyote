@@ -59,7 +59,9 @@ nav (path) {
 handleSubmit () {
   let ds = this.props.date || df.formatDate(this);
   let tm = this.props.time || df.formatTime(this);
-  console.log('*********', ds, tm);
+  let dt = Date.parse(ds + ' ' + tm)
+
+  console.log('*********', dt);
   //create the object
   let options = {
       userEmail: this.props.userEmail,
@@ -70,7 +72,7 @@ handleSubmit () {
       address: this.props.address,
       latitude: this.props.lat,
       longitude: this.props.lng,
-      date: ds + ' ' + tm,
+      date: dt,
       price: this.state.cost,
       isHost: true,
       type: 'pool'
