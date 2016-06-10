@@ -35,8 +35,17 @@ class Dte extends Component {
     this.props.navigator.push({
       name: 'Host',
       passProps: {
+        userEmail: this.props.userEmail,
         date: date,
-        time: time
+        time: time,
+        titleText: this.props.titleText,
+        descText: this.props.descText,
+        capacity: this.props.capacity,
+        price:this.props.price,
+        locName: this.props.locName,
+        address: this.props.address,
+        latitude: this.props.lat,
+        longitude: this.props.lng
       }
     })
   }

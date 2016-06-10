@@ -58,6 +58,26 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 
+  smallSubContainer: {
+    flex: 1,
+    flexDirection:'row',
+    alignItems: 'flex-start',
+    position: 'relative'
+  },
+
+  smallSubmit: {
+    height: 50,
+    width: 100,
+    padding: 10,
+    marginRight: 5,
+    marginBottom: 15,
+    fontSize: 18,
+    borderWidth: 1,
+    borderColor: 'white',
+    borderRadius: 8,
+    color: 'white'
+  },
+
   desc: {
     height: 50,
     padding: 10,
@@ -72,7 +92,7 @@ const styles = StyleSheet.create({
   },
 
   bigInput: {
-      height: 300,
+      height: 175,
       padding: 10,
       marginRight: 5,
       marginBottom: 175,

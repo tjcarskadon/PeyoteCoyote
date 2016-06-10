@@ -27,14 +27,68 @@ class Host extends Component {
     this.state = {
       date: new Date(),
       flag: false,
+      titleText: this.props.titleText || '',
+      descText: this.props.descText || '',
+      locName: this.props.locName || '',
+      price: this.props.price || '',
+      capacity: this.props.capacity || ''
     };
   }
 
-
 nav (path) {
     this.props.navigator.push({
-      name: path
+      name: path,
+      passProps: {
+        userEmail: this.props.userEmail,
+        titleText: this.state.titleText,
+        descText: this.state.descText,
+        capacity: this.props.capacity || this.state.capacity,
+        price:this.props.price || this.state.price,
+        isHost: this.props.isHost,
+        date: this.props.date || this.state.dateString,
+        time: this.props.time || this.state.time,
+        locName: this.state.locName,
+        address: this.props.address,
+        latitude: this.props.lat,
+        longitude: this.props.lng
+
+      }
     });
+}
+
+handleSubmit () {
+  let ds = this.props.date || df.formatDate(this);
+  let tm = this.props.time || df.formatTime(this);
+  console.log('*********', ds, tm);
+  //create the object
+  let options = {
+      userEmail: this.props.userEmail,
+      title: this.state.titleText,
+      capacity: this.state.capacity,
+      description: this.state.descText,
+      locName: this.state.locName,
+      address: this.props.address,
+      latitude: this.props.lat,
+      longitude: this.props.lng,
+      date: ds + ' ' + tm,
+      price: this.state.cost,
+      isHost: true,
+      type: 'pool'
+   }
+  console.log("Options++++++++++++++", options);
+  //make an ajax call to the database
+   fetch('http://localhost:3000/roam', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({options})
+  })
+   .then( res => console.log('posted object'))
+   .catch(err => console.log('error posting object'));
+  //navigate to confirmation
+  // this.nav('Confirmation')
 }
 
 onFocus () {
@@ -49,10 +103,6 @@ onBlur () {
   })
 }
 
-clearText () {
-  this._textInput.setNativeProps({text: ''});
-}
-
   render () {
 
     return (
@@ -63,17 +113,16 @@ clearText () {
       <TextInput
           style={styles.submit} 
           autoCapitalize="none"
-          placeholder="Enter Event Title"
+          placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
           placeholderTextColor="white"
-          // onChangeText={(text) => this.setState({email: text})} ###do something with this
-          // value={this.state.email} 
+          onChangeText={(text) => this.setState({titleText: text})}
+          value={this.state.titleText} 
       />
-      
       <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={styles.dateViewBox}>
           <View>
             <Text style={styles.dateViewLabel}>Selected Date:</Text>
-          </View>
+          </View> 
           <View>
             <Text style={styles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
           </View>
@@ -86,32 +135,51 @@ clearText () {
             <Text style={styles.locViewLabel}>Pick a Location:</Text>
           </View>
           <View>
-            <Text style={styles.locViewNext}> > </Text>
+            <Text style={styles.locViewNext}>{this.props.locName} </Text>
           </View>
         </View>  
-      </TouchableHighlight>
+    </TouchableHighlight>
+    <View>
+    <View style={styles.smallSubContainer}> 
+       <TextInput
+          style={styles.smallSubmit} 
+          autoCapitalize="none"
+          placeholder={this.props.price ? this.props.price : '$'}
+          placeholderTextColor='white'
+          autoCorrect={false}
+          onChangeText={(text) => this.setState({price: text})}
+        />
+      </View>
+      <View> 
+       <TextInput
+          style={styles.smallSubmit} 
+          autoCapitalize="none"
+          placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
+          placeholderTextColor='white'
+          autoCorrect={false}
+          onChangeText={(text) => this.setState({capacity: text})}
+        />
+      </View>
+    </View>
+
      <View> 
       <TextInput
-        ref={component => this._textInput = component}
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
-        placeholder="Enter roam description"
+        placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
         autoCorrect={false}
         placeholderTextColor="white"
         onFocus = {() => this.onFocus()}
-        onBlur = {() => {
-          this.clearText();
-          this.onBlur();
-        }}
+        onBlur = {() => this.onBlur()}
         multiline = {true}
-          // onChangeText={(text) => this.setState({email: text})} ###do something with this
-          // value={this.state.email} 
+        onChangeText={(text) => this.setState({descText: text})}
+        value={this.state.descText} 
       />
     </View>
     <View style={styles.startRoam}>
       <TouchableHighlight
           style={styles.button}
-          onPress={() => this.nav('Confirmation')}
+          onPress={() => this.handleSubmit()}
           underlayColor="white" >
             <Text style={styles.buttonText}> Start roam </Text>
       </TouchableHighlight>

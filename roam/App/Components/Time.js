@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { SegmentedControls } from 'react-native-radio-buttons';
-// var Geolocation = require('./Geolocation');
-var Confirmation = require('./Confirmation');
-var Separator = require('./Helpers/Separator');
-var styles = require('./Helpers/styles');
-var Host = require('./Host');
-var Geolocation = require('./Geolocation');
+const Confirmation = require('./Confirmation');
+const Separator = require('./Helpers/Separator');
+const styles = require('./Helpers/styles');
+const Host = require('./Host');
+const Geolocation = require('./Geolocation');
 
-var coordinates = {};
+const coordinates = {};
 
 import {
   Image,
@@ -42,15 +41,13 @@ class Time extends Component {
   }
 
   handleSubmit() {
-    console.log('Sending ROAM request!', coordinates);
-    console.log('EMAIL!!!!', this.props.email);
     //Leave this as a breadcrumb incase we go back to NavigatorIOS
     // this.props.navigator.push({
     //   title: 'Confirmation',
     //   email: this.props.navigator.navigationContext._currentRoute.email,
     //   component: Confirmation
     // });
-    this.nav('Confirmation', this.props.email);
+    this.nav('Confirmation', this.props.userEmail);
 
     fetch('http://localhost:3000/roam', {
       method: 'POST',
@@ -87,11 +84,12 @@ class Time extends Component {
   //   });
   // }
 
-  nav (path, email) {
+  nav (path, userEmail) {
+    console.log('MMMMMMMM', userEmail);
     this.props.navigator.push({
       name: path,
       passProps: {
-        email: email
+        userEmail: userEmail
       }
     })
   }
@@ -128,7 +126,7 @@ class Time extends Component {
         </TouchableHighlight>
          <TouchableHighlight
           style={styles.button}
-          onPress={() => this.nav('Host')}
+          onPress={() => this.nav('Host', this.props.userEmail)}
           underlayColor="white" >
             <Text style={styles.buttonText}> Host a roam </Text>
         </TouchableHighlight>

@@ -63,6 +63,7 @@ app.post('/signin', function(req, res) {
 
 //Page to set up event between users, making API calls to YELP
 app.post('/roam', function(req, res) {
+  console.log(req.body);
   roamHandler(req.body, res);
 
 });
@@ -82,7 +83,6 @@ app.post('/roamList', function(req, res) {
 //join roam pools/x in the area;
 app.post('/joinRoam', function(req, res) {
   joinRoamHandler(req, res);
-
 });
 
 app.listen(3000, function(){
