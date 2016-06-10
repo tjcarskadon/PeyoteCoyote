@@ -6,6 +6,8 @@ module.exports = (userInput, venue, res) => {
   const { coords, email, times , type} = userInput;
   const { venueName, venueAddress } = venue;
 
+  //TODO: use roam positions instead of creator positions
+
   return apoc.query('CREATE \
       (m:Roam { \
         creatorEmail: "%email%", \
@@ -16,7 +18,13 @@ module.exports = (userInput, venue, res) => {
         status: "Pending", \
         venueName: "%venueName%", \
         venueAddress: "%venueAddress%", \
-        type: "%type%" \
+        type: "%type%", \
+        title: "%title%", \
+        time: %time% \
+        host: %host% \
+        attending: %attending% \
+        cost: %cost% \
+        description: %description% \
       }) \
       RETURN m',
       {
@@ -27,6 +35,12 @@ module.exports = (userInput, venue, res) => {
         roamOffAfter: times.roamOffAfter,
         venueName: venueName,
         venueAddress: venueAddress,
-        type: type
+        type,
+        title,
+        time, //string or object ?
+        host,
+        attending,
+        cost,
+        description
     });
 }
