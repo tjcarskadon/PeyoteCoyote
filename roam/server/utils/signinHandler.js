@@ -20,6 +20,8 @@ module.exports = (data, res) => {
         console.log('error in comparing password:', err);
        }
         if(bcryptRes){
+          //Send the client its userId
+          //in order to use id instead of email
           res.send(JSON.stringify({message: 'Password Match'}));
         } else {
           res.send(JSON.stringify({message: 'Incorrect email/password combination!'}));

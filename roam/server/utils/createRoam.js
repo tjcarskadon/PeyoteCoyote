@@ -4,16 +4,16 @@ var apoc = require('apoc');
 module.exports = (userInput, venue, res) => {
 
   const {
-    type,
-    date,
+    // type,
+    // date,
     times,
     coords,
     email,
     isHost,
-    attending,
-    title,
-    description,
-    cost
+    // attending,
+    // title,
+    // description,
+    // cost
   } = userInput;
 
   const { venueName, venueAddress } = venue;
@@ -48,11 +48,11 @@ module.exports = (userInput, venue, res) => {
         venueName: venueName,
         venueAddress: venueAddress,
         attending: [email]
-        type,
-        date,
-        isHost,
-        title,
-        description,
-        cost
+        // type,
+        // date,
+        // isHost,
+        // title,
+        // description,
+        // cost
     });
 }
