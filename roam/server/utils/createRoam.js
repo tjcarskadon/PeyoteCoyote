@@ -3,7 +3,19 @@ var apoc = require('apoc');
 //creates a roam node
 module.exports = (userInput, venue, res) => {
 
-  const { coords, email, times , type} = userInput;
+  const {
+    type,
+    date,
+    times,
+    coords,
+    email,
+    isHost,
+    attending,
+    title,
+    description,
+    cost
+  } = userInput;
+
   const { venueName, venueAddress } = venue;
 
   //TODO: use roam positions instead of creator positions
@@ -18,13 +30,13 @@ module.exports = (userInput, venue, res) => {
         status: "Pending", \
         venueName: "%venueName%", \
         venueAddress: "%venueAddress%", \
+        attending: %attending%, \
         type: "%type%", \
+        date: "%date%"\
+        isHost: %isHost%, \
         title: "%title%", \
-        time: %time% \
-        host: %host% \
-        attending: %attending% \
+        description: "%description%", \
         cost: %cost% \
-        description: %description% \
       }) \
       RETURN m',
       {
@@ -35,12 +47,12 @@ module.exports = (userInput, venue, res) => {
         roamOffAfter: times.roamOffAfter,
         venueName: venueName,
         venueAddress: venueAddress,
+        attending: [email]
         type,
+        date,
+        isHost,
         title,
-        time, //string or object ?
-        host,
-        attending,
-        cost,
-        description
+        description,
+        cost
     });
 }

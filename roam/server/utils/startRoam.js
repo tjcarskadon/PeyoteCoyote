@@ -7,11 +7,20 @@ const joinRoam = require('./joinRoam');
 
 module.exports = (userInput, venue, res) => {
 
-  const { coords, email, times , type } = userInput;
+  const {
+    coords,
+    email,
+    times,
+    type
+  } = userInput;
 
   const roamVenue = {
     venueName: venue.name,
-    venueAddress: venue.location.display_address.join(' ')
+    venueAddress:
+      venue
+      .location
+      .display_address
+      .join(' ')
   }
 
   console.log('startRoam');
