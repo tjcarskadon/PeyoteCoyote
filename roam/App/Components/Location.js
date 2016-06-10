@@ -56,10 +56,7 @@ class Location extends Component {
 
   }
 
- handlePinDrop (code, fAddr, lat, lng) {
-  if(code !== "OK") {
-    console.log('handle a bad address');
-  } else {
+ handlePinDrop (fAddr, lat, lng) {
     this.setState({
       marker: {
        title: fAddr,
@@ -136,8 +133,9 @@ class Location extends Component {
         minLength={2} // minimum length of text to search
         autoFocus={false}
         fetchDetails={true}
-        onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
-          console.log(data);
+        onPress={(data, details = true) => { // 'details' is provided when fetchDetails = true
+          // console.log(data);
+          this.handlePinDrop(details.formatted_address, details.geometry.location.lat, details.geometry.location.lng)
           console.log(details);
         }}
         getDefaultValue={() => {

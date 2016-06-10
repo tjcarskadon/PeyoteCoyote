@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 const styles = require('./Helpers/styles');
 const df = require('./Helpers/dateFormat');
 const Confirmation = require('./Confirmation');
-const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
 const Dte = require('./Dte');
-const key = require('../Utils/apiKeys').places;
 
 import {
   Image,
@@ -61,8 +59,6 @@ handleSubmit () {
   let ds = this.props.date || df.formatDate(this);
   let tm = this.props.time || df.formatTime(this);
   let dt = Date.parse(ds + ' ' + tm)
-
-  console.log('*********', dt);
   //create the object
   let options = {
       userEmail: this.props.userEmail,
@@ -146,7 +142,7 @@ onBlur () {
           </View>
         </View>
     </TouchableHighlight>
-    
+
     <View>
     <View style={styles.smallSubContainer}>
        <TextInput
