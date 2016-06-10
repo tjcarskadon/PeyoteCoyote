@@ -4,7 +4,9 @@ const defaultStyles = require('./Helpers/styles');
 const Dte = require('./Dte');
 const Host = require('./Host');
 const Geolocation = require('./Geolocation');
-const key = require('../Utils/apiKeys').geocodeKey;
+// const key = require('../Utils/apiKeys').geocodeKey;
+const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+const key = require('../Utils/apiKeys').places;
 
 import {
   Image,
@@ -127,41 +129,58 @@ class Location extends Component {
           <View>
             <Geolocation showUser={false} markers={[this.state.marker]} />
           </View>
-          <View style={styles.form}>
-            <View>
-              <TextInput style={defaultStyles.submit}
-              autoCaptialize= 'none'
-              placeholder="Location name"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({locName: text})}
-             />
-            </View>
-            <View>
-              <TextInput style={defaultStyles.submit}
-              autoCaptialize= 'none'
-              placeholder="Street Address"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({street: text})}
-             />
-            </View>
-            <View>
-              <TextInput style={defaultStyles.submit}
-              autoCaptialize= 'none'
-              placeholder="City"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({city: text})}
-             />
-            </View>
-            <View>
-              <TextInput style={defaultStyles.smallSubmit}
-              autoCaptialize= 'none'
-              placeholder="State"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({st: text})}
-             />
-            </View>
-            {this.state.buttonMode === 'address' ? addressButton : createRoamButton}
-          </View>
+          <TouchableWithoutFeedback>
+      <View>
+        <GooglePlacesAutocomplete
+        placeholder='Search'
+        minLength={2} // minimum length of text to search
+        autoFocus={false}
+        fetchDetails={true}
+        onPress={(data, details = null) => { // 'details' is provided when fetchDetails = true
+          console.log(data);
+          console.log(details);
+        }}
+        getDefaultValue={() => {
+          return ''; // text input default value
+        }}
+        query={{
+          // available options: https://developers.google.com/places/web-service/autocomplete
+          key: key,
+          language: 'en', // language of the results
+          // types: '(cities)', // default: 'geocode'
+        }}
+        styles={{
+          description: {
+            fontWeight: 'bold',
+          },
+          predefinedPlacesDescription: {
+            color: '#1faadb',
+          },
+        }}
+
+        currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+        currentLocationLabel="Current location"
+        nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+        GoogleReverseGeocodingQuery={{
+          // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+        }}
+        GooglePlacesSearchQuery={{
+          // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+          rankby: 'distance',
+          types: 'food',
+        }}
+
+
+        filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+
+        // predefinedPlaces={[homePlace, workPlace]}
+      />
+      </View>
+    </TouchableWithoutFeedback>
+
+
+          
+>>>>>>> REFACT - Move google places to location.js
        </View>
     </Image>
     )
