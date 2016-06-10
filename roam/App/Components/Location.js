@@ -78,7 +78,7 @@ class Location extends Component {
     this.props.navigator.push( {
       name: path,
         passProps: {
-          userEmail: this.props.userEmail,
+          userEmail: this.props.user,
           locName: this.state.locName,
           address: this.state.street + ' ' + this.state.city + ' ' + this.state.st,
           lat: this.state.marker.latitude,
@@ -153,7 +153,7 @@ class Location extends Component {
              />
             </View>
             <View>
-              <TextInput style={defaultStyles.submit} 
+              <TextInput style={defaultStyles.smallSubmit} 
               autoCaptialize= 'none'
               placeholder="State"
               placeholderTextColor="white"
@@ -171,8 +171,7 @@ class Location extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    flexDirection: 'column',
-    borderWidth: 1
+    flexDirection: 'column'
   },
 
   header: {

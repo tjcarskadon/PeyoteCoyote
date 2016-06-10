@@ -11,7 +11,7 @@ const roamMatch = require('./roamMatch');
 const roamPool = require('./roamPool');
 
 module.exports = (data, res) => {
-
+console.log(data,'&&&&&&&&&&&&&&');
   //TODO: use destructor
   let userInput = {
     dateMS: Date.now(),

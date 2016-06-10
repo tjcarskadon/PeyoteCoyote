@@ -35,13 +35,6 @@ class Host extends Component {
     };
   }
 
-componentDidMount () {
-  this.setState({
-    dateString: df.formatDate(this),
-    time: df.formatTime(this)
-  });
-}
-
 nav (path) {
     this.props.navigator.push({
       name: path,
@@ -64,6 +57,9 @@ nav (path) {
 }
 
 handleSubmit () {
+  let ds = this.props.date || df.formatDate(this);
+  let tm = this.props.time || df.formatTime(this);
+  console.log('*********', ds, tm);
   //create the object
   let options = {
       userEmail: this.props.userEmail,
@@ -74,14 +70,14 @@ handleSubmit () {
       address: this.props.address,
       latitude: this.props.lat,
       longitude: this.props.lng,
-      date: this.props.date +' '+ this.props.time || concatDate,
+      date: ds + ' ' + tm,
       price: this.state.cost,
       isHost: true,
       type: 'pool'
    }
   console.log("Options++++++++++++++", options);
   //make an ajax call to the database
-   fetch('http://localhost:3000/joinRoam', {
+   fetch('http://localhost:3000/roam', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
