@@ -5,8 +5,6 @@ var app = express();
 
 //Middleware
 const bodyParser = require('body-parser');
-const multer = require('multer');
-const upload = multer();
 
 //Libraries
 var apoc = require('apoc');
