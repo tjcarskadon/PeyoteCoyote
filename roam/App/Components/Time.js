@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { SegmentedControls } from 'react-native-radio-buttons';
-// var Geolocation = require('./Geolocation');
-var Confirmation = require('./Confirmation');
-var Separator = require('./Helpers/Separator');
-var styles = require('./Helpers/styles');
-var Host = require('./Host');
-var Geolocation = require('./Geolocation');
+const Confirmation = require('./Confirmation');
+const Separator = require('./Helpers/Separator');
+const styles = require('./Helpers/styles');
+const Host = require('./Host');
+const Geolocation = require('./Geolocation');
 
-var coordinates = {};
+const coordinates = {};
 
 import {
   Image,

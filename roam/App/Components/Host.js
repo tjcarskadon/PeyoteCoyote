@@ -92,7 +92,6 @@ onBlur () {
       </TouchableHighlight>
      <View> 
       <TextInput
-        ref={component => this._textInput = component}
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
         placeholder={this.props.descText ? this.props.descText : "Enter roam description"}
