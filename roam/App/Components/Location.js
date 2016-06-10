@@ -37,7 +37,7 @@ class Location extends Component {
 
     let addr = this.state.street + ', ' + this.state.city +', ' + this.state.st;
     addr = addr.replace(/\s/g,'+');
-//https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=
+
     fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+addr+'&key='+key)
     .then((response) => response.text())
     .then((responseText) => {
