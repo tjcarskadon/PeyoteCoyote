@@ -25,11 +25,11 @@ class EnrollConfirmation extends Component {
       }
     })
   }
-
+  
   render() {
     return (
       <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-        <Text style={defaultStyles.header}>Hooray!{'\n'} You are now enrolled!</Text>
+        <Text style={defaultStyles.header}>Hooray!{'\n'}You are now enrolled!</Text>
 
         <TouchableHighlight 
           style = {defaultStyles.button} 
