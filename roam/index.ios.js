@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-
+import PoolMain from './App/Components/PoolMain'
+import XMain from './App/Components/XMain'
 import {
   AppRegistry,
   StyleSheet,
   Text,
   Navigator,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  TabBarIOS
 } from 'react-native';
 
 const Main = require('./App/Components/Main');
@@ -32,6 +34,11 @@ console.ignoredYellowBox = [
 
 
 class roam extends Component{
+
+constructor(props) {
+  super(props);
+  this.state = {selectedTab:'roam'};
+}
 
 renderScene (route, navigator) {
     if(route.name === 'Main') {
@@ -73,15 +80,46 @@ renderScene (route, navigator) {
 
   render() {
     return (
-      <Navigator
-      style={{flex: 1}}
-      initialRoute={{name: 'Join'}}
-      renderScene={ this.renderScene }
-      navigationBar={
-             <Navigator.NavigationBar 
-               style={ styles.nav } 
-               routeMapper={NavigationBarRouteMapper} />} 
-         />
+      
+      <TabBarIOS 
+        selectedTab={this.state.selectedTab}
+        translucent={true}
+        // style={styles.navbar}
+        >
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'roam'}
+          // icon={require('./imgs/roam.png')}
+          title="Roam"
+          onPress={() => {
+              this.setState({
+                  selectedTab: 'roam',
+              });
+          }}>
+            <Time />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'pool'}
+          // icon={require('./imgs/dollar.png')}
+          title="Roam Pool"
+          onPress={() => {
+                this.setState({
+                    selectedTab: 'pool',
+                });
+          }}>
+          <PoolMain />
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'x'}
+          // icon={require('./imgs/dollar.png')}
+          title="Roam X"
+          onPress={() => {
+                this.setState({
+                    selectedTab: 'x',
+                });
+          }}>
+          <XMain />
+        </TabBarIOS.Item>
+      </TabBarIOS>
     );
   }
 };

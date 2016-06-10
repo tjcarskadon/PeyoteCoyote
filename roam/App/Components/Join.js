@@ -133,7 +133,9 @@ class JoinView extends Component {
   render() {
     return (
       <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-        <Tinder style={{flex: 1}} currentRoam={'yeyeye'} navigator={this.props.navigator} />
+        <View style={defaultStyles.container}>
+          <Tinder style={{flex: 1}} currentRoam={'yeyeye'} navigator={this.props.navigator} />
+        </View>
       </Image>
     )
   }

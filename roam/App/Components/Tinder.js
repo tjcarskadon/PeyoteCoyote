@@ -9,6 +9,7 @@ import {View,
   TouchableHighlight,
   ActivityIndicatorIOS} from 'react-native';
 var Geolocation = require('./Geolocation');
+var defaultStyles = require('./Helpers/styles')
 import SwipeCards from 'react-native-swipe-cards';
 
       
@@ -145,21 +146,58 @@ class Card extends Component{
   }
 }
 
-let NoMoreCards = React.createClass({
+class NoMoreCards extends Component{
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+    }
+  }
   render() {
     return (
-      <View style={styles.noMoreCards}>
-        <Text>No more cards</Text>
+      <View>
+        <Text style={defaultStyles.header}>No more roams near you</Text>
+        <TouchableHighlight 
+          style = {defaultStyles.button} 
+          onPress = { () => this.props.navigator.push({name: 'Host'}) } >
+          <Text style={defaultStyles.buttonText}>Become a host</Text>
+        </TouchableHighlight>
       </View>
     )
   }
-})
+}
 
 const roams = [
         {
           title: 'Pub crawl', 
           attending: 15, 
           capacity: 30,
+          description: 'EVERY WEEK PUB CRAWL SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT OUT IN SF.',
+          marker: {
+              title: 'Union Square',
+              latitude: 40.7359,
+              longitude: -73.9911,
+          },
+          date: 'June 3, 2016 @ 8:00PM',
+          price: '$18'
+        },
+        {
+          title: 'Park walk', 
+          attending: 5, 
+          capacity: 15,
+          description: 'EVERY WEEK PUB CRAWL SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT OUT IN SF.',
+          marker: {
+              title: 'Union Square',
+              latitude: 40.7359,
+              longitude: -73.9911,
+          },
+          date: 'June 3, 2016 @ 8:00PM',
+          price: '$18'
+        },
+        {
+          title: 'Bike ride', 
+          attending: 1, 
+          capacity: 99,
           description: 'EVERY WEEK PUB CRAWL SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT OUT IN SF.',
           marker: {
               title: 'Union Square',
@@ -215,22 +253,20 @@ class Tinder extends Component {
     if (swipedRight) {
       this.props.navigator.push({name: 'EnrollConfirmation'});
     } else {
-      let CARD_REFRESH_LIMIT = 3
+      
+      if (index === this.state.roams.length - 1) {
+        
 
-      if (this.state.roams.length - index <= CARD_REFRESH_LIMIT + 1) {
-        console.log(`There are only ${this.state.roams.length - index - 1} cards left.`);
-
-        if (!this.state.outOfCards) {
-          console.log(`Adding ${Cards2.length} more cards`)
-          this.setState({
-            cards: this.state.roams.concat(Cards2),
-            outOfCards: true
-          })
-          console.log('went to first');
-        } else {
-          console.log('went to second');
-          this.props.navigator.push({name: 'NoRoamsLeft'});
-        }
+        // if (!this.state.outOfCards) {
+        //   console.log('went to first');
+        //   console.log(`Adding ${Cards2.length} more cards`)
+        //   this.setState({
+        //     outOfCards: true
+        //   })
+        // } else {
+        //   console.log('went to second');
+          // this.props.navigator.push({name: 'NoRoamsLeft'});
+        // }
 
       }
 
@@ -268,7 +304,7 @@ class Tinder extends Component {
         loop={false}
 
         renderCard={(cardData) => <Card {...cardData} />}
-        renderNoMoreCards={() => <NoMoreCards />}
+        renderNoMoreCards={() => <NoMoreCards navigator = {this.props.navigator} />}
         showYup={true}
         showNope={true}
 

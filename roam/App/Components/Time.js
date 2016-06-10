@@ -125,36 +125,26 @@ class Time extends Component {
     return (
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')} >
-        <Text style={styles.location}>Your Current Location:</Text>
-        <Geolocation onChangeCoords = {this.changeCoords.bind(this)} />
-        <Text style={styles.header}> pick time : </Text>
-        <SegmentedControls
-          tint={'#ff0066'}
-          selectedTint={'white'}
-          backTint={'white'}
-          options={options}
-          allowFontScaling={false}
-          fontWeight={'bold'}
-          onSelection={this.handleSelected.bind(this)}
-          selectedOption={this.state.selectedOption}
-          />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.handleSubmit.bind(this)} >
-            <Text style={styles.buttonText}> Roam! </Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.nav('Host', this.props.userEmail)}
-          underlayColor="white" >
-            <Text style={styles.buttonText}> Host a roam </Text>
-        </TouchableHighlight>  
-        <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.nav('Join')} 
-          underlayColor="white" >
-            <Text style={styles.buttonText}> Join! </Text>
-        </TouchableHighlight>
+        <View style={styles.container} >
+          <Text style={styles.location}>Your Current Location:</Text>
+          <Geolocation onChangeCoords = {this.changeCoords.bind(this)} />
+          <Text style={styles.header}> pick time : </Text>
+          <SegmentedControls
+            tint={'#ff0066'}
+            selectedTint={'white'}
+            backTint={'white'}
+            options={options}
+            allowFontScaling={false}
+            fontWeight={'bold'}
+            onSelection={this.handleSelected.bind(this)}
+            selectedOption={this.state.selectedOption} 
+            />
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.handleSubmit.bind(this)} >
+              <Text style={styles.buttonText}> Roam! </Text>
+          </TouchableHighlight>
+        </View>
       </Image>
     );
   }
