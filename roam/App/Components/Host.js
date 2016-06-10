@@ -7,7 +7,7 @@ const Confirmation = require('./Confirmation');
 const Dte = require('./Dte');
 
 import {
-  Image,  
+  Image,
   DatePickerIOS,
   View,
   Text,
@@ -21,7 +21,7 @@ import {
 } from 'react-native';
 
 class Host extends Component {
-  
+
   constructor (props) {
     super(props);
     this.state = {
@@ -73,7 +73,8 @@ handleSubmit () {
       latitude: this.props.lat,
       longitude: this.props.lng,
       date: dt,
-      price: this.state.cost,
+      time: '2 hours', //see fetch in Time.js
+      price: this.state.price,
       isHost: true,
       type: 'pool'
    }
@@ -85,7 +86,7 @@ handleSubmit () {
       'Accept': 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({options})
+    body: JSON.stringify(options)
   })
    .then( res => console.log('posted object'))
    .catch(err => console.log('error posting object'));
@@ -113,18 +114,18 @@ onBlur () {
       <Text style={styles.header}>Host a roam</Text>
 
       <TextInput
-          style={styles.submit} 
+          style={styles.submit}
           autoCapitalize="none"
           placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({titleText: text})}
-          value={this.state.titleText} 
+          value={this.state.titleText}
       />
       <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={styles.dateViewBox}>
           <View>
             <Text style={styles.dateViewLabel}>Selected Date:</Text>
-          </View> 
+          </View>
           <View>
             <Text style={styles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
           </View>
@@ -139,12 +140,12 @@ onBlur () {
           <View>
             <Text style={styles.locViewNext}>{this.props.locName} </Text>
           </View>
-        </View>  
+        </View>
     </TouchableHighlight>
     <View>
-    <View style={styles.smallSubContainer}> 
+    <View style={styles.smallSubContainer}>
        <TextInput
-          style={styles.smallSubmit} 
+          style={styles.smallSubmit}
           autoCapitalize="none"
           placeholder={this.props.price ? this.props.price : '$'}
           placeholderTextColor='white'
@@ -152,9 +153,9 @@ onBlur () {
           onChangeText={(text) => this.setState({price: text})}
         />
       </View>
-      <View> 
+      <View>
        <TextInput
-          style={styles.smallSubmit} 
+          style={styles.smallSubmit}
           autoCapitalize="none"
           placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
           placeholderTextColor='white'
@@ -164,9 +165,9 @@ onBlur () {
       </View>
     </View>
 
-     <View> 
+     <View>
       <TextInput
-        style={this.state.flag ? styles.bigInput : styles.desc} 
+        style={this.state.flag ? styles.bigInput : styles.desc}
         autoCapitalize="none"
         placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
         autoCorrect={false}
@@ -175,7 +176,7 @@ onBlur () {
         onBlur = {() => this.onBlur()}
         multiline = {true}
         onChangeText={(text) => this.setState({descText: text})}
-        value={this.state.descText} 
+        value={this.state.descText}
       />
     </View>
     <View style={styles.startRoam}>

@@ -3,7 +3,10 @@
 var express = require('express');
 var app = express();
 
-var bodyParser = require('body-parser');
+//Middleware
+const bodyParser = require('body-parser');
+
+//Libraries
 var apoc = require('apoc');
 var bcrypt = require('bcrypt');
 var crypto = require('crypto');
@@ -16,6 +19,7 @@ var generateEmail = require('./utils/emailGenerator');
 var boundingBoxGenerator = require('./utils/boundingBoxGenerator');
 var roamOffGenerator = require('./utils/roamOffGenerator');
 
+//Handlers
 const signupHandler = require('./utils/signupHandler');
 const signinHandler = require('./utils/signinHandler');
 const roamHandler = require('./utils/roamHandler');
@@ -42,7 +46,9 @@ var smtpConfig = {
 //transport vehicle for nodemailer to send out email
 var transporter = nodemailer.createTransport(smtpConfig);
 
+//Middleware
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}));
 
 //Checks to make sure server is working
 app.get('/', function(req, res){
@@ -75,8 +81,8 @@ app.post('/cancel', function(req, res) {
 });
 
 //List roam pools/x in the area;
-app.post('/roamList', function(req, res) {
-  roamListHandler(req, res);
+app.get('/roamList', function(req, res) {
+  roamListHandler(req.query, res);
 
 });
 

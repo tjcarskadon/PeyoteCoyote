@@ -56,9 +56,12 @@ class Time extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        time: this.state.selectedOption,
-        coordinates: this.state.coords,
-        userEmail: this.props.email
+        userEmail: this.props.userEmail,
+        latitude: this.props.lat,
+        longitude: this.props.lng,
+        type: 'roam',
+        time: this.state.selectedOption
+        // coordinates: this.state.coords,
         // userEmail: this.props.navigator.navigationContext._currentRoute.email
       })
     })

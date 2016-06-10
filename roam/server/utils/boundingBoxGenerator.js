@@ -1,18 +1,18 @@
 //This file takes the user coordinates and generates a boundary within which
 //we want to find another match and also find a meeting venue
 
-module.exports = function(coordinates) {
+module.exports = function(latitude, longitude) {
 
   const offsetToDegrees = 0.02;
 
   var dateMS = Date.now();
-  var userLatitude = Number(coordinates.coords.latitude);
-  var userLongitude = Number(coordinates.coords.longitude);
+  var userLat = Number(latitude);
+  var userLng = Number(longitude);
 
-  var maxLat = userLatitude + offsetToDegrees;
-  var minLat = userLatitude - offsetToDegrees;
-  var maxLong = userLongitude + offsetToDegrees;
-  var minLong = userLongitude - offsetToDegrees;
+  var maxLat = userLat + offsetToDegrees;
+  var minLat = userLat - offsetToDegrees;
+  var maxLong = userLng + offsetToDegrees;
+  var minLong = userLng - offsetToDegrees;
 
-  return ({userLatitude, userLongitude, maxLat, minLat, maxLong, minLong});
+  return ({userLat, userLng, maxLat, minLat, maxLong, minLong});
 }

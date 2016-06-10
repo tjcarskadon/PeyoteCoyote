@@ -1,32 +1,62 @@
 var apoc = require('apoc');
 
+var roamOffGenerator = require('./roamOffGenerator');
+
 //creates a roam node
 module.exports = (userInput, venue, res) => {
 
-  const { coords, email, times , type} = userInput;
-  const { venueName, venueAddress } = venue;
+  const {
+    userEmail,
+    title,
+    capacity,
+    description,
+    latitude,
+    longitude,
+    date,
+    time,
+    isHost,
+    type,
+    // price
+  } = userInput;
 
-  return apoc.query('CREATE \
+  const { locName, address } = venue;
+
+  const endTime =
+  roamOffGenerator({ date, time });
+
+  console.log('endTime: ', endTime);
+
+  //TODO: use roam positions instead of creator positions
+
+  return apoc.query(
+    'CREATE \
       (m:Roam { \
         creatorEmail: "%email%", \
-        creatorLatitude: %userLatitude%, \
-        creatorLongitude: %userLongitude%, \
-        creatorRoamStart: %startRoam%, \
-        creatorRoamEnd: %roamOffAfter%, \
+        creatorLatitude: %latitude%, \
+        creatorLongitude: %longitude%, \
+        creatorRoamStart: %startTime%, \
+        creatorRoamEnd: %endTime%,\
         status: "Pending", \
         venueName: "%venueName%", \
         venueAddress: "%venueAddress%", \
-        type: "%type%" \
+        type: "%type%", \
+        isHost: %isHost%, \
+        title: "%title%", \
+        description: "%description%" \
       }) \
       RETURN m',
       {
-        email: email,
-        userLatitude: coords.userLatitude,
-        userLongitude: coords.userLongitude,
-        startRoam: times.startRoam,
-        roamOffAfter: times.roamOffAfter,
-        venueName: venueName,
-        venueAddress: venueAddress,
-        type: type
+        email: userEmail,
+        latitude: latitude,
+        longitude: longitude,
+        startTime: date,
+        endTime: endTime,
+        venueName: locName,
+        venueAddress: address,
+        type,
+        isHost,
+        title,
+        description
+        // price
     });
 }

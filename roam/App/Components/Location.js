@@ -7,7 +7,7 @@ const Geolocation = require('./Geolocation');
 const key = require('../Utils/apiKeys').geocodeKey;
 
 import {
-  Image,  
+  Image,
   DatePickerIOS,
   View,
   Text,
@@ -36,7 +36,7 @@ class Location extends Component {
   handleLookup () {
 
     let addr = this.state.street + ', ' + this.state.city +', ' + this.state.st;
-    addr = addr.replace(/\s/g,'+'); 
+    addr = addr.replace(/\s/g,'+');
 //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=
     fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+addr+'&key='+key)
     .then((response) => response.text())
@@ -71,14 +71,14 @@ class Location extends Component {
 
   toggleButton () {
     let mode = this.state.buttonMode === 'address' ? 'create' : 'address';
-    this.setState({buttonMode: mode});  
+    this.setState({buttonMode: mode});
   }
 
   nav (path) {
     this.props.navigator.push( {
       name: path,
         passProps: {
-          userEmail: this.props.user,
+          userEmail: this.props.userEmail,
           locName: this.state.locName,
           address: this.state.street + ' ' + this.state.city + ' ' + this.state.st,
           lat: this.state.marker.latitude,
@@ -93,7 +93,7 @@ class Location extends Component {
         }
     });
   }
- 
+
   render () {
 
     let addressButton = (
@@ -121,15 +121,15 @@ class Location extends Component {
     return (
      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
         <View style={styles.mainContainer}>
-          <View> 
+          <View>
             <Text style={styles.header}> Choose a Location </Text>
           </View>
-          <View>           
+          <View>
             <Geolocation showUser={false} markers={[this.state.marker]} />
           </View>
           <View style={styles.form}>
             <View>
-              <TextInput style={defaultStyles.submit} 
+              <TextInput style={defaultStyles.submit}
               autoCaptialize= 'none'
               placeholder="Location name"
               placeholderTextColor="white"
@@ -137,7 +137,7 @@ class Location extends Component {
              />
             </View>
             <View>
-              <TextInput style={defaultStyles.submit} 
+              <TextInput style={defaultStyles.submit}
               autoCaptialize= 'none'
               placeholder="Street Address"
               placeholderTextColor="white"
@@ -145,7 +145,7 @@ class Location extends Component {
              />
             </View>
             <View>
-              <TextInput style={defaultStyles.submit} 
+              <TextInput style={defaultStyles.submit}
               autoCaptialize= 'none'
               placeholder="City"
               placeholderTextColor="white"
@@ -153,7 +153,7 @@ class Location extends Component {
              />
             </View>
             <View>
-              <TextInput style={defaultStyles.smallSubmit} 
+              <TextInput style={defaultStyles.smallSubmit}
               autoCaptialize= 'none'
               placeholder="State"
               placeholderTextColor="white"
@@ -161,7 +161,7 @@ class Location extends Component {
              />
             </View>
             {this.state.buttonMode === 'address' ? addressButton : createRoamButton}
-          </View> 
+          </View>
        </View>
     </Image>
     )
