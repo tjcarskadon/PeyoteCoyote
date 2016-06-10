@@ -11,10 +11,7 @@ import {View,
 var Geolocation = require('./Geolocation');
 import SwipeCards from 'react-native-swipe-cards';
 
-      // <View style={styles.card}>
-        // <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-        // <Text style={styles.text}>This is card {this.props.name}</Text>
-      // </View>
+      
 
 
      // <View style={styles.card}>
