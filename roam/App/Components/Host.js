@@ -73,6 +73,7 @@ handleSubmit () {
       latitude: this.props.lat,
       longitude: this.props.lng,
       date: dt,
+      time: '2 hours', //see fetch in Time.js
       price: this.state.price,
       isHost: true,
       type: 'pool'
