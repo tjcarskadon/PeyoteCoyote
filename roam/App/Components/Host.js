@@ -46,6 +46,7 @@ nav (path) {
     this.props.navigator.push({
       name: path,
       passProps: {
+        userEmail: this.props.userEmail,
         titleText: this.state.titleText,
         descText: this.state.descText,
         capacity: this.props.capacity || this.state.capacity,

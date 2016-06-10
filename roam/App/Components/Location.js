@@ -78,6 +78,7 @@ class Location extends Component {
     this.props.navigator.push( {
       name: path,
         passProps: {
+          userEmail: this.props.userEmail,
           locName: this.state.locName,
           address: this.state.street + ' ' + this.state.city + ' ' + this.state.st,
           lat: this.state.marker.latitude,

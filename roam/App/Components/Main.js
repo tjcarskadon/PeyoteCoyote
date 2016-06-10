@@ -31,7 +31,7 @@ class Main extends Component {
     this.props.navigator.push({
       name: path,
       passProps: {
-        email: email
+        userEmail: email
       }
     })
   }
