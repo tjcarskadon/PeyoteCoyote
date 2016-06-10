@@ -6,10 +6,11 @@ const apoc = require('apoc');
 //from the user
 module.exports = (userInput) => {
 
-  const { coords, email, dateMS } = userInput;
+  const curDate = Date.now();
+  const { coords, email } = userInput;
 
   return apoc.query('MATCH (m:Roam) \
-    WHERE m.creatorRoamEnd > %currentDate% \
+    WHERE m.creatorRoamStart > %currentDate% \
       AND m.status = "Pending" \
       AND m.creatorLatitude < %maxLat% \
       AND m.creatorLatitude > %minLat% \
@@ -18,7 +19,7 @@ module.exports = (userInput) => {
       AND m.creatorEmail <> "%email%" \
       RETURN m',
     {
-      currentDate: dateMS,
+      currentDate: curDate,
       maxLat: coords.maxLat,
       minLat: coords.minLat,
       maxLong: coords.maxLong,

@@ -4,55 +4,48 @@ var apoc = require('apoc');
 module.exports = (userInput, venue, res) => {
 
   const {
-    // type,
-    // date,
-    times,
-    coords,
-    email,
+    userEmail,
+    title,
+    capacity,
+    description,
+    latitude,
+    longitude,
+    date,
     isHost,
-    // attending,
-    // title,
-    // description,
-    // cost
+    type
+    // price
   } = userInput;
 
-  const { venueName, venueAddress } = venue;
+  const { locName, address } = venue;
 
   //TODO: use roam positions instead of creator positions
 
   return apoc.query('CREATE \
       (m:Roam { \
         creatorEmail: "%email%", \
-        creatorLatitude: %userLatitude%, \
-        creatorLongitude: %userLongitude%, \
-        creatorRoamStart: %startRoam%, \
-        creatorRoamEnd: %roamOffAfter%, \
+        creatorLatitude: %latitude%, \
+        creatorLongitude: %longitude%, \
+        creatorRoamStart: %startTime%, \
         status: "Pending", \
         venueName: "%venueName%", \
         venueAddress: "%venueAddress%", \
-        attending: %attending%, \
         type: "%type%", \
-        date: "%date%"\
         isHost: %isHost%, \
         title: "%title%", \
-        description: "%description%", \
-        cost: %cost% \
+        description: "%description%" \
       }) \
       RETURN m',
       {
-        email: email,
-        userLatitude: coords.userLatitude,
-        userLongitude: coords.userLongitude,
-        startRoam: times.startRoam,
-        roamOffAfter: times.roamOffAfter,
-        venueName: venueName,
-        venueAddress: venueAddress,
-        attending: [email]
-        // type,
-        // date,
-        // isHost,
-        // title,
-        // description,
-        // cost
+        email: userEmail,
+        latitude: latitude,
+        longitude: longitude,
+        startTime: date,
+        venueName: locName,
+        venueAddress: address,
+        type,
+        isHost,
+        title,
+        description
+        // price
     });
 }

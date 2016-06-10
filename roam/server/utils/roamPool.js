@@ -5,18 +5,28 @@ const joinRoam = require('./joinRoam');
 
 //connect user to roam or create specified roam
 module.exports = (userInput, res) => {
-  const { dateMS,
-    email,
-    coords,
-    times,
-    isHost,
-    roamId
-  } = userInput;
+
+  // const {
+  //   title,
+  //   email,
+  //   coords,
+  //   times,
+  //   isHost,
+  //   roamId
+  // } = userInput;\
+
+  const { isHost } = userInput;
+
+  //TODO: necessary?
+  //const venue = {} = userInput ?
+  const { locName, address } = userInput;
 
   if (isHost) {
-    //NOTE: need to serve the geo info for venue
-    //venue: {name: location.name, address: location.address}
-    startRoam(userInput, venue, res);
+    startRoam(
+      userInput,
+      { locName, address },
+      res
+    );
 
   } else {
     //join specified roam

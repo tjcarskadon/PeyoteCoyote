@@ -7,36 +7,21 @@ const joinRoam = require('./joinRoam');
 
 module.exports = (userInput, venue, res) => {
 
-  const {
-    coords,
-    email,
-    times,
-    type
-  } = userInput;
-
-  const roamVenue = {
-    venueName: venue.name,
-    venueAddress:
-      venue
-      .location
-      .display_address
-      .join(' ')
-  }
-
   console.log('startRoam');
   //create a roam (node)
-  createRoam(userInput, roamVenue, res)
+  createRoam(userInput, venue, res)
   .exec()
   .then(function(queryRes) {
 
     let { id } = queryRes[0].data[0].meta[0];
+    console.log('meta: ', queryRes[0].data[0].meta[0])
+;    console.log('id: ', id);
     //join (relationship) user (node) to just created roam (node)
-    joinRoam(userInput, id, res)
+    joinRoam(userInput, id)
     .exec()
     .then( (roam) => {
       console.log('roam: ', roam);
       res.send("Joined the roam");
     });
-
-    });
+  });
 }

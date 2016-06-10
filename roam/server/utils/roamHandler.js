@@ -11,23 +11,23 @@ const roamMatch = require('./roamMatch');
 const roamPool = require('./roamPool');
 
 module.exports = (data, res) => {
-console.log(data,'&&&&&&&&&&&&&&');
+console.log('data: ', data);
   //TODO: use destructor
-  let userInput = {
-    dateMS: Date.now(),
-    email: data.userEmail,
-    coords: boundingBoxGenerator(data.coordinates),
-    times: roamOffGenerator(data),
-    type: 'roam', // data.type, //TODO: change 'type' to 'roamMode'
-    isHost: false,
-    roamId: 46
-  };
-
-  if (userInput.type === 'roam') {
+  // let userInput = {
+  //   dateMS: Date.now(),
+  //   email: data.userEmail,
+  //   coords: boundingBoxGenerator(data.coordinates),
+  //   times: roamOffGenerator(data),
+  //   type: 'roam', // data.type, //TODO: change 'type' to 'roamMode'
+  //   isHost: false,
+  //   roamId: 46
+  // };
+  console.log('data.type: ', data.type);
+  if (data.type === 'roam') {
     //match user w/ a roam or create an auto roam
     roamMatch(userInput, res);
   } else {
     //connect user to roam or create specified roam
-    roamPool(userInput, res);
+    roamPool(data, res);
   }
 }
