@@ -81,6 +81,16 @@ handleSubmit () {
    }
   console.log("Options++++++++++++++", options);
   //make an ajax call to the database
+   fetch('http://localhost:3000/joinRoam', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({options})
+  })
+   .then( res => console.log('posted object'))
+   .catch(err => console.log('error posting object'));
   //navigate to confirmation
   // this.nav('Confirmation')
 }

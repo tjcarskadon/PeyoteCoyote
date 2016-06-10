@@ -80,7 +80,7 @@ app.post('/roamList', function(req, res) {
 });
 
 //join roam pools/x in the area;
-app.post('/joinRoam', function(req, res) {
+app.post('/joinRoam', function(req, res) 
   joinRoamHandler(req, res);
 
 });
