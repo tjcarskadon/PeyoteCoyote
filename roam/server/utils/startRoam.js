@@ -5,40 +5,29 @@ const createRoam = require('./createRoam');
 const joinRoam = require('./joinRoam');
 
 
-module.exports = (userInput, res) => {
+module.exports = (userInput, venue, res) => {
 
   const { coords, email, times , type } = userInput;
 
-  var searchParams = {
-    term: 'Bars',
-    limit: 20,
-    sort: 0,
-    radius_filter: 3200, //2-mile radius
-    bounds: coords.maxLat + ',' + coords.minLong + '|' +  coords.minLat  + ',' + coords.maxLong
-  };
+  const roamVenue = {
+    venueName: venue.name,
+    venueAddress: venue.location.display_address.join(' ')
+  }
 
-  //TODO: yelp.searchYelp belongs outside of startRoam
-  //e.g. in matchRoam.js
-  //Creates the YELP object to make API request to yelp servers
-  yelp.searchYelp(searchParams, function(venue) {
+  console.log('startRoam');
+  //create a roam (node)
+  createRoam(userInput, roamVenue, res)
+  .exec()
+  .then(function(queryRes) {
 
-    const roamVenue = {
-        venueName: venue.name,
-        venueAddress: venue.location.display_address.join(' ')
-      }
-
-    createRoam(userInput, roamVenue, res)
+    let { id } = queryRes[0].data[0].meta[0];
+    //join (relationship) user (node) to just created roam (node)
+    joinRoam(userInput, id, res)
     .exec()
-    .then(function(queryRes) {
-
-      //join user (host) to just created roam
-      joinRoam(userInput, queryRes, res)
-      .exec()
-      .then( (roam) => {
-        console.log('roam: ', roam);
-        res.send("Joined the roam");
-      });
+    .then( (roam) => {
+      console.log('roam: ', roam);
+      res.send("Joined the roam");
+    });
 
     });
-  });
 }

@@ -1,43 +1,53 @@
 'use strict'
 
 const apoc = require('apoc');
+const yelp = require('./api');
 
-const startRoam = require('./startRoam')
+const getRoams = require('./getRoams');
+const startRoam = require('./startRoam');
+const joinRoam = require('./joinRoam');
 
 module.exports = (userInput, res) => {
 
   const { coords, email, dateMS } = userInput;
-  //FILE:
-  //getRoams(userInput, res)
-  //match user w/ an existing roam
-  apoc.query('MATCH (m:Roam) \
-      WHERE m.creatorRoamEnd > %currentDate% \
-        AND m.status = "Pending" \
-        AND m.creatorLatitude < %maxLat% \
-        AND m.creatorLatitude > %minLat% \
-        AND m.creatorLongitude < %maxLong% \
-        AND m.creatorLongitude > %minLong% \
-        AND m.creatorEmail <> "%email%" \
-        AND m.type = "%type%" RETURN m',
-      {
-        currentDate: dateMS,
-        maxLat: coords.maxLat,
-        minLat: coords.minLat,
-        maxLong: coords.maxLong,
-        minLong: coords.minLong,
-        email: email
-        // type: type
-  }).exec().then( (roamsList) => {
-    //if matches, join nearest match
-      console.log('roamsList: ', roamsList);
+
+  getRoams(userInput)
+  .exec()
+  .then( (roamsList) => {
+
+    //if there's a match, join the first match
     if (!!roamsList[0].data.length) {
-      console.log('join a roam');
-      //join match w/ least distance
+
+      let { id } = roamsList[0].data[0].meta[0]
+      userInput.isHost = false;
+
+      joinRoam(userInput, id)
+      .exec()
+      .then( roam => {
+        console.log('roam: ', roam);
+        res.send("Joined the roam");
+      });
 
     //else, create autoRoam
     } else {
-      console.log('create an auto roam');
-      startRoam(userInput, res);
+      userInput.isHost = true;
+
+      let searchParams = {
+          term: 'Bars',
+          limit: 20,
+          sort: 0,
+          radius_filter: 3200, //2-mile radius
+          bounds:
+            coords.maxLat + ',' +
+            coords.minLong + '|' +
+            coords.minLat  + ',' +
+            coords.maxLong
+        };
+
+      yelp.searchYelp(searchParams, function(venue) {
+        console.log('roamMatch in yelp');
+        startRoam(userInput, venue, res);
+      });
     }
   });
 

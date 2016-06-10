@@ -2,11 +2,9 @@
 
 var apoc = require('apoc');
 
-module.exports = (userInput, queryRes, res) => {
+module.exports = (userInput, id) => {
 
   const { email, isHost } = userInput;
-  const { id } = queryRes[0].data[0].meta[0];
-  console.log('queryRes: ', queryRes[0].data[0].meta);
 
   //create a relationship between the selected roam and the user
   return apoc.query(
