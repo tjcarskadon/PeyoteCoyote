@@ -19,6 +19,7 @@ module.exports = (userInput, venue, res) => {
   createRoam(userInput, roamVenue, res)
   .exec()
   .then(function(queryRes) {
+
     let { id } = queryRes[0].data[0].meta[0];
     //join (relationship) user (node) to just created roam (node)
     joinRoam(userInput, id, res)

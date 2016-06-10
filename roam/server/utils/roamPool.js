@@ -9,8 +9,8 @@ module.exports = (userInput, res) => {
 
   if (isHost) {
     //NOTE: need to serve the geo info for venue
-
     startRoam(userInput, venue, res);
+
   } else {
     //join specified roam
 

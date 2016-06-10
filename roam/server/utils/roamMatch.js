@@ -15,10 +15,8 @@ module.exports = (userInput, res) => {
   .exec()
   .then( (roamsList) => {
 
-    //if matches, join nearest match
-    console.log('roamsList: ', roamsList[0].data);
+    //if there's a match, join the first match
     if (!!roamsList[0].data.length) {
-      console.log('roams: ', roamsList[0].data[0]);
 
       let { id } = roamsList[0].data[0].meta[0]
       userInput.isHost = false;
@@ -34,7 +32,6 @@ module.exports = (userInput, res) => {
     } else {
       userInput.isHost = true;
 
-      console.log('roamMatch ln 23');
       let searchParams = {
           term: 'Bars',
           limit: 20,
@@ -50,10 +47,7 @@ module.exports = (userInput, res) => {
       yelp.searchYelp(searchParams, function(venue) {
         console.log('roamMatch in yelp');
         startRoam(userInput, venue, res);
-
       });
-
-      console.log('create an auto roam');
     }
   });
 
