@@ -20,7 +20,10 @@ module.exports = (userInput, venue, res) => {
 
   //TODO: use roam positions instead of creator positions
 
-  return apoc.query('CREATE \
+  console.log('userInput: ', userInput);
+
+  return apoc.query(
+    'CREATE \
       (m:Roam { \
         creatorEmail: "%email%", \
         creatorLatitude: %latitude%, \

@@ -5,9 +5,14 @@ const apoc = require('apoc');
 //get list of roams w/in a specified distance
 //from the user
 module.exports = (userInput) => {
-
   const curDate = Date.now();
-  const { coords, email } = userInput;
+
+  const {
+    coords,
+    email
+  } = userInput;
+
+  console.log('before getRoams query');
 
   return apoc.query('MATCH (m:Roam) \
     WHERE m.creatorRoamStart > %currentDate% \

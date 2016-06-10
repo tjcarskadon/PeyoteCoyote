@@ -15,11 +15,10 @@ module.exports = (userInput, res) => {
   //   roamId
   // } = userInput;\
 
-  const { isHost } = userInput;
+  const { isHost, locName, address } = userInput;
 
   //TODO: necessary?
   //const venue = {} = userInput ?
-  const { locName, address } = userInput;
 
   if (isHost) {
     startRoam(

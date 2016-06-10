@@ -11,6 +11,7 @@ const roamMatch = require('./roamMatch');
 const roamPool = require('./roamPool');
 
 module.exports = (data, res) => {
+  let userInput;
 console.log('data: ', data);
   //TODO: use destructor
   // let userInput = {
@@ -22,11 +23,35 @@ console.log('data: ', data);
   //   isHost: false,
   //   roamId: 46
   // };
+  const { latitude, longitude } = data;
+  data.coords = boundingBoxGenerator(latitude, longitude)
+
   console.log('data.type: ', data.type);
   if (data.type === 'roam') {
+    // userInput = {
+    //   userEmail,
+    //   latitude,
+    //   type,
+    //   time //?
+    // } = data;
+
     //match user w/ a roam or create an auto roam
-    roamMatch(userInput, res);
+    roamMatch(data, res);
+
   } else {
+    // userInput = {
+    //   userEmail,
+    //   title,
+    //   capacity,
+    //   description,
+    //   latitude,
+    //   longitude,
+    //   date,
+    //   isHost,
+    //   type
+    // // price
+    // } = data;
+
     //connect user to roam or create specified roam
     roamPool(data, res);
   }

@@ -9,12 +9,13 @@ const joinRoam = require('./joinRoam');
 
 module.exports = (userInput, res) => {
 
-  const { coords, email, dateMS } = userInput;
+  const { coords, email } = userInput;
 
   getRoams(userInput)
   .exec()
   .then( (roamsList) => {
 
+    console.log('roamList: ', roamsList[0].data);
     //if there's a match, join the first match
     if (!!roamsList[0].data.length) {
 
@@ -31,6 +32,7 @@ module.exports = (userInput, res) => {
     //else, create autoRoam
     } else {
       userInput.isHost = true;
+      console.log('no roams');
 
       let searchParams = {
           term: 'Bars',
@@ -45,8 +47,15 @@ module.exports = (userInput, res) => {
         };
 
       yelp.searchYelp(searchParams, function(venue) {
-        console.log('roamMatch in yelp');
-        startRoam(userInput, venue, res);
+
+        startRoam(
+          userInput,
+          {
+            locName: venue.name,
+            address: venue.location.display_address.join(' ')
+          },
+          res
+        );
       });
     }
   });
