@@ -24,12 +24,12 @@ class Location extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      name: '',
+      locName: '',
       street: '',
       city: '',
       st: '',
-      zip: '',
-      marker : {}
+      marker: {},
+      buttonMode: 'address'
     }
   }
 
@@ -58,40 +58,60 @@ class Location extends Component {
   if(code !== "OK") {
     console.log('handle a bad address');
   } else {
-    this.setState({marker: {
+    this.setState({
+      marker: {
        title: fAddr,
        latitude: lat,
        longitude: lng
      }
    })
+    this.toggleButton();
+  }
+}
+
+  toggleButton () {
+    let mode = this.state.buttonMode === 'address' ? 'create' : 'address';
+    this.setState({buttonMode: mode});  
   }
 
+  nav (path) {
+    this.props.navigator.push( {
+      name: path,
+        passProps: {
+          locName: this.state.locName,
+          street: this.state.street,
+          city: this.state.city,
+          st: this.state.st,
+          titleText: this.props.titleText,
+          descText: this.props.descText
+        }
 
- } 
-
-//need to create a toggle for the confirm button
-/* 
- <View>
-              <TextInput style={defaultStyles.submit} 
-              autoCaptialize= 'none'
-              placeholder="Location name"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({name: text})}
-             />
-            </View>
-           
-             
-            <View>
-              <TextInput style={defaultStyles.submit} 
-              autoCaptialize= 'none'
-              placeholder="Zip"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({zip: text})}
-             />
-            </View>
-
-*/
+    });
+  }
+ 
   render () {
+
+    let addressButton = (
+            <View>
+               <TouchableHighlight
+                 style={defaultStyles.button}
+                 onPress={() => this.handleLookup()}
+                 underlayColor="white" >
+                 <Text style={defaultStyles.buttonText}>Find Location</Text>
+               </TouchableHighlight>
+            </View>
+      );
+
+    let createRoamButton = (
+            <View>
+               <TouchableHighlight
+                 style={defaultStyles.button}
+                 onPress={() => this.nav('Host')}
+                 underlayColor="white" >
+                 <Text style={defaultStyles.buttonText}>Create Roam</Text>
+               </TouchableHighlight>
+            </View>
+      );
 
     return (
      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
@@ -103,6 +123,14 @@ class Location extends Component {
             <Geolocation showUser={false} markers={[this.state.marker]} />
           </View>
           <View style={styles.form}>
+            <View>
+              <TextInput style={defaultStyles.submit} 
+              autoCaptialize= 'none'
+              placeholder="Location name"
+              placeholderTextColor="white"
+              onChangeText={(text) => this.setState({locName: text})}
+             />
+            </View>
             <View>
               <TextInput style={defaultStyles.submit} 
               autoCaptialize= 'none'
@@ -127,14 +155,7 @@ class Location extends Component {
               onChangeText={(text) => this.setState({st: text})}
              />
             </View>
-            <View>
-             <TouchableHighlight
-               style={defaultStyles.button}
-               onPress={() => this.handleLookup()}
-               underlayColor="white" >
-               <Text style={styles.buttonText}>Find Location</Text>
-             </TouchableHighlight>
-            </View>
+            {this.state.buttonMode === 'address' ? addressButton : createRoamButton}
           </View> 
        </View>
     </Image>

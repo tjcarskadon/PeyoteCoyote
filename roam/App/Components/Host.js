@@ -28,7 +28,8 @@ class Host extends Component {
       date: new Date(),
       flag: false,
       titleText: this.props.titleText || '',
-      descText: this.props.descText || ''
+      descText: this.props.descText || '',
+      locName: this.props.locName || ''
     };
   }
 
@@ -86,7 +87,7 @@ onBlur () {
             <Text style={styles.locViewLabel}>Pick a Location:</Text>
           </View>
           <View>
-            <Text style={styles.locViewNext}> > </Text>
+            <Text style={styles.locViewNext}>{this.props.locName} </Text>
           </View>
         </View>  
       </TouchableHighlight>
