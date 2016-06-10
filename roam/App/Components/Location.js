@@ -79,13 +79,17 @@ class Location extends Component {
       name: path,
         passProps: {
           locName: this.state.locName,
-          street: this.state.street,
-          city: this.state.city,
-          st: this.state.st,
+          address: this.state.street + ' ' + this.state.city + ' ' + this.state.st,
+          lat: this.state.marker.latitude,
+          lng: this.state.marker.longitude,
           titleText: this.props.titleText,
-          descText: this.props.descText
+          descText: this.props.descText,
+          capacity: this.props.capacity,
+          price:this.props.price,
+          isHost: this.props.isHost,
+          date: this.props.date,
+          time: this.props.time
         }
-
     });
   }
  

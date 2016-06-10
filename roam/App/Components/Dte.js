@@ -38,7 +38,13 @@ class Dte extends Component {
         date: date,
         time: time,
         titleText: this.props.titleText,
-        descText: this.props.descText
+        descText: this.props.descText,
+        capacity: this.props.capacity,
+        price:this.props.price,
+        locName: this.props.locName,
+        address: this.props.address,
+        latitude: this.props.lat,
+        longitude: this.props.lng
       }
     })
   }

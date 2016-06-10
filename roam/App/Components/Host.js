@@ -30,19 +30,58 @@ class Host extends Component {
       titleText: this.props.titleText || '',
       descText: this.props.descText || '',
       locName: this.props.locName || '',
-      cost: this.props.cost || '',
+      price: this.props.price || '',
       capacity: this.props.capacity || ''
     };
   }
+
+componentDidMount () {
+  this.setState({
+    dateString: df.formatDate(this),
+    time: df.formatTime(this)
+  });
+}
 
 nav (path) {
     this.props.navigator.push({
       name: path,
       passProps: {
         titleText: this.state.titleText,
-        descText: this.state.descText
+        descText: this.state.descText,
+        capacity: this.props.capacity || this.state.capacity,
+        price:this.props.price || this.state.price,
+        isHost: this.props.isHost,
+        date: this.props.date || this.state.dateString,
+        time: this.props.time || this.state.time,
+        locName: this.state.locName,
+        address: this.props.address,
+        latitude: this.props.lat,
+        longitude: this.props.lng
+
       }
     });
+}
+
+handleSubmit () {
+  //create the object
+  let options = {
+      userEmail: this.props.userEmail,
+      title: this.state.titleText,
+      capacity: this.state.capacity,
+      description: this.state.descText,
+      locName: this.state.locName,
+      address: this.props.address,
+      latitude: this.props.lat,
+      longitude: this.props.lng,
+      date: this.props.date +' '+ this.props.time || concatDate,
+      price: this.state.cost,
+      isHost: true,
+      type: 'pool'
+   }
+  console.log("Options++++++++++++++", options);
+  //make an ajax call to the database
+  //navigate to confirmation
+  // this.nav('Confirmation')
 }
 
 onFocus () {
@@ -76,7 +115,7 @@ onBlur () {
         <View style={styles.dateViewBox}>
           <View>
             <Text style={styles.dateViewLabel}>Selected Date:</Text>
-          </View>
+          </View> 
           <View>
             <Text style={styles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
           </View>
@@ -89,7 +128,7 @@ onBlur () {
             <Text style={styles.locViewLabel}>Pick a Location:</Text>
           </View>
           <View>
-            <Text style={styles.locViewNext}>{this.props.locText} </Text>
+            <Text style={styles.locViewNext}>{this.props.locName} </Text>
           </View>
         </View>  
     </TouchableHighlight>
@@ -98,17 +137,17 @@ onBlur () {
        <TextInput
           style={styles.smallSubmit} 
           autoCapitalize="none"
-          placeholder='$'
+          placeholder={this.props.price ? this.props.price : '$'}
           placeholderTextColor='white'
           autoCorrect={false}
-          onChangeText={(text) => this.setState({cost: text})}
+          onChangeText={(text) => this.setState({price: text})}
         />
       </View>
       <View> 
        <TextInput
           style={styles.smallSubmit} 
           autoCapitalize="none"
-          placeholder='Capacity'
+          placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
           placeholderTextColor='white'
           autoCorrect={false}
           onChangeText={(text) => this.setState({capacity: text})}
@@ -120,7 +159,7 @@ onBlur () {
       <TextInput
         style={this.state.flag ? styles.bigInput : styles.desc} 
         autoCapitalize="none"
-        placeholder={this.props.descText ? this.props.descText : "Enter roam description"}
+        placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
         autoCorrect={false}
         placeholderTextColor="white"
         onFocus = {() => this.onFocus()}
@@ -133,7 +172,7 @@ onBlur () {
     <View style={styles.startRoam}>
       <TouchableHighlight
           style={styles.button}
-          onPress={() => this.nav('Confirmation')}
+          onPress={() => this.handleSubmit()}
           underlayColor="white" >
             <Text style={styles.buttonText}> Start roam </Text>
       </TouchableHighlight>
