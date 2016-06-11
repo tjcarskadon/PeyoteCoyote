@@ -37,9 +37,10 @@ class Host extends Component {
     };
   }
 
-nav (path) {
+nav (path, title) {
     this.props.navigator.push({
       name: path,
+      title: title,
       passProps: {
         userEmail: this.props.userEmail,
         titleText: this.state.titleText,
@@ -126,7 +127,7 @@ onBlur () {
                 onChangeText={(text) => this.setState({titleText: text})}
                 value={this.state.titleText}
             />
-            <TouchableHighlight onPress={() => this.nav('Dte')}>
+            <TouchableHighlight onPress={() => this.nav('Dte', 'Schedule')}>
               <View style={defaultStyles.dateViewBox}>
                 <View>
                   <Text style={defaultStyles.dateViewLabel}>Roam Start:</Text>
@@ -142,7 +143,7 @@ onBlur () {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight onPress={() => this.nav('Dte')}>
+            <TouchableHighlight onPress={() => this.nav('Dte', 'Schedule')}>
               <View style={defaultStyles.dateViewBox}>
                 <View>
                   <Text style={defaultStyles.dateViewLabel}>Roam End:</Text>
