@@ -69,7 +69,6 @@ app.post('/signin', function(req, res) {
 
 //Page to set up event between users, making API calls to YELP
 app.post('/roam', function(req, res) {
-  console.log(req.body);
   roamHandler(req.body, res);
 
 });

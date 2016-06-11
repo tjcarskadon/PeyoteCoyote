@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
 
   dateViewTime: {
     marginBottom: 10,
-    marginLeft: 25,
+    marginLeft: 30,
     fontSize: 18,
     fontWeight: "100",
     fontFamily: 'Gill Sans',

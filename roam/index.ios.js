@@ -59,7 +59,7 @@ renderScene (route, navigator) {
     return (
       <Navigator
       style={{flex: 1}}
-      initialRoute={{name: 'Location'}}
+      initialRoute={{name: 'Main'}}
       renderScene={ this.renderScene }
       navigationBar={
              <Navigator.NavigationBar 

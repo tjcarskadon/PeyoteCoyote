@@ -5,7 +5,7 @@ const Dte = require('./Dte');
 const Host = require('./Host');
 const Geolocation = require('./Geolocation');
 // const key = require('../Utils/apiKeys').geocodeKey;
-const {GooglePlacesAutocomplete} = require('react-native-google-places-autocomplete');
+const {GooglePlacesAutocomplete} = require('./GooglePlacesAutocomplete');
 const key = require('../Utils/apiKeys').places;
 
 import {
@@ -26,15 +26,11 @@ class Location extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      locName: '',
-      street: '',
-      city: '',
-      st: '',
-      marker: {},
-      buttonMode: 'address'
+      marker: {}
     }
   }
 
+<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
   handleLookup () {
 
     let addr = this.state.street + ', ' + this.state.city +', ' + this.state.st;
@@ -54,32 +50,35 @@ class Location extends Component {
       console.warn(error);
     });
 
+=======
+  handleLookup (obj) {
+      let name = obj.name;    
+      let fAddr = obj.formatted_address;
+      let lat = obj.geometry.location.lat;
+      let lng = obj.geometry.location.lng;
+      this.handlePinDrop(name, fAddr, lat, lng);
+>>>>>>> FEAT - complete google places implementation
   }
 
- handlePinDrop (fAddr, lat, lng) {
+ handlePinDrop (name, fAddr, lat, lng) {
     this.setState({
       marker: {
-       title: fAddr,
+       title: name,
+       address: fAddr,
        latitude: lat,
        longitude: lng
      }
    })
-    this.toggleButton();
   }
-}
 
-  toggleButton () {
-    let mode = this.state.buttonMode === 'address' ? 'create' : 'address';
-    this.setState({buttonMode: mode});
-  }
 
   nav (path) {
     this.props.navigator.push( {
       name: path,
         passProps: {
           userEmail: this.props.userEmail,
-          locName: this.state.locName,
-          address: this.state.street + ' ' + this.state.city + ' ' + this.state.st,
+          locName: this.state.marker.title,
+          address: this.state.address,
           lat: this.state.marker.latitude,
           lng: this.state.marker.longitude,
           titleText: this.props.titleText,
@@ -95,16 +94,6 @@ class Location extends Component {
 
   render () {
 
-    let addressButton = (
-            <View>
-               <TouchableHighlight
-                 style={defaultStyles.button}
-                 onPress={() => this.handleLookup()}
-                 underlayColor="white" >
-                 <Text style={defaultStyles.buttonText}>Find Location</Text>
-               </TouchableHighlight>
-            </View>
-      );
 
     let createRoamButton = (
             <View>
@@ -130,14 +119,11 @@ class Location extends Component {
       <View>
         <GooglePlacesAutocomplete
         placeholder='Search'
+        placeholderTextColor="white"
         minLength={2} // minimum length of text to search
         autoFocus={false}
         fetchDetails={true}
-        onPress={(data, details = true) => { // 'details' is provided when fetchDetails = true
-          // console.log(data);
-          this.handlePinDrop(details.formatted_address, details.geometry.location.lat, details.geometry.location.lng)
-          console.log(details);
-        }}
+        onPress={(data, details = true) => this.handleLookup(details)}
         getDefaultValue={() => {
           return ''; // text input default value
         }}
@@ -155,7 +141,6 @@ class Location extends Component {
             color: '#1faadb',
           },
         }}
-
         currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
         currentLocationLabel="Current location"
         nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
@@ -167,18 +152,19 @@ class Location extends Component {
           rankby: 'distance',
           types: 'food',
         }}
-
-
         filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-
         // predefinedPlaces={[homePlace, workPlace]}
       />
       </View>
     </TouchableWithoutFeedback>
 
 
+<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
           
 >>>>>>> REFACT - Move google places to location.js
+=======
+          {createRoamButton}
+>>>>>>> FEAT - complete google places implementation
        </View>
     </Image>
     )
@@ -200,7 +186,12 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: 'transparent',
     letterSpacing: 3
+  },
+
+  button: {
+    position: 'absolute'
   }
+
 });
 
 module.exports = Location;
