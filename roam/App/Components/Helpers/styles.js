@@ -279,6 +279,10 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center'
   },
+  navbar: {},
+  container: {
+    marginTop: -50
+  }
 });
 
 module.exports = styles;

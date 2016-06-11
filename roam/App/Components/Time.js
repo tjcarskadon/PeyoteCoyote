@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { SegmentedControls } from 'react-native-radio-buttons';
-const Confirmation = require('./Confirmation');
-const Separator = require('./Helpers/Separator');
-const styles = require('./Helpers/styles');
-const Host = require('./Host');
-const Geolocation = require('./Geolocation');
+
+var Confirmation = require('./Confirmation');
+var Separator = require('./Helpers/Separator');
+var styles = require('./Helpers/styles');
+var Host = require('./Host');
+var Geolocation = require('./Geolocation');
 
 const coordinates = {};
 
@@ -63,6 +64,7 @@ class Time extends Component {
         time: this.state.selectedOption
         // coordinates: this.state.coords,
         // userEmail: this.props.navigator.navigationContext._currentRoute.email
+
       })
     })
     .then((res) => {
@@ -100,6 +102,18 @@ class Time extends Component {
   changeCoords(newCoords) {
     this.setState({coords: newCoords});
   }
+  handleJoin() {
+    console.log('Going to Join, yay!');
+    this.props.navigator.push({
+      title: 'Join a meeting',
+      component: Join
+    });
+  }
+
+  changeCoords(newCoords) {
+    this.setState({coords: newCoords});
+  }
+
   render () {
     const options = [
       '1 hour',
@@ -110,37 +124,30 @@ class Time extends Component {
     return (
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')} >
-        <Geolocation onChangeCoords = {this.changeCoords.bind(this)} />
-        <Text style={styles.header}> pick a time: </Text>
-        <SegmentedControls
-          tint={'#ff0066'}
-          selectedTint={'white'}
-          backTint={'white'}
-          options={options}
-          allowFontScaling={false}
-          fontWeight={'bold'}
-          onSelection={this.handleSelected.bind(this)}
-          selectedOption={this.state.selectedOption}
-          />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.handleSubmit.bind(this)} >
-            <Text style={styles.buttonText}> Roam! </Text>
-        </TouchableHighlight>
-         <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.nav('Host', this.props.userEmail)}
-          underlayColor="white" >
-            <Text style={styles.buttonText}> Host a roam </Text>
-        </TouchableHighlight>
+        <View style={styles.container} >
+          <Text style={styles.location}>Your Current Location:</Text>
+          <Geolocation onChangeCoords = {this.changeCoords.bind(this)} />
+          <Text style={styles.header}> pick time : </Text>
+          <SegmentedControls
+            tint={'#ff0066'}
+            selectedTint={'white'}
+            backTint={'white'}
+            options={options}
+            allowFontScaling={false}
+            fontWeight={'bold'}
+            onSelection={this.handleSelected.bind(this)}
+            selectedOption={this.state.selectedOption} 
+            />
+          <TouchableHighlight
+            style={styles.button}
+            onPress={this.handleSubmit.bind(this)} >
+              <Text style={styles.buttonText}> Roam! </Text>
+          </TouchableHighlight>
+        </View>
       </Image>
     );
   }
 }
-
-
-
-
 
 
 module.exports = Time;

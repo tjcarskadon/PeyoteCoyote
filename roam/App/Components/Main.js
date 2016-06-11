@@ -128,7 +128,7 @@ class Main extends Component {
     return(
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')}>
-        <Text style={styles.title}> roam </Text>
+        <Text style={styles.title}>roam</Text>
         {/* Fields that we want to bind the email and password input */}
         <TextInput
           style={styles.submit}

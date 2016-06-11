@@ -104,57 +104,59 @@ class Location extends Component {
 
     return (
      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-        <View style={styles.mainContainer}>
-          <View>
-            <Text style={styles.header}> Choose a Location </Text>
-          </View>
-          <View>
-            <Geolocation showUser={false} markers={[this.state.marker]} />
-          </View>
-          <TouchableWithoutFeedback>
-      <View>
-        <GooglePlacesAutocomplete
-        placeholder='Search'
-        placeholderTextColor="white"
-        minLength={2} // minimum length of text to search
-        autoFocus={false}
-        fetchDetails={true}
-        onPress={(data, details = true) => this.handleLookup(details)}
-        getDefaultValue={() => {
-          return ''; // text input default value
-        }}
-        query={{
-          // available options: https://developers.google.com/places/web-service/autocomplete
-          key: key,
-          language: 'en', // language of the results
-          // types: '(cities)', // default: 'geocode'
-        }}
-        styles={{
-          description: {
-            fontWeight: 'bold',
-          },
-          predefinedPlacesDescription: {
-            color: '#1faadb',
-          },
-        }}
-        currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
-        currentLocationLabel="Current location"
-        nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
-        GoogleReverseGeocodingQuery={{
-          // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
-        }}
-        GooglePlacesSearchQuery={{
-          // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
-          rankby: 'distance',
-          types: 'food',
-        }}
-        filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
-        // predefinedPlaces={[homePlace, workPlace]}
-      />
+      <View style={defaultStyles.container}>
+          <View style={styles.mainContainer}>
+            <View>
+              <Text style={styles.header}> Choose a Location </Text>
+            </View>
+            <View>
+              <Geolocation showUser={false} markers={[this.state.marker]} />
+            </View>
+            <TouchableWithoutFeedback>
+        <View>
+          <GooglePlacesAutocomplete
+          placeholder='Search'
+          placeholderTextColor="white"
+          minLength={2} // minimum length of text to search
+          autoFocus={false}
+          fetchDetails={true}
+          onPress={(data, details = true) => this.handleLookup(details)}
+          getDefaultValue={() => {
+            return ''; // text input default value
+          }}
+          query={{
+            // available options: https://developers.google.com/places/web-service/autocomplete
+            key: key,
+            language: 'en', // language of the results
+            // types: '(cities)', // default: 'geocode'
+          }}
+          styles={{
+            description: {
+              fontWeight: 'bold',
+            },
+            predefinedPlacesDescription: {
+              color: '#1faadb',
+            },
+          }}
+          currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+          currentLocationLabel="Current location"
+          nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+          GoogleReverseGeocodingQuery={{
+            // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+          }}
+          GooglePlacesSearchQuery={{
+            // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+            rankby: 'distance',
+            types: 'food',
+          }}
+          filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+          // predefinedPlaces={[homePlace, workPlace]}
+        />
+        </View>
+      </TouchableWithoutFeedback>
+            {createRoamButton}
+         </View>
       </View>
-    </TouchableWithoutFeedback>
-          {createRoamButton}
-       </View>
     </Image>
     )
   }

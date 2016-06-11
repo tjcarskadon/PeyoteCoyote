@@ -1,4 +1,3 @@
-
 let formatDate = (context)  => {
   let month = context.state.date.getMonth() + 1; 
   let day = context.state.date.getDate(); 

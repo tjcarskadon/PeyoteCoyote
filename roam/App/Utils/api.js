@@ -1,5 +1,4 @@
 'use strict'
-
 var Yelp = require('yelp');
 var yelpKeys = require('./apiKeys').yelpKeys;
 

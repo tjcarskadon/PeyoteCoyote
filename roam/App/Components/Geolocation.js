@@ -18,6 +18,7 @@ class Geolocation extends Component {
     //load settings from props otherwise use defaults
     var showUserLocation = this.props.showUser === undefined ? true : this.props.showUser;
     var changePosFunction = this.props.onChangeCoords === undefined ? () => {} : this.props.onChangeCoords;  
+    var markers = this.props.markers === undefined ? null : this.props.markers;
 
     this.state = {
       showUserLocation: showUserLocation,

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-
+import JoinPool from './App/Components/JoinPool'
+import XMain from './App/Components/XMain'
+import X from './App/Components/X'
 import {
   AppRegistry,
   StyleSheet,
   Text,
   Navigator,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  TabBarIOS
 } from 'react-native';
 
 const Main = require('./App/Components/Main');
@@ -20,6 +23,7 @@ const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
+const EnrollConfirmation = require('./App/Components/EnrollConfirmation');
 
 console.ignoredYellowBox = [
     'Warning: Failed propType',
@@ -27,45 +31,137 @@ console.ignoredYellowBox = [
   ];
 
 class roam extends Component{
-
-renderScene (route, navigator) {
+   //main component, switches between tabbed app and signup pages
+   renderScene(route, navigator) {
     if(route.name === 'Main') {
       return <Main navigator={navigator} {...route.passProps}/>
     }
+    if(route.name === 'Time') {
+      return <TabbedApp navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'SignUp') {
+      return <SignUp navigator={navigator} {...route.passProps}/>
+    } 
+  }
+
+  render() {
+    return (
+      <Navigator
+        style={{flex: 1}}
+        initialRoute={{name: 'Main'}}
+        renderScene={ this.renderScene }
+      />       
+    );
+  }
+};
+
+class TabbedApp extends Component{
+// tabbed part of the app, everything after user is signed in
+constructor(props) {
+  super(props);
+  this.state = {selectedTab:'roam'};
+}
+
+renderScene (route, navigator) {
+
     if(route.name === 'Confirmation') {
       return <Confirmation navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Pending') {
       return <Pending navigator={navigator} {...route.passProps}/>
     }
-    if(route.name === 'SignUp') {
-      return <SignUp navigator={navigator} {...route.passProps}/>
-    }
+    
     if(route.name === 'Dte') {
       return <Dte navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Host') {
       return <Host navigator={navigator} {...route.passProps}/>
     }
-     if(route.name === 'Time') {
+    if(route.name === 'Join') {
+      return <Join navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'EnrollConfirmation') {
+      return <EnrollConfirmation navigator={navigator} {... route.passProps}/>
+    }
+    if(route.name === 'Time') {
       return <Time navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'XMain') {
+      return <XMain navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'X') {
+      return <X navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Location') {
       return <Location navigator={navigator} {...route.passProps}/>
     }
+    if(route.name === 'JoinPool') {
+      return <JoinPool navigator={navigator} {...route.passProps}/>
+    }
 }
+
+  navigateTo(routeName) {
+    return (
+       <Navigator
+      style={{flex: 1}}
+      initialRoute={{name: routeName}}
+      renderScene={ this.renderScene }
+      navigationBar={
+      <Navigator.NavigationBar 
+      style={ styles.nav } 
+      routeMapper={NavigationBarRouteMapper} />} 
+      />
+    )
+  }
 
   render() {
     return (
-      <Navigator
-      style={{flex: 1}}
-      initialRoute={{name: 'Main'}}
-      renderScene={ this.renderScene }
-      navigationBar={
-             <Navigator.NavigationBar 
-               style={ styles.nav } 
-               routeMapper={NavigationBarRouteMapper} />} 
-         />
+
+      <TabBarIOS 
+        selectedTab={this.state.selectedTab}
+        translucent={true}
+        // style={styles.navbar}
+        >
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'roam'}
+          // icon={require('./imgs/roam.png')}
+          title="Roam"
+          onPress={() => {
+              this.setState({
+                  selectedTab: 'roam',
+              });
+          }}>
+          {this.navigateTo('Time')}
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'pool'}
+          // icon={require('./imgs/dollar.png')}
+          title="Roam Pool"
+          onPress={() => {
+                this.setState({
+                    selectedTab: 'pool',
+                });
+          }}>
+          {this.navigateTo('JoinPool')}
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab === 'xMain'}
+          // icon={require('./imgs/dollar.png')}
+          title="Roam X"
+          onPress={() => {
+                this.setState({
+                    selectedTab: 'xMain',
+                });
+          }}>
+          {this.navigateTo('XMain')}
+        </TabBarIOS.Item>
+
+
+
+      </TabBarIOS>
+      
+
+
     );
   }
 };
