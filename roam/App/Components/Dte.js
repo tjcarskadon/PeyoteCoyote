@@ -127,7 +127,10 @@ const styles = StyleSheet.create({
     width: 225,
     textAlign: 'center',
     marginLeft: 10,
-    height: 40
+    height: 40,
+    padding: 5,
+    marginRight: 5,
+    marginBottom: 15
   },
   endTime: {
     justifyContent: 'space-between',
