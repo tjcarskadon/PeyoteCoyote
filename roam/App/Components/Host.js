@@ -90,7 +90,7 @@ handleSubmit () {
    .then( res => console.log('posted object'))
    .catch(err => console.log('error posting object'));
   //navigate to confirmation
-  // this.nav('Confirmation')
+  this.nav('Confirmation')
 }
 
 onFocus () {
