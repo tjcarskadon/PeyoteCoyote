@@ -18,7 +18,7 @@ const Main = require('./App/Components/Main');
 const Time = require('./App/Components/Time');
 const Host = require('./App/Components/Host');
 const Dte = require('./App/Components/Dte');
-const styles = require('./App/Components/Helpers/styles');
+const defaultStyles = require('./App/Components/Helpers/styles');
 const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
@@ -170,11 +170,18 @@ const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
     if(index > 0) {
       return (
+      <View style={styles.leftNavContainer}>  
         <TouchableHighlight
            underlayColor="black"
            onPress={() => { if (index > 0) { navigator.pop() } }}>
-          <Text style={ styles.leftNavButtonText }>Back</Text>
+          <Text style={ styles.leftNavButton }> {'\u2039'} </Text>
+        </TouchableHighlight>  
+          <TouchableHighlight
+           underlayColor="black"
+           onPress={() => { if (index > 0) { navigator.pop() } }}>
+          <Text style={styles.leftNavText}> Back </Text>
         </TouchableHighlight>
+      </View>
     )} 
     else { return null }
   },
@@ -187,16 +194,42 @@ const NavigationBarRouteMapper = {
                               </TouchableHighlight> )
   },
   Title(route, navigator, index, navState) {
-    return <Text style={ styles.navTitle }>roam</Text>
+    return <Text style={ styles.navTitle }>{route.title}</Text>
   }
 };
 
 
-// const styles = StyleSheet.create({
-//   container:{
-//     flex: 1,
-//     backgroundColor: 'red'
-//   },
-// });
+const styles = StyleSheet.create({
+  // container:{
+  //   flex: 1,
+  //   backgroundColor: 'red'
+  // },
+  leftNavContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  },
+  leftNavButton: {
+    fontSize: 40,
+    position: 'relative',
+    top: -2,
+    color: '#08abdf'
+  },
+  leftNavText: {
+    color: '#08abdf',
+    position: 'relative',
+    right: 15,
+    top: 17,
+    marginLeft: 0,
+  },
+  navTitle: {
+    position: 'absolute',
+    fontSize: 20,
+    left: 153,
+    marginTop: 12,
+    marginLeft: 15
+  
+  }
+});
 
 AppRegistry.registerComponent('roam', () => roam);
