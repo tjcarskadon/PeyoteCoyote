@@ -23,8 +23,11 @@ class Host extends Component {
 
   constructor (props) {
     super(props);
+    let n = new Date();
+    let twoHours = n.setHours(n.getHours()+2);
     this.state = {
       date: new Date(),
+      endTime: new Date(twoHours),
       flag: false,
       titleText: this.props.titleText || '',
       descText: this.props.descText || '',
@@ -46,6 +49,8 @@ nav (path) {
         isHost: this.props.isHost,
         date: this.props.date || this.state.dateString,
         time: this.props.time || this.state.time,
+        endDate: this.props.endDate,
+        endTime: this.props.endTime,
         locName: this.state.locName,
         address: this.props.address,
         latitude: this.props.lat,
@@ -56,9 +61,12 @@ nav (path) {
 }
 
 handleSubmit () {
-  let ds = this.props.date || df.formatDate(this);
-  let tm = this.props.time || df.formatTime(this);
-  let dt = Date.parse(ds + ' ' + tm)
+  let ds = this.props.date || df.formatDate(this, 'date');
+  let tm = this.props.time || df.formatTime(this, 'date');
+  let dt = Date.parse(ds + ' ' + tm);
+  let eD = this.props.endDate;
+  let eTm = this.props.endTime; 
+  let eDt = Date.parse(eD + ' ' + eTm)
   //create the object
   let options = {
       userEmail: this.props.userEmail,
@@ -70,7 +78,7 @@ handleSubmit () {
       latitude: this.props.lat,
       longitude: this.props.lng,
       date: dt,
-      time: '2 hours', //see fetch in Time.js
+      time: eDt, //see fetch in Time.js
       price: this.state.price,
       isHost: true,
       roamMode: 'pool'
@@ -121,10 +129,31 @@ onBlur () {
             <TouchableHighlight onPress={() => this.nav('Dte')}>
               <View style={defaultStyles.dateViewBox}>
                 <View>
-                  <Text style={defaultStyles.dateViewLabel}>Selected Date:</Text>
+                  <Text style={defaultStyles.dateViewLabel}>Roam Start:</Text>
                 </View> 
                 <View>
-                  <Text style={defaultStyles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
+                  <Text style={defaultStyles.dateViewTime}>{this.props.date 
+                    ? this.props.date 
+                    : df.formatDate(this, 'date')} {this.props.time 
+                      ? this.props.time 
+                      : df.formatTime(this, 'date')}
+                      </Text>
+                </View>
+              </View>
+            </TouchableHighlight>
+
+            <TouchableHighlight onPress={() => this.nav('Dte')}>
+              <View style={defaultStyles.dateViewBox}>
+                <View>
+                  <Text style={defaultStyles.dateViewLabel}>Roam End:</Text>
+                </View> 
+                <View>
+                  <Text style={defaultStyles.dateViewTime}>{this.props.date 
+                    ? this.props.endDate
+                    : df.formatDate(this, 'endTime')} {this.props.time 
+                    ? this.props.endTime
+                    : df.formatTime(this, 'endTime')}
+                    </Text>
                 </View>
               </View>
             </TouchableHighlight>
