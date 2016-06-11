@@ -30,7 +30,11 @@ module.exports = (data, res) => {
               firstName: "%firstName%", \
               lastName: "%lastName%", \
               password: "%password%", \
-              email: "%email%" \
+              email: "%email%", \
+              picture: "%picture%", \
+              gender: "%gender%", \
+              facebook: "%facebook%", \
+              facebookID: "%facebook%" \
             });',
             data
           )

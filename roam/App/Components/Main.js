@@ -5,13 +5,12 @@ var SignUp = require('./Signup');
 var Time = require('./Time');
 var styles = require('./Helpers/styles');
 var FBSDK = require('react-native-fbsdk');
+var handleFacebook = require('../Utils/Login');
 
 const {
   LoginButton,
   LoginManager,
   AccessToken,
-  GraphRequest,
-  GraphRequestManager,
 } = FBSDK;
 let authToken;
 
@@ -180,13 +179,12 @@ class Main extends Component {
                   authToken = data.accessToken.toString();
                   this.setState({token: data.accessToken.toString()});
                 });
-                this.handleFaceBook();
+                handleFacebook(this.nav.bind(this), authToken);
               }
             }
           }
           onLogoutFinished={() => {
             alert("User logged out");
-            this.handleFacebookLogout();
           }}
         />
         </View>
