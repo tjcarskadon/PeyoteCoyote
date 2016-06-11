@@ -37,9 +37,16 @@ class Main extends Component {
     };
   }
 
-  nav (path, email) {
+  nav (path, email, title) {
+    if(path === 'Time') {
+      console.log('alskdjfalksdjf')
+
+      console.log(this.props.navigator.getCurrentRoutes())
+    }
+
     this.props.navigator.push({
       name: path,
+      title: title,
       passProps: {
         userEmail: email
       }
@@ -99,12 +106,6 @@ class Main extends Component {
           this.setState({errorMessage: res.message, error: true, isLoading: false});
         } else{
           this.nav('Time',this.state.email.toLowerCase());
-          //Leave this as a breadcrumb if we go back to NavigatorIOS
-          // this.props.navigator.push({
-          //   title: 'When are you free?',
-          //   email: this.state.email.toLowerCase(),
-          //   component: Time
-          // });
           this.setState({
             isLoading: false
           });
@@ -117,19 +118,7 @@ class Main extends Component {
   }
 
   handleSignUp() {
-
-    this.nav('SignUp', null);
-    //Leave this as breadcrumb incase we go back to NavigatorIOS
-    // this.setState({
-    //   isLoading: true
-    // });
-    // this.props.navigator.push({
-    //   title: 'Sign Up',
-    //   component: SignUp
-    // });
-    // this.setState({
-    //   isLoading: false
-    // });
+    this.nav('SignUp', null, 'Sign Up');
   }
 
   render() {
@@ -139,7 +128,7 @@ class Main extends Component {
     return(
       <Image style={styles.backgroundImage}
       source={require('../../imgs/uni.jpg')}>
-        <Text style={styles.title}>roam</Text>
+        <Text style={styles.title}>ROAM</Text>
         {/* Fields that we want to bind the email and password input */}
         <TextInput
           style={styles.submit}

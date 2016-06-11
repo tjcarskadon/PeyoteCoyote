@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // var Interests = require('./Interests');
 var Time = require('./Time');
 
-var styles = require('./Helpers/styles');
+var defaultStyles = require('./Helpers/styles');
 
 import {
   View,
@@ -31,9 +31,9 @@ class SignUp extends Component {
     };
   }
 
-  nav(email) {
+  nav(path, email) {
     this.props.navigator.push({
-      name: 'Time',
+      name: path,
       passProps: {
         email: email
       }
@@ -78,14 +78,7 @@ class SignUp extends Component {
       .then((res) => {
         console.log('RESPONSE FROM SERVER ON SIGNUP PAGE', res);
         if (res.message === 'User created') {
-          this.nav(this.state.email.toLowerCase());
-          //Leave this as a breadcrumb incase we go back to NavigatorIOS
-          // this.props.navigator.push({
-          //   title: 'Select Time',
-          //   email: this.state.email.toLowerCase(),
-          //   component: Time
-          // });
-          //Set isloading to false after conditions
+          this.nav('Time', this.state.email.toLowerCase());
           this.setState({
             isLoading: false
           });
@@ -103,39 +96,35 @@ class SignUp extends Component {
       .catch((error) => {
         console.log('Error handling submit:', error);
       });
-      //Need logic to check if username is taken in the database
-      //Check if the passwords are matching
-      //Check if the email is valid
-      //Route to the hobbies screen
     }
 
   }
 
   render() {
     var showErr = (
-      this.state.error ? <Text style={styles.errorMessage}> {this.state.errorMessage} </Text> : <View></View>
+      this.state.error ? <Text style={defaultStyles.errorMessage}> {this.state.errorMessage} </Text> : <View></View>
     );
     return(
-      <Image style={styles.backgroundImage}
+      <Image style={defaultStyles.backgroundImage}
         source={require('../../imgs/uni.jpg')} >
-        <Text style={styles.title}> sign up </Text>
+        <Text style={defaultStyles.title}> sign up </Text>
         {/* Fields that we want to bind the username and password input */}
         <TextInput
-          style={styles.submit}
+          style={defaultStyles.submit}
           placeholder="Your first name"
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({firstName: text})}
           value={this.state.firstName}
           />
         <TextInput
-          style={styles.submit}
+          style={defaultStyles.submit}
           placeholder="Your last name"
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({lastName: text})}
           value={this.state.lastName}
           />
         <TextInput
-          style={styles.submit}
+          style={defaultStyles.submit}
           placeholder="Enter a password"
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({password: text})}
@@ -143,7 +132,7 @@ class SignUp extends Component {
           secureTextEntry={true}
           />
         <TextInput
-          style={styles.submit}
+          style={defaultStyles.submit}
           placeholder="Enter password again"
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({passwordAgain: text})}
@@ -151,19 +140,27 @@ class SignUp extends Component {
           secureTextEntry={true}
           />
         <TextInput
-          style={styles.submit}
+          style={defaultStyles.submit}
           autoCapitalize="none"
           placeholder="Email"
           placeholderTextColor="white"
           onChangeText={(text) => this.setState({email: text})}
           value={this.state.email}
           />
-        <TouchableHighlight
-          style={styles.button}
-          onPress={this.handleSubmit.bind(this)}
-          underlayColor="white" >
-            <Text style={styles.buttonText}> Create Account </Text>
-        </TouchableHighlight>
+        <View style={styles.buttonContainer}>  
+          <TouchableHighlight
+            style={[defaultStyles.button, styles.button]}
+            onPress={this.handleSubmit.bind(this)}
+            underlayColor="white" >
+              <Text style={defaultStyles.buttonText}> Create Account </Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            style={[defaultStyles.button, styles.button]}
+            onPress={() => this.nav('Main')}
+            underlayColor="white" >
+              <Text style={defaultStyles.buttonText}> Cancel </Text>
+          </TouchableHighlight>
+        </View>
         {/* This is the loading animation when isLoading is set to true */}
         <ActivityIndicatorIOS
           animating={this.state.isLoading}
@@ -173,6 +170,22 @@ class SignUp extends Component {
       </Image>
     )
   }
-}
+};
+
+const styles = StyleSheet.create({
+  button: {
+    width: 150,
+    marginRight: 10,
+    marginLeft: 10,
+    marginBottom: 120
+  },
+
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start'
+  }
+});
+
 
 module.exports = SignUp;

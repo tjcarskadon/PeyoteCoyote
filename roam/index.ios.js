@@ -34,7 +34,7 @@ class roam extends Component{
    //main component, switches between tabbed app and signup pages
    renderScene(route, navigator) {
     if(route.name === 'Main') {
-      return <Main navigator={navigator} {...route.passProps}/>
+      return <Main tite={'Welcome'} navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Time') {
       return <TabbedApp navigator={navigator} {...route.passProps}/>
@@ -49,13 +49,15 @@ class roam extends Component{
       <Navigator
         style={{flex: 1}}
         initialRoute={{name: 'Main'}}
-        renderScene={ this.renderScene }
+        renderScene={ this.renderScene } 
       />       
     );
   }
 };
 
-class TabbedApp extends Component{
+
+
+class TabbedApp extends Component {
 // tabbed part of the app, everything after user is signed in
 constructor(props) {
   super(props);
@@ -100,11 +102,11 @@ renderScene (route, navigator) {
     }
 }
 
-  navigateTo(routeName) {
+  navigateTo(routeName, title) {
     return (
        <Navigator
       style={{flex: 1}}
-      initialRoute={{name: routeName, passProps: {userEmail: this.props.userEmail}}}
+      initialRoute={{name: routeName, title:title, passProps: {userEmail: this.props.userEmail}}}
       renderScene={ this.renderScene }
       navigationBar={
       <Navigator.NavigationBar 
@@ -131,7 +133,7 @@ renderScene (route, navigator) {
                   selectedTab: 'roam',
               });
           }}>
-          {this.navigateTo('Time')}
+          {this.navigateTo('Time', 'Home')}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'pool'}
@@ -142,7 +144,7 @@ renderScene (route, navigator) {
                     selectedTab: 'pool',
                 });
           }}>
-          {this.navigateTo('JoinPool')}
+          {this.navigateTo('JoinPool','Join')}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'xMain'}
@@ -153,22 +155,19 @@ renderScene (route, navigator) {
                     selectedTab: 'xMain',
                 });
           }}>
-          {this.navigateTo('XMain')}
+          {this.navigateTo('XMain', 'Shhhhh')}
         </TabBarIOS.Item>
-
-
-
       </TabBarIOS>
-      
-
-
     );
   }
 };
 
 const NavigationBarRouteMapper = {
   LeftButton(route, navigator, index, navState) {
-    if(index > 0) {
+    // if(route.name === 'Time') {
+    //    index = 0; 
+    // }
+    if(index > 0) { 
       return (
       <View style={styles.leftNavContainer}>  
         <TouchableHighlight
@@ -178,7 +177,8 @@ const NavigationBarRouteMapper = {
         </TouchableHighlight>  
           <TouchableHighlight
            underlayColor="black"
-           onPress={() => { if (index > 0) { navigator.pop() } }}>
+           onPress={() => { 
+            if (index > 0 && route.name !== 'Time') { navigator.pop() } }}>
           <Text style={styles.leftNavText}> Back </Text>
         </TouchableHighlight>
       </View>
