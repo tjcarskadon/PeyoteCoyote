@@ -30,7 +30,6 @@ class Location extends Component {
     }
   }
 
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
   handleLookup () {
 
     let addr = this.state.street + ', ' + this.state.city +', ' + this.state.st;
@@ -49,15 +48,13 @@ class Location extends Component {
     .catch((error) => {
       console.warn(error);
     });
-
-=======
+  }
   handleLookup (obj) {
       let name = obj.name;    
       let fAddr = obj.formatted_address;
       let lat = obj.geometry.location.lat;
       let lng = obj.geometry.location.lng;
       this.handlePinDrop(name, fAddr, lat, lng);
->>>>>>> FEAT - complete google places implementation
   }
 
  handlePinDrop (name, fAddr, lat, lng) {
@@ -68,9 +65,8 @@ class Location extends Component {
        latitude: lat,
        longitude: lng
      }
-   })
-  }
-
+   });
+}
 
   nav (path) {
     this.props.navigator.push( {
@@ -157,14 +153,7 @@ class Location extends Component {
       />
       </View>
     </TouchableWithoutFeedback>
-
-
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
-          
->>>>>>> REFACT - Move google places to location.js
-=======
           {createRoamButton}
->>>>>>> FEAT - complete google places implementation
        </View>
     </Image>
     )

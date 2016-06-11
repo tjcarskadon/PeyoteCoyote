@@ -70,10 +70,7 @@ handleSubmit () {
       latitude: this.props.lat,
       longitude: this.props.lng,
       date: dt,
-<<<<<<< bb0b5d7e895b740889b8ae7f348a29e808a6146d
       time: '2 hours', //see fetch in Time.js
-=======
->>>>>>> REFACT - Move google places to location.js
       price: this.state.price,
       isHost: true,
       roamMode: 'pool'
@@ -114,11 +111,7 @@ onBlur () {
       <Text style={defaultStyles.header}>Host a roam</Text>
 
       <TextInput
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
-          style={styles.submit}
-=======
           style={defaultStyles.submit} 
->>>>>>> FEAT - complete google places implementation
           autoCapitalize="none"
           placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
           placeholderTextColor="white"
@@ -128,13 +121,8 @@ onBlur () {
       <TouchableHighlight onPress={() => this.nav('Dte')}>
         <View style={defaultStyles.dateViewBox}>
           <View>
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
-            <Text style={styles.dateViewLabel}>Selected Date:</Text>
-          </View>
-=======
             <Text style={defaultStyles.dateViewLabel}>Selected Date:</Text>
           </View> 
->>>>>>> FEAT - complete google places implementation
           <View>
             <Text style={defaultStyles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
           </View>
@@ -151,17 +139,10 @@ onBlur () {
           </View>
         </View>
     </TouchableHighlight>
-
     <View>
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
-    <View style={styles.smallSubContainer}>
-       <TextInput
-          style={styles.smallSubmit}
-=======
     <View style={defaultStyles.smallSubContainer}> 
        <TextInput
           style={defaultStyles.smallSubmit} 
->>>>>>> FEAT - complete google places implementation
           autoCapitalize="none"
           placeholder={this.props.price ? this.props.price : '$'}
           placeholderTextColor='white'
@@ -171,11 +152,7 @@ onBlur () {
       </View>
       <View>
        <TextInput
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
-          style={styles.smallSubmit}
-=======
           style={defaultStyles.smallSubmit} 
->>>>>>> FEAT - complete google places implementation
           autoCapitalize="none"
           placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
           placeholderTextColor='white'
@@ -187,11 +164,7 @@ onBlur () {
 
      <View>
       <TextInput
-<<<<<<< 30139470a2cf9b012734e496396c767f995f69a8
-        style={this.state.flag ? styles.bigInput : styles.desc}
-=======
-        style={this.state.flag ? defaultStyles.bigInput : defaultStyles.desc} 
->>>>>>> FEAT - complete google places implementation
+        style={this.state.flag ? defaultStyles.bigInput : defaultStyles.desc}
         autoCapitalize="none"
         placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
         autoCorrect={false}
