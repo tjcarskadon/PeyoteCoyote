@@ -151,13 +151,7 @@ class Main extends Component {
           underlayColor="white" >
             <Text style={styles.buttonText}> Sign In </Text>
         </TouchableHighlight>
-        <TouchableHighlight
-          // style={styles.button}
-          onPress={this.handleSignUp.bind(this)}
-          underlayColor="transparent" >
-            <Text style={styles.signUpButton}> Not a user? Sign Up </Text>
-        </TouchableHighlight>
-        <View style={styles.facebook}>
+        <View style={[styles.facebook, {marginLeft: 90}]}>
         <LoginButton
           readPermissions={["public_profile", "user_friends", "email"]}
           onLoginFinished={
@@ -178,6 +172,13 @@ class Main extends Component {
           }}
         />
         </View>
+        <TouchableHighlight
+          // style={styles.button}
+          onPress={this.handleSignUp.bind(this)}
+          underlayColor="transparent" >
+            <Text style={styles.signUpButton}> Not a user? Sign Up </Text>
+        </TouchableHighlight>
+        
         {/* This is the loading animation when isLoading is set to true */}
         <ActivityIndicatorIOS
           animating={this.state.isLoading}
