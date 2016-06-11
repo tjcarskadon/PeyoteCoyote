@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
 
   submit: {
-    height: 50,
+    height: 50,   
     padding: 10,
     marginRight: 5,
     marginBottom: 15,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
   smallSubmit: {
     height: 50,
-    width: 100,
+    width: 150,
     padding: 10,
     marginRight: 5,
     marginBottom: 15,
@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
   },
 
   bigInput: {
-      height: 175,
+      height: 150,
       padding: 10,
       marginRight: 5,
-      marginBottom: 175,
+      marginBottom: 75,
       fontSize: 18,
       borderWidth: 1,
       borderColor: 'white',

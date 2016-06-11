@@ -135,7 +135,7 @@ class JoinPool extends Component {
         </View>
         <TouchableHighlight 
           style = {defaultStyles.button} 
-          onPress = { () => this.props.navigator.push({name: 'Host'}) } >
+          onPress = { () => this.props.navigator.push({name: 'Host', passProps: {userEmail: this.props.userEmail}}) } >
           <Text style={defaultStyles.buttonText}>Become a host</Text>
         </TouchableHighlight>
       </Image>
