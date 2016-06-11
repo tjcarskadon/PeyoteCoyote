@@ -23,7 +23,6 @@ const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
-const NoRoamsLeft = require('./App/Components/NoRoamsLeft');
 const EnrollConfirmation = require('./App/Components/EnrollConfirmation');
 
 console.ignoredYellowBox = [
@@ -31,28 +30,51 @@ console.ignoredYellowBox = [
     // Other warnings you don't want like 'jsSchedulingOverhead',
   ];
 
-
-
 class roam extends Component{
+   //main component, switches between tabbed app and signup pages
+   renderScene(route, navigator) {
+    if(route.name === 'Main') {
+      return <Main navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'Time') {
+      return <TabbedApp navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'SignUp') {
+      return <SignUp navigator={navigator} {...route.passProps}/>
+    } 
+  }
 
+  render() {
+    return (
+       <Navigator
+        style={{flex: 1}}
+        initialRoute={{name: 'Main'}}
+        renderScene={ this.renderScene }
+        navigationBar={
+        <Navigator.NavigationBar 
+        style={ styles.nav } 
+        routeMapper={NavigationBarRouteMapper} />} 
+        />
+    );
+  }
+};
+
+class TabbedApp extends Component{
+// tabbed part of the app, everything after user is signed in
 constructor(props) {
   super(props);
   this.state = {selectedTab:'roam'};
 }
 
 renderScene (route, navigator) {
-    if(route.name === 'Main') {
-      return <Main navigator={navigator} {...route.passProps}/>
-    }
+
     if(route.name === 'Confirmation') {
       return <Confirmation navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Pending') {
       return <Pending navigator={navigator} {...route.passProps}/>
     }
-    if(route.name === 'SignUp') {
-      return <SignUp navigator={navigator} {...route.passProps}/>
-    }
+    
     if(route.name === 'Dte') {
       return <Dte navigator={navigator} {...route.passProps}/>
     }
@@ -61,9 +83,6 @@ renderScene (route, navigator) {
     }
     if(route.name === 'Join') {
       return <Join navigator={navigator} {...route.passProps}/>
-    }
-    if(route.name === 'NoRoamsLeft') {
-      return <NoRoamsLeft navigator={navigator} {... route.passProps}/>
     }
     if(route.name === 'EnrollConfirmation') {
       return <EnrollConfirmation navigator={navigator} {... route.passProps}/>
