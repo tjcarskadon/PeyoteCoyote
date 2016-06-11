@@ -1,16 +1,18 @@
-let formatDate = (context)  => {
-  let month = context.state.date.getMonth() + 1; 
-  let day = context.state.date.getDate(); 
-  let year = context.state.date.getFullYear();
+let formatDate = (context, prop)  => {
+  let month = context.state[prop].getMonth() + 1; 
+  let day = context.state[prop].getDate(); 
+  let year = context.state[prop].getFullYear();
 
   return month + "/" + day + "/" + year;
 
 }
 
-let formatTime = (context) => {
-   let hr = context.state.date.getHours() > 12 ? context.state.date.getHours() - 12 : context.state.date.getHours();
-   let min = context.state.date.getMinutes() <=9 ? '0' + context.state.date.getMinutes() : context.state.date.getMinutes();
-   let suf = context.state.date.getHours() > 12 ? 'PM' : 'AM';
+let formatTime = (context, prop) => {
+   let hr = context.state[prop].getHours() > 12 
+     ? context.state[prop].getHours() - 12 
+     : context.state[prop].getHours() === 0 ? 12 : context.state[prop].getHours();
+   let min = context.state[prop].getMinutes() <=9 ? '0' + context.state[prop].getMinutes() : context.state[prop].getMinutes();
+   let suf = context.state[prop].getHours() > 12 ? 'PM' : 'AM';
 
   return hr + ':' + min + ' ' + suf;
 
