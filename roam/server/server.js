@@ -26,6 +26,8 @@ const roamHandler = require('./utils/roamHandler');
 const cancelRoamHandler = require('./utils/cancelRoamHandler');
 // const joinRoamHandler = require('./utils/joinRoamHandler');
 const roamListHandler = require('./utils/roamListHandler');
+const profileHandler = require('./utils/profileHandler');
+const usersHandler = require('./utils/roamXHandler');
 
 
 
@@ -89,6 +91,11 @@ app.get('/roamList', function(req, res) {
 app.post('/joinRoam', function(req, res) {
   joinRoamHandler(req, res);
 });
+
+//get list of all roamX available;
+app.get('/roamX', function(req, res) {
+  roamXHandler(req, res);
+})
 
 app.listen(3000, function(){
   console.log('Example app listening on port 3000!');
