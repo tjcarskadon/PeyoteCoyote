@@ -162,7 +162,7 @@ onBlur () {
            <TouchableHighlight onPress={() => this.nav('Location')}>
             <View style={defaultStyles.locViewBox}>
                 <View>
-                  <Text style={defaultStyles.locViewLabel}>Pick a Location:</Text>
+                  <Text style={defaultStyles.locViewLabel}>Location:</Text>
                 </View>
                 <View>
                   <Text style={[defaultStyles.locViewLabel, styles.location]}>{this.props.locName} </Text>
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     marginLeft: 40
   },
  dateRight: {
-  marginLeft: 35
+  marginLeft: 45
  },
  button: {
   marginTop: 0,
