@@ -166,7 +166,8 @@ onBlur () {
                   <Text style={defaultStyles.locViewLabel}>Location:</Text>
                 </View>
                 <View>
-                  <Text style={[defaultStyles.locViewLabel, styles.location]}>{this.props.locName} </Text>
+                  <Text style={[defaultStyles.locViewLabel, styles.location, styles.link]}>{this.props.locName ? this.props.locName 
+                    : "     Add a location..."} </Text>
                 </View>
               </View>
           </TouchableHighlight>
@@ -235,7 +236,11 @@ const styles = StyleSheet.create({
  button: {
   marginTop: 0,
   marginBottom: 3
-  }
+},
+link: {
+  color: '#08abdf'
+}
+
 })
 
 module.exports = Host;

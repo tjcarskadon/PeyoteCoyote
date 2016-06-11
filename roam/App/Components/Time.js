@@ -45,6 +45,15 @@ class Time extends Component {
   }
 
   handleSubmit() {
+    //reformat time
+
+    let numHrs = this.state.selectedOption !== 'Anytime' 
+    ? this.state.selectedOption.split(' ')[0] : 6;
+    let n = new Date();
+    let availTime = n.setHours(n.getHours() + numHrs);
+    console.log(availTime);
+
+
     this.nav('Confirmation', this.props.userEmail);
 
     // fetch('http://107.170.251.113:3000/roam', {
@@ -60,7 +69,7 @@ class Time extends Component {
         latitude: this.props.lat,
         longitude: this.props.lng,
         roamMode: 'roam',
-        time: this.state.selectedOption
+        time: availTime
       })
     })
     .then((res) => {
@@ -110,12 +119,6 @@ class Time extends Component {
           style={styles.button}
           onPress={this.handleSubmit.bind(this)} >
             <Text style={styles.buttonText}> Roam! </Text>
-        </TouchableHighlight>
-         <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.nav('Host', this.props.userEmail)}
-          underlayColor="white" >
-            <Text style={styles.buttonText}> Host a roam </Text>
         </TouchableHighlight>
       </Image>
     );
