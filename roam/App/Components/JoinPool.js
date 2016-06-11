@@ -1,4 +1,4 @@
-// Tinder.js
+// JoinPool.js
 'use strict';
 import React, {Component} from 'react';
 import {View,
@@ -10,76 +10,7 @@ import {View,
   ActivityIndicatorIOS} from 'react-native';
 var Geolocation = require('./Geolocation');
 var defaultStyles = require('./Helpers/styles')
-import SwipeCards from 'react-native-swipe-cards';
-
-      
-
-
-     // <View style={styles.card}>
-            
-            // <View style={styles.cardTitleWrap}>
-            //   <Text style={styles.cardHeader}>{this.state.currentRoam.title}</Text>
-            // </View>
-            
-            // <View style={styles.cardTimeWrap}>
-            //   <Text style={styles.cardTimeText}>{this.state.currentRoam.date}</Text>
-            // </View>
-            
-            // <View style={styles.cardMap}>
-            //   <Geolocation showUser={false} markers = {[this.state.currentRoam.marker]}/>
-            // </View>
-
-            
-            // <View style={styles.icons}>
-              
-            //   <View style={styles.cardPriceWrap}>
-            //     <View>
-            //       <Image style={styles.priceIcon} source={require('../../imgs/dollar.png')}/>
-            //     </View>
-            //     <View style={styles.priceTextWrap}>
-            //       <Text style={styles.priceText}> {this.state.currentRoam.price}</Text>
-            //     </View>
-            //   </View>
-              
-              // <View style={styles.cardAttendingWrap}>
-              //   <View>
-              //     <Image style={styles.participantsIcon} source={require('../../imgs/participants.png')}/>
-            //     </View>
-            //     <View style={styles.participantsTextWrap}>
-            //       <Text style={styles.participantsText}> {this.state.currentRoam.attending}</Text>
-            //     </View>
-            //   </View>
-
-            //   <View style={styles.cardCapacityWrap}>
-            //     <View>
-            //       <Image style={styles.capacityIcon} source={require('../../imgs/capacity.png')}/>
-            //     </View>
-            //     <View style={styles.capacityTextWrap}>
-            //       <Text style={styles.capacityText}> {this.state.currentRoam.capacity}</Text>
-            //     </View>
-            //   </View>
-            // </View>
-
-            // <View style={styles.cardDescriptionWrap}>
-            //   <Text style={styles.cardDescription}>{this.state.currentRoam.description}</Text>
-            // </View>
-            // <View style={styles.cardControls}>
-            //   <TouchableHighlight 
-            //     style = {styles.cardButton} 
-            //     onPress = {this.handleReject.bind(this)} >
-            //     <Text style={defaultStyles.buttonText}>Pass</Text>
-            //   </TouchableHighlight>
-            //   <TouchableHighlight 
-            //     style = {styles.cardButton} 
-            //     onPress = {this.handleEnroll.bind(this)} >
-            //     <Text style={defaultStyles.buttonText}>Enroll</Text>
-            //   </TouchableHighlight>
-            // </View>
-          // </View>
-
-
-
-
+import SwipeCards from './Helpers/Cards/SwipeCards';
 
 class Card extends Component{
   
@@ -209,10 +140,10 @@ const roams = [
         },
         
         {
-          title: 'Swinger getaway', 
+          title: 'Wild getaway', 
           attending: 56, 
           capacity: 99,
-          description: 'EVERY WEEK SWINGERS SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT.',
+          description: 'EVERY WEEK PEOPLE IN SAN FRANCISCO BRINGS TOGETHER PEOPLE FROM AROUND THE WORLD TO EXPERIENCE THE ULTIMATE NIGHT.',
           marker: {
             title: 'Tenderloin',
             latitude: 37.7847,
@@ -223,14 +154,7 @@ const roams = [
         }
       ];
 
-const Cards2 = [
-  {name: '10', image: 'https://media.giphy.com/media/12b3E4U9aSndxC/giphy.gif'},
-  {name: '11', image: 'https://media4.giphy.com/media/6csVEPEmHWhWg/200.gif'},
-  {name: '12', image: 'https://media4.giphy.com/media/AA69fOAMCPa4o/200.gif'},
-  {name: '13', image: 'https://media.giphy.com/media/OVHFny0I7njuU/giphy.gif'},
-]
-
-class Tinder extends Component {
+class JoinPool extends Component {
 
   constructor(props) {
     super(props);
@@ -247,86 +171,53 @@ class Tinder extends Component {
     console.log("nope")
   }
   cardRemoved (index, swipedRight) {
-    console.log('swipedRight', swipedRight);
-    console.log(`The index is ${index}`);
-    console.log('this.state.outOfCards', this.state.outOfCards);
     if (swipedRight) {
       this.props.navigator.push({name: 'EnrollConfirmation'});
-    } else {
-      
-      if (index === this.state.roams.length - 1) {
-        
-
-        // if (!this.state.outOfCards) {
-        //   console.log('went to first');
-        //   console.log(`Adding ${Cards2.length} more cards`)
-        //   this.setState({
-        //     outOfCards: true
-        //   })
-        // } else {
-        //   console.log('went to second');
-          // this.props.navigator.push({name: 'NoRoamsLeft'});
-        // }
-
-      }
-
-    }
-
+    } 
   }
-
-
-  // handleReject() {
-  //   console.log('you don\'t like it');
-  //   if (this.state.currentRoamIndex < this.state.roams.length - 1 ) {
-  //     this.state.currentRoamIndex++;
-  //     this.setState({currentRoam: this.state.roams[this.state.currentRoamIndex]})
-  //   } else {
-  //     console.log('NEXT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-      
-  //   }
-  //   console.log('ROAMS:' + JSON.stringify(this.state.roams));
-  //   console.log('MARKER', this.state.roams[0].marker);
-
-  // }
-
-  // handleEnroll() {
-  //   console.log('it seems like you like it');
-  //   //TODO: SEND REQUEST TO SERVER
-    
-  // }
-
-
 
   render() {
     return (
-      <SwipeCards
-        cards={this.state.roams}
-        loop={false}
+      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
+        <View style={defaultStyles.container}>
+          <SwipeCards
+            cards={this.state.roams}
+            loop={false}
 
-        renderCard={(cardData) => <Card {...cardData} />}
-        renderNoMoreCards={() => <NoMoreCards navigator = {this.props.navigator} />}
-        showYup={true}
-        showNope={true}
+            renderCard={(cardData) => <Card {...cardData} />}
+            renderNoMoreCards={() => <NoMoreCards navigator = {this.props.navigator} />}
+            showYup={true}
+            showNope={true}
 
-        handleYup={this.handleYup.bind(this)}
-        handleNope={this.handleNope.bind(this)}
-        cardRemoved={this.cardRemoved.bind(this)}
-      />
+            handleYup={this.handleYup.bind(this)}
+            handleNope={this.handleNope.bind(this)}
+            cardRemoved={this.cardRemoved.bind(this)}
+          />
+
+        <TouchableHighlight
+          style={styles.hostButton}
+          onPress={() => this.props.navigator.push({name: 'Host'})} 
+          underlayColor="white" >
+            <Text style={defaultStyles.buttonText}> Become a host </Text>
+        </TouchableHighlight>
+        </View>
+      </Image>
     )
   }
 }
 
 const styles = StyleSheet.create({
- 
-  thumbnail: {
-    flex: 1,
+  
+  hostButton: {
+    height: 50,
     width: 300,
-    height: 300,
-  },
-  text: {
-    fontSize: 20,
-    paddingTop: 10,
-    paddingBottom: 10
+    flexDirection: 'row',
+    backgroundColor: '#ff0066',
+    borderRadius:10,
+    marginBottom: 10,
+    marginTop: 30,
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   noMoreCards: {
     flex: 1,
@@ -490,4 +381,4 @@ const styles = StyleSheet.create({
 
 });
 
-module.exports = Tinder;
+module.exports = JoinPool;

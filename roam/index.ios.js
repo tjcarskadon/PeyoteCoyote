@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import PoolMain from './App/Components/PoolMain'
+import JoinPool from './App/Components/JoinPool'
 import XMain from './App/Components/XMain'
+import X from './App/Components/X'
 import {
   AppRegistry,
   StyleSheet,
@@ -22,7 +23,6 @@ const Location = require('./App/Components/Location');''
 const SignUp = require('./App/Components/Signup');
 const Pending = require('./App/Components/PendingRoam');
 const Confirmation =  require('./App/Components/Confirmation');
-const Join = require('./App/Components/Join');
 const NoRoamsLeft = require('./App/Components/NoRoamsLeft');
 const EnrollConfirmation = require('./App/Components/EnrollConfirmation');
 
@@ -68,19 +68,40 @@ renderScene (route, navigator) {
     if(route.name === 'EnrollConfirmation') {
       return <EnrollConfirmation navigator={navigator} {... route.passProps}/>
     }
-     if(route.name === 'Time') {
+    if(route.name === 'Time') {
       return <Time navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'XMain') {
+      return <XMain navigator={navigator} {...route.passProps}/>
+    }
+    if(route.name === 'X') {
+      return <X navigator={navigator} {...route.passProps}/>
     }
     if(route.name === 'Location') {
       return <Location navigator={navigator} {...route.passProps}/>
     }
+    if(route.name === 'JoinPool') {
+      return <JoinPool navigator={navigator} {...route.passProps}/>
+    }
 }
 
-
+  navigateTo(routeName) {
+    return (
+       <Navigator
+      style={{flex: 1}}
+      initialRoute={{name: routeName}}
+      renderScene={ this.renderScene }
+      navigationBar={
+      <Navigator.NavigationBar 
+      style={ styles.nav } 
+      routeMapper={NavigationBarRouteMapper} />} 
+      />
+    )
+  }
 
   render() {
     return (
-      
+
       <TabBarIOS 
         selectedTab={this.state.selectedTab}
         translucent={true}
@@ -95,7 +116,7 @@ renderScene (route, navigator) {
                   selectedTab: 'roam',
               });
           }}>
-            <Time />
+          {this.navigateTo('Time')}
         </TabBarIOS.Item>
         <TabBarIOS.Item
           selected={this.state.selectedTab === 'pool'}
@@ -106,20 +127,26 @@ renderScene (route, navigator) {
                     selectedTab: 'pool',
                 });
           }}>
-          <PoolMain />
+          {this.navigateTo('JoinPool')}
         </TabBarIOS.Item>
         <TabBarIOS.Item
-          selected={this.state.selectedTab === 'x'}
+          selected={this.state.selectedTab === 'xMain'}
           // icon={require('./imgs/dollar.png')}
           title="Roam X"
           onPress={() => {
                 this.setState({
-                    selectedTab: 'x',
+                    selectedTab: 'xMain',
                 });
           }}>
-          <XMain />
+          {this.navigateTo('XMain')}
         </TabBarIOS.Item>
+
+
+
       </TabBarIOS>
+      
+
+
     );
   }
 };

@@ -21,8 +21,8 @@ class XMain extends Component {
           </View>
           <TouchableHighlight
             style={defaultStyles.button}
-            onPress={() => this.nav('Host')}
-            underlayColor="white" >
+            onPress = { () => (this.props.navigator.push({name: 'X'})) } 
+            underlayColor="white">
               <Text style={defaultStyles.buttonText}> Start </Text>
           </TouchableHighlight>
         </View>

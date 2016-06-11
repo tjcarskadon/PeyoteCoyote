@@ -6,7 +6,6 @@ var Separator = require('./Helpers/Separator');
 var styles = require('./Helpers/styles');
 var Host = require('./Host');
 var Geolocation = require('./Geolocation');
-var Join = require('./Join');
 
 const coordinates = {};
 
