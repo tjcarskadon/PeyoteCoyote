@@ -107,86 +107,87 @@ onBlur () {
 // const workPlace = {description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
     return (
       <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-      <View style={defaultStyles.hostContainer}>
-      <Text style={defaultStyles.header}>Host a roam</Text>
+        <View style={defaultStyles.container}>
+          <View style={defaultStyles.hostContainer}>
+            <Text style={defaultStyles.header}>Host a roam</Text>
+            <TextInput
+                style={defaultStyles.submit} 
+                autoCapitalize="none"
+                placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
+                placeholderTextColor="white"
+                onChangeText={(text) => this.setState({titleText: text})}
+                value={this.state.titleText}
+            />
+            <TouchableHighlight onPress={() => this.nav('Dte')}>
+              <View style={defaultStyles.dateViewBox}>
+                <View>
+                  <Text style={defaultStyles.dateViewLabel}>Selected Date:</Text>
+                </View> 
+                <View>
+                  <Text style={defaultStyles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
+                </View>
+              </View>
+            </TouchableHighlight>
 
-      <TextInput
-          style={defaultStyles.submit} 
-          autoCapitalize="none"
-          placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
-          placeholderTextColor="white"
-          onChangeText={(text) => this.setState({titleText: text})}
-          value={this.state.titleText}
-      />
-      <TouchableHighlight onPress={() => this.nav('Dte')}>
-        <View style={defaultStyles.dateViewBox}>
+           <TouchableHighlight onPress={() => this.nav('Location')}>
+            <View style={defaultStyles.locViewBox}>
+                <View>
+                  <Text style={defaultStyles.locViewLabel}>Pick a Location:</Text>
+                </View>
+                <View>
+                  <Text style={[defaultStyles.locViewLabel, styles.location]}>{this.props.locName} </Text>
+                </View>
+              </View>
+          </TouchableHighlight>
           <View>
-            <Text style={defaultStyles.dateViewLabel}>Selected Date:</Text>
-          </View> 
-          <View>
-            <Text style={defaultStyles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
+          <View style={defaultStyles.smallSubContainer}> 
+             <TextInput
+                style={defaultStyles.smallSubmit} 
+                autoCapitalize="none"
+                placeholder={this.props.price ? this.props.price : '$'}
+                placeholderTextColor='white'
+                autoCorrect={false}
+                onChangeText={(text) => this.setState({price: text})}
+              />
+            </View>
+            <View>
+             <TextInput
+                style={defaultStyles.smallSubmit} 
+                autoCapitalize="none"
+                placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
+                placeholderTextColor='white'
+                autoCorrect={false}
+                onChangeText={(text) => this.setState({capacity: text})}
+              />
+            </View>
+          </View>
+
+           <View>
+            <TextInput
+              style={this.state.flag ? defaultStyles.bigInput : defaultStyles.desc}
+              autoCapitalize="none"
+              placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
+              autoCorrect={false}
+              placeholderTextColor="white"
+              onFocus = {() => this.onFocus()}
+              onBlur = {() => this.onBlur()}
+              multiline = {true}
+              onChangeText={(text) => this.setState({descText: text})}
+              value={this.state.descText}
+            />
+          </View>
+          <View style={defaultStyles.startRoam}>
+            <TouchableHighlight
+                style={defaultStyles.button}
+                onPress={() => this.handleSubmit()}
+                underlayColor="white" >
+                  <Text style={defaultStyles.buttonText}> Start roam </Text>
+            </TouchableHighlight>
+
           </View>
         </View>
-      </TouchableHighlight>
-
-     <TouchableHighlight onPress={() => this.nav('Location')}>
-      <View style={defaultStyles.locViewBox}>
-          <View>
-            <Text style={defaultStyles.locViewLabel}>Pick a Location:</Text>
-          </View>
-          <View>
-            <Text style={[defaultStyles.locViewLabel, styles.location]}>{this.props.locName} </Text>
-          </View>
-        </View>
-    </TouchableHighlight>
-    <View>
-    <View style={defaultStyles.smallSubContainer}> 
-       <TextInput
-          style={defaultStyles.smallSubmit} 
-          autoCapitalize="none"
-          placeholder={this.props.price ? this.props.price : '$'}
-          placeholderTextColor='white'
-          autoCorrect={false}
-          onChangeText={(text) => this.setState({price: text})}
-        />
       </View>
-      <View>
-       <TextInput
-          style={defaultStyles.smallSubmit} 
-          autoCapitalize="none"
-          placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
-          placeholderTextColor='white'
-          autoCorrect={false}
-          onChangeText={(text) => this.setState({capacity: text})}
-        />
-      </View>
-    </View>
-
-     <View>
-      <TextInput
-        style={this.state.flag ? defaultStyles.bigInput : defaultStyles.desc}
-        autoCapitalize="none"
-        placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
-        autoCorrect={false}
-        placeholderTextColor="white"
-        onFocus = {() => this.onFocus()}
-        onBlur = {() => this.onBlur()}
-        multiline = {true}
-        onChangeText={(text) => this.setState({descText: text})}
-        value={this.state.descText}
-      />
-    </View>
-    <View style={defaultStyles.startRoam}>
-      <TouchableHighlight
-          style={defaultStyles.button}
-          onPress={() => this.handleSubmit()}
-          underlayColor="white" >
-            <Text style={defaultStyles.buttonText}> Start roam </Text>
-      </TouchableHighlight>
-
-    </View>
-    </View>
-      </Image>
+    </Image>
     );
   }
 }

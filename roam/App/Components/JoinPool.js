@@ -88,12 +88,57 @@ class NoMoreCards extends Component{
     return (
       <View>
         <Text style={defaultStyles.header}>No more roams near you</Text>
+      </View>
+    )
+  }
+}
+
+class JoinPool extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      roams: roams,
+      outOfCards: false
+    }
+  }
+
+  handleYup (card) {
+    // console.log("yupppp");
+  }
+  handleNope (card) {
+    console.log("nope")
+  }
+  cardRemoved (index, swipedRight) {
+    if (swipedRight) {
+      this.props.navigator.push({name: 'EnrollConfirmation'});
+    } 
+  }
+
+  render() {
+    return (
+      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
+        <View style={defaultStyles.container}>
+          <SwipeCards
+            cards={this.state.roams}
+            loop={false}
+
+            renderCard={(cardData) => <Card {...cardData} />}
+            renderNoMoreCards={() => <NoMoreCards navigator = {this.props.navigator} />}
+            showYup={true}
+            showNope={true}
+
+            handleYup={this.handleYup.bind(this)}
+            handleNope={this.handleNope.bind(this)}
+            cardRemoved={this.cardRemoved.bind(this)}
+          />
+        </View>
         <TouchableHighlight 
           style = {defaultStyles.button} 
           onPress = { () => this.props.navigator.push({name: 'Host'}) } >
           <Text style={defaultStyles.buttonText}>Become a host</Text>
         </TouchableHighlight>
-      </View>
+      </Image>
     )
   }
 }
@@ -153,56 +198,6 @@ const roams = [
           price: '$0'
         }
       ];
-
-class JoinPool extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      roams: roams,
-      outOfCards: false
-    }
-  }
-
-  handleYup (card) {
-    // console.log("yupppp");
-  }
-  handleNope (card) {
-    console.log("nope")
-  }
-  cardRemoved (index, swipedRight) {
-    if (swipedRight) {
-      this.props.navigator.push({name: 'EnrollConfirmation'});
-    } 
-  }
-
-  render() {
-    return (
-      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-        <View style={defaultStyles.container}>
-          <SwipeCards
-            cards={this.state.roams}
-            loop={false}
-
-            renderCard={(cardData) => <Card {...cardData} />}
-            renderNoMoreCards={() => <NoMoreCards navigator = {this.props.navigator} />}
-            showYup={true}
-            showNope={true}
-
-            handleYup={this.handleYup.bind(this)}
-            handleNope={this.handleNope.bind(this)}
-            cardRemoved={this.cardRemoved.bind(this)}
-          />
-        </View>
-        <TouchableHighlight 
-          style = {defaultStyles.button} 
-          onPress = { () => this.props.navigator.push({name: 'Host'}) } >
-          <Text style={defaultStyles.buttonText}>Become a host</Text>
-        </TouchableHighlight>
-      </Image>
-    )
-  }
-}
 
 const styles = StyleSheet.create({
   

@@ -54,33 +54,35 @@ class Dte extends Component {
       
     return (
     <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-    <View style={styles.dateContainer}>
-      <View>
-        <Text style={styles.header}>Pick a Date:</Text>
-      </View>
-      <View style={styles.dateViewBox}>
-        <View>
-          <Text style={styles.dateViewLabel}>Selected Date:</Text>
+      <View style={defaultStyles.container}>
+        <View style={styles.dateContainer}>
+          <View>
+            <Text style={styles.header}>Pick a Date:</Text>
+          </View>
+          <View style={styles.dateViewBox}>
+            <View>
+              <Text style={styles.dateViewLabel}>Selected Date:</Text>
+            </View>
+            <View>
+                <Text style={styles.dateViewDate}>{df.formatDate(this)}  {df.formatTime(this)}</Text>
+            </View>
+          </View>
+          <View style={styles.datePicker}>
+            <DatePickerIOS
+              date={this.state.date}
+              mode="datetime"
+              onDateChange={this.onDateChange.bind(this)} />
+          </View>
+          <View>
+             <TouchableHighlight
+              style={styles.button}
+              onPress={() => this.nav(df.formatDate(this), df.formatTime(this))}
+              underlayColor="white" >
+                <Text style={styles.buttonText}>Test</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-        <View>
-            <Text style={styles.dateViewDate}>{df.formatDate(this)}  {df.formatTime(this)}</Text>
-        </View>
       </View>
-      <View style={styles.datePicker}>
-        <DatePickerIOS
-          date={this.state.date}
-          mode="datetime"
-          onDateChange={this.onDateChange.bind(this)} />
-      </View>
-      <View>
-         <TouchableHighlight
-          style={styles.button}
-          onPress={() => this.nav(df.formatDate(this), df.formatTime(this))}
-          underlayColor="white" >
-            <Text style={styles.buttonText}>Test</Text>
-        </TouchableHighlight>
-      </View>
-    </View>
     </Image>
     )
   }
