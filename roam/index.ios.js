@@ -104,7 +104,7 @@ renderScene (route, navigator) {
     return (
        <Navigator
       style={{flex: 1}}
-      initialRoute={{name: 'Dte', passProps: {userEmail: this.props.userEmail}}}
+      initialRoute={{name: 'Host', passProps: {userEmail: this.props.userEmail}}}
       renderScene={ this.renderScene }
       navigationBar={
       <Navigator.NavigationBar 

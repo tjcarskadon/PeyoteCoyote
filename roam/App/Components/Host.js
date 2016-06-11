@@ -148,7 +148,7 @@ onBlur () {
                   <Text style={defaultStyles.dateViewLabel}>Roam End:</Text>
                 </View> 
                 <View>
-                  <Text style={defaultStyles.dateViewTime}>{this.props.date 
+                  <Text style={[defaultStyles.dateViewTime, styles.dateRight]}>{this.props.date 
                     ? this.props.endDate
                     : df.formatDate(this, 'endTime')} {this.props.time 
                     ? this.props.endTime
@@ -173,15 +173,13 @@ onBlur () {
              <TextInput
                 style={defaultStyles.smallSubmit} 
                 autoCapitalize="none"
-                placeholder={this.props.price ? this.props.price : '$'}
+                placeholder={this.props.price ? this.props.price : '$ Cost'}
                 placeholderTextColor='white'
                 autoCorrect={false}
                 onChangeText={(text) => this.setState({price: text})}
               />
-            </View>
-            <View>
              <TextInput
-                style={defaultStyles.smallSubmit} 
+                style={[defaultStyles.smallSubmit, styles.capacity]} 
                 autoCapitalize="none"
                 placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
                 placeholderTextColor='white'
@@ -195,7 +193,7 @@ onBlur () {
             <TextInput
               style={this.state.flag ? defaultStyles.bigInput : defaultStyles.desc}
               autoCapitalize="none"
-              placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
+              placeholder={this.props.descText ? this.props.descText : "Enter roam description"}
               autoCorrect={false}
               placeholderTextColor="white"
               onFocus = {() => this.onFocus()}
@@ -207,7 +205,7 @@ onBlur () {
           </View>
           <View style={defaultStyles.startRoam}>
             <TouchableHighlight
-                style={defaultStyles.button}
+                style={[defaultStyles.button, styles.button]}
                 onPress={() => this.handleSubmit()}
                 underlayColor="white" >
                   <Text style={defaultStyles.buttonText}> Start roam </Text>
@@ -225,6 +223,16 @@ const styles = StyleSheet.create({
   location: {
     marginLeft: 18,
     fontSize: 18
+  },
+  capacity: {
+    marginLeft: 40
+  },
+ dateRight: {
+  marginLeft: 35
+ },
+ button: {
+  marginTop: 0,
+  marginBottom: 3
   }
 })
 
