@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-const styles = require('./Helpers/styles');
+const defaultStyles = require('./Helpers/styles');
 const df = require('./Helpers/dateFormat');
 const Host = require('./Host');
 
@@ -53,40 +53,78 @@ class Dte extends Component {
   render () {
       
     return (
-    <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-      <View style={defaultStyles.container}>
-        <View style={styles.dateContainer}>
+    <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
+    <View style={defaultStyles.dateContainer}>
+      <View>
+        <Text style={defaultStyles.header}>Schedule Roam</Text>
+      </View> 
+      <View>
+        <View style={defaultStyles.dateViewBox}>
           <View>
-            <Text style={styles.header}>Pick a Date:</Text>
-          </View>
-          <View style={styles.dateViewBox}>
-            <View>
-              <Text style={styles.dateViewLabel}>Selected Date:</Text>
-            </View>
-            <View>
-                <Text style={styles.dateViewDate}>{df.formatDate(this)}  {df.formatTime(this)}</Text>
-            </View>
-          </View>
-          <View style={styles.datePicker}>
-            <DatePickerIOS
-              date={this.state.date}
-              mode="datetime"
-              onDateChange={this.onDateChange.bind(this)} />
+            <Text style={[defaultStyles.dateViewLabel, styles.timeLabel]}>Roam Start:</Text>
           </View>
           <View>
-             <TouchableHighlight
-              style={styles.button}
-              onPress={() => this.nav(df.formatDate(this), df.formatTime(this))}
-              underlayColor="white" >
-                <Text style={styles.buttonText}>Test</Text>
-            </TouchableHighlight>
+              <Text style={[defaultStyles.submit, styles.box]}>{df.formatDate(this)}  {df.formatTime(this)}</Text>
           </View>
         </View>
+        <View style={defaultStyles.dateViewBox}>
+          <View>
+            <Text style={[defaultStyles.dateViewLabel, styles.timeLabel]}>Roam End:</Text>
+          </View>
+          <View>
+              <Text style={[defaultStyles.submit, styles.box, styles.endTime]}>{df.formatDate(this)}  {df.formatTime(this)}</Text>
+          </View>
+       </View>   
       </View>
+      <View style={styles.datePicker}>
+        <DatePickerIOS
+          date={this.state.date}
+          mode="datetime"
+          onDateChange={this.onDateChange.bind(this)} />
+      </View>
+      <View>
+         <TouchableHighlight
+          style={defaultStyles.button}
+          onPress={() => this.nav(df.formatDate(this), df.formatTime(this))}
+          underlayColor="white" >
+            <Text style={defaultStyles.buttonText}>Schedule</Text>
+        </TouchableHighlight>
+      </View>
+    </View>
     </Image>
     )
   }
 
 }
+
+const styles = StyleSheet.create({
+  box: {
+    width: 225,
+    textAlign: 'center',
+    marginLeft: 10,
+    height: 40
+  },
+  endTime: {
+    justifyContent: 'space-between',
+    marginLeft: 23
+  },
+  timeLabel: {
+    marginTop: 10,
+    marginLeft: 8 
+  },
+  datePicker: {
+    borderTopWidth: 1,
+    position: 'relative', 
+    justifyContent: 'space-between',
+    marginTop: 10,
+    marginBottom: 30,  
+    borderColor: '#fff', 
+    height: 220,
+    width: 370,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.3)'
+  },
+
+});
 
 module.exports = Dte;
