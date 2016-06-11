@@ -33,7 +33,7 @@ class EnrollConfirmation extends Component {
 
         <TouchableHighlight 
           style = {defaultStyles.button} 
-          onPress = { () => this.nav('Join') } >
+          onPress = { () => this.nav('JoinPool') } >
           <Text style={defaultStyles.buttonText}>Go Back</Text>
         </TouchableHighlight>
       </Image>

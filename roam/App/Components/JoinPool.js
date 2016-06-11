@@ -194,6 +194,11 @@ class JoinPool extends Component {
             cardRemoved={this.cardRemoved.bind(this)}
           />
         </View>
+        <TouchableHighlight 
+          style = {defaultStyles.button} 
+          onPress = { () => this.props.navigator.push({name: 'Host'}) } >
+          <Text style={defaultStyles.buttonText}>Become a host</Text>
+        </TouchableHighlight>
       </Image>
     )
   }

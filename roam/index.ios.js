@@ -46,15 +46,11 @@ class roam extends Component{
 
   render() {
     return (
-       <Navigator
+      <Navigator
         style={{flex: 1}}
         initialRoute={{name: 'Main'}}
         renderScene={ this.renderScene }
-        navigationBar={
-        <Navigator.NavigationBar 
-        style={ styles.nav } 
-        routeMapper={NavigationBarRouteMapper} />} 
-        />
+      />       
     );
   }
 };
