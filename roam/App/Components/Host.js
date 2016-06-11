@@ -85,7 +85,8 @@ handleSubmit () {
       roamMode: 'pool'
    }
   //make an ajax call to the database
-   fetch('http://localhost:3000/roam', {
+   // fetch('http://107.170.251.113:3000/roam', {
+  fetch('http://localhost:3000/roam', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',

@@ -4,6 +4,15 @@ import React, { Component } from 'react';
 var SignUp = require('./Signup');
 var Time = require('./Time');
 var styles = require('./Helpers/styles');
+var FBSDK = require('react-native-fbsdk');
+var handleFacebook = require('../Utils/Login');
+
+const {
+  LoginButton,
+  LoginManager,
+  AccessToken,
+} = FBSDK;
+let authToken;
 
 import {
   Image,
@@ -23,7 +32,8 @@ class Main extends Component {
       password: '',
       isLoading: false,
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      token: ''
     };
   }
 
@@ -69,6 +79,7 @@ class Main extends Component {
     }
     //If email and password exists on the database, log the user into the select time page
     if(this.state.email !== '' && re.test(this.state.email) && this.state.password !== ''){
+      // fetch('http://107.170.251.113:3000/signin', {
       fetch('http://localhost:3000/signin', {
         method: 'POST',
         headers: {
@@ -157,6 +168,27 @@ class Main extends Component {
           underlayColor="transparent" >
             <Text style={styles.signUpButton}> Not a user? Sign Up </Text>
         </TouchableHighlight>
+        <View style={styles.facebook}>
+        <LoginButton
+          readPermissions={["public_profile", "user_friends", "email"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                console.log("Login failed with error: " + result.error);
+              } else {
+                AccessToken.getCurrentAccessToken().then( data => {
+                  authToken = data.accessToken.toString();
+                  this.setState({token: data.accessToken.toString()});
+                });
+                handleFacebook(this.nav.bind(this), authToken);
+              }
+            }
+          }
+          onLogoutFinished={() => {
+            alert("User logged out");
+          }}
+        />
+        </View>
         {/* This is the loading animation when isLoading is set to true */}
         <ActivityIndicatorIOS
           animating={this.state.isLoading}

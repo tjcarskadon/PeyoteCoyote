@@ -50,6 +50,7 @@ class Time extends Component {
     // });
     this.nav('Confirmation', this.props.userEmail);
 
+    // fetch('http://107.170.251.113:3000/roam', {
     fetch('http://localhost:3000/roam', {
       method: 'POST',
       headers: {
@@ -60,7 +61,7 @@ class Time extends Component {
         userEmail: this.props.userEmail,
         latitude: this.props.lat,
         longitude: this.props.lng,
-        type: 'roam',
+        roamMode: 'roam',
         time: this.state.selectedOption
         // coordinates: this.state.coords,
         // userEmail: this.props.navigator.navigationContext._currentRoute.email

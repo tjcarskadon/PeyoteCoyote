@@ -12,6 +12,7 @@ class Confirmation extends Component {
 
     this.props.navigator.pop();
 
+    // fetch('http://107.170.251.113:3000/cancel', {
     fetch('http://localhost:3000/cancel', {
       method: 'POST',
       headers: {
