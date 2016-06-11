@@ -46,16 +46,22 @@ module.exports = (data, res) => {
             count ++;
             //once all users have been checked, send the allowed list back to client
             if (count === users[0].data.length) {
-              apoc.query('MATCH (n:User) \
-                WHERE n.facebookID IN %array% \
-                RETURN n',
-                {
-                  array: usersList
-                })
-                .exec().then(function(roams) {
-                  res.send(JSON.stringify(roams[0].data));
+              var list = [];
+              usersList.forEach(user => {
+                apoc.query('MATCH (n:User) \
+                  WHERE n.facebookID IN "%id%" \
+                  RETURN n',
+                  {
+                    id: user
+                  })
+                  .exec().then(function(roams) {
+                    list.push(roams[0].data[0].row[0]);
+                    if (list.length === usersList.length) {
+                      res.send(JSON.stringify(list));
+                    }
                   });
-              // res.send(JSON.stringify(usersList));
+                // res.send(JSON.stringify(usersList));
+              })
             }
           })
         })

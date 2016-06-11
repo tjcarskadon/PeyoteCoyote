@@ -4,6 +4,16 @@ import React, { Component } from 'react';
 var SignUp = require('./Signup');
 var Time = require('./Time');
 var styles = require('./Helpers/styles');
+var FBSDK = require('react-native-fbsdk');
+
+const {
+  LoginButton,
+  LoginManager,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} = FBSDK;
+let authToken;
 
 import {
   Image,
@@ -23,7 +33,8 @@ class Main extends Component {
       password: '',
       isLoading: false,
       error: false,
-      errorMessage: ''
+      errorMessage: '',
+      token: ''
     };
   }
 
@@ -157,6 +168,28 @@ class Main extends Component {
           underlayColor="transparent" >
             <Text style={styles.signUpButton}> Not a user? Sign Up </Text>
         </TouchableHighlight>
+        <View style={styles.facebook}>
+        <LoginButton
+          readPermissions={["public_profile", "user_friends", "email"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                console.log("Login failed with error: " + result.error);
+              } else {
+                AccessToken.getCurrentAccessToken().then( data => {
+                  authToken = data.accessToken.toString();
+                  this.setState({token: data.accessToken.toString()});
+                });
+                this.handleFaceBook();
+              }
+            }
+          }
+          onLogoutFinished={() => {
+            alert("User logged out");
+            this.handleFacebookLogout();
+          }}
+        />
+        </View>
         {/* This is the loading animation when isLoading is set to true */}
         <ActivityIndicatorIOS
           animating={this.state.isLoading}
