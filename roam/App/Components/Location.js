@@ -4,7 +4,9 @@ const defaultStyles = require('./Helpers/styles');
 const Dte = require('./Dte');
 const Host = require('./Host');
 const Geolocation = require('./Geolocation');
-const key = require('../Utils/apiKeys').geocodeKey;
+// const key = require('../Utils/apiKeys').geocodeKey;
+const {GooglePlacesAutocomplete} = require('./GooglePlacesAutocomplete');
+const key = require('../Utils/apiKeys').places;
 
 import {
   Image,
@@ -24,12 +26,7 @@ class Location extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      locName: '',
-      street: '',
-      city: '',
-      st: '',
-      marker: {},
-      buttonMode: 'address'
+      marker: {}
     }
   }
 
@@ -37,7 +34,7 @@ class Location extends Component {
 
     let addr = this.state.street + ', ' + this.state.city +', ' + this.state.st;
     addr = addr.replace(/\s/g,'+');
-//https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=
+
     fetch('https://maps.googleapis.com/maps/api/geocode/json?address='+addr+'&key='+key)
     .then((response) => response.text())
     .then((responseText) => {
@@ -51,36 +48,33 @@ class Location extends Component {
     .catch((error) => {
       console.warn(error);
     });
-
+  }
+  handleLookup (obj) {
+      let name = obj.name;    
+      let fAddr = obj.formatted_address;
+      let lat = obj.geometry.location.lat;
+      let lng = obj.geometry.location.lng;
+      this.handlePinDrop(name, fAddr, lat, lng);
   }
 
- handlePinDrop (code, fAddr, lat, lng) {
-  if(code !== "OK") {
-    console.log('handle a bad address');
-  } else {
+ handlePinDrop (name, fAddr, lat, lng) {
     this.setState({
       marker: {
-       title: fAddr,
+       title: name,
+       address: fAddr,
        latitude: lat,
        longitude: lng
      }
-   })
-    this.toggleButton();
-  }
+   });
 }
-
-  toggleButton () {
-    let mode = this.state.buttonMode === 'address' ? 'create' : 'address';
-    this.setState({buttonMode: mode});
-  }
 
   nav (path) {
     this.props.navigator.push( {
       name: path,
         passProps: {
           userEmail: this.props.userEmail,
-          locName: this.state.locName,
-          address: this.state.street + ' ' + this.state.city + ' ' + this.state.st,
+          locName: this.state.marker.title,
+          address: this.state.address,
           lat: this.state.marker.latitude,
           lng: this.state.marker.longitude,
           titleText: this.props.titleText,
@@ -96,16 +90,6 @@ class Location extends Component {
 
   render () {
 
-    let addressButton = (
-            <View>
-               <TouchableHighlight
-                 style={defaultStyles.button}
-                 onPress={() => this.handleLookup()}
-                 underlayColor="white" >
-                 <Text style={defaultStyles.buttonText}>Find Location</Text>
-               </TouchableHighlight>
-            </View>
-      );
 
     let createRoamButton = (
             <View>
@@ -127,41 +111,49 @@ class Location extends Component {
           <View>
             <Geolocation showUser={false} markers={[this.state.marker]} />
           </View>
-          <View style={styles.form}>
-            <View>
-              <TextInput style={defaultStyles.submit}
-              autoCaptialize= 'none'
-              placeholder="Location name"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({locName: text})}
-             />
-            </View>
-            <View>
-              <TextInput style={defaultStyles.submit}
-              autoCaptialize= 'none'
-              placeholder="Street Address"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({street: text})}
-             />
-            </View>
-            <View>
-              <TextInput style={defaultStyles.submit}
-              autoCaptialize= 'none'
-              placeholder="City"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({city: text})}
-             />
-            </View>
-            <View>
-              <TextInput style={defaultStyles.smallSubmit}
-              autoCaptialize= 'none'
-              placeholder="State"
-              placeholderTextColor="white"
-              onChangeText={(text) => this.setState({st: text})}
-             />
-            </View>
-            {this.state.buttonMode === 'address' ? addressButton : createRoamButton}
-          </View>
+          <TouchableWithoutFeedback>
+      <View>
+        <GooglePlacesAutocomplete
+        placeholder='Search'
+        placeholderTextColor="white"
+        minLength={2} // minimum length of text to search
+        autoFocus={false}
+        fetchDetails={true}
+        onPress={(data, details = true) => this.handleLookup(details)}
+        getDefaultValue={() => {
+          return ''; // text input default value
+        }}
+        query={{
+          // available options: https://developers.google.com/places/web-service/autocomplete
+          key: key,
+          language: 'en', // language of the results
+          // types: '(cities)', // default: 'geocode'
+        }}
+        styles={{
+          description: {
+            fontWeight: 'bold',
+          },
+          predefinedPlacesDescription: {
+            color: '#1faadb',
+          },
+        }}
+        currentLocation={true} // Will add a 'Current location' button at the top of the predefined places list
+        currentLocationLabel="Current location"
+        nearbyPlacesAPI='GooglePlacesSearch' // Which API to use: GoogleReverseGeocoding or GooglePlacesSearch
+        GoogleReverseGeocodingQuery={{
+          // available options for GoogleReverseGeocoding API : https://developers.google.com/maps/documentation/geocoding/intro
+        }}
+        GooglePlacesSearchQuery={{
+          // available options for GooglePlacesSearch API : https://developers.google.com/places/web-service/search
+          rankby: 'distance',
+          types: 'food',
+        }}
+        filterReverseGeocodingByTypes={['locality', 'administrative_area_level_3']} // filter the reverse geocoding results by types - ['locality', 'administrative_area_level_3'] if you want to display only cities
+        // predefinedPlaces={[homePlace, workPlace]}
+      />
+      </View>
+    </TouchableWithoutFeedback>
+          {createRoamButton}
        </View>
     </Image>
     )
@@ -183,7 +175,12 @@ const styles = StyleSheet.create({
     color: 'white',
     backgroundColor: 'transparent',
     letterSpacing: 3
+  },
+
+  button: {
+    position: 'absolute'
   }
+
 });
 
 module.exports = Location;

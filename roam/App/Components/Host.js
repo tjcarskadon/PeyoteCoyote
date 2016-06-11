@@ -1,9 +1,8 @@
 'use strict';
 import React, { Component } from 'react';
-const styles = require('./Helpers/styles');
+const defaultStyles = require('./Helpers/styles');
 const df = require('./Helpers/dateFormat');
 const Confirmation = require('./Confirmation');
-
 const Dte = require('./Dte');
 
 import {
@@ -60,8 +59,6 @@ handleSubmit () {
   let ds = this.props.date || df.formatDate(this);
   let tm = this.props.time || df.formatTime(this);
   let dt = Date.parse(ds + ' ' + tm)
-
-  console.log('*********', dt);
   //create the object
   let options = {
       userEmail: this.props.userEmail,
@@ -76,9 +73,8 @@ handleSubmit () {
       time: '2 hours', //see fetch in Time.js
       price: this.state.price,
       isHost: true,
-      type: 'pool'
+      roamMode: 'pool'
    }
-  console.log("Options++++++++++++++", options);
   //make an ajax call to the database
    fetch('http://localhost:3000/roam', {
     method: 'POST',
@@ -91,7 +87,7 @@ handleSubmit () {
    .then( res => console.log('posted object'))
    .catch(err => console.log('error posting object'));
   //navigate to confirmation
-  // this.nav('Confirmation')
+  this.nav('Confirmation')
 }
 
 onFocus () {
@@ -107,14 +103,15 @@ onBlur () {
 }
 
   render () {
-
+// const homePlace = {description: 'Home', geometry: { location: { lat: 48.8152937, lng: 2.4597668 } }};
+// const workPlace = {description: 'Work', geometry: { location: { lat: 48.8496818, lng: 2.2940881 } }};
     return (
-      <Image style={styles.backgroundImage} source={require('../../imgs/uni.jpg')}>
-      <View style={styles.hostContainer}>
-      <Text style={styles.header}>Host a roam</Text>
+      <Image style={defaultStyles.backgroundImage} source={require('../../imgs/uni.jpg')}>
+      <View style={defaultStyles.hostContainer}>
+      <Text style={defaultStyles.header}>Host a roam</Text>
 
       <TextInput
-          style={styles.submit}
+          style={defaultStyles.submit} 
           autoCapitalize="none"
           placeholder={this.props.titleText ? this.props.titleText : "Enter Event Title"}
           placeholderTextColor="white"
@@ -122,30 +119,30 @@ onBlur () {
           value={this.state.titleText}
       />
       <TouchableHighlight onPress={() => this.nav('Dte')}>
-        <View style={styles.dateViewBox}>
+        <View style={defaultStyles.dateViewBox}>
           <View>
-            <Text style={styles.dateViewLabel}>Selected Date:</Text>
-          </View>
+            <Text style={defaultStyles.dateViewLabel}>Selected Date:</Text>
+          </View> 
           <View>
-            <Text style={styles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
+            <Text style={defaultStyles.dateViewTime}>{this.props.date ? this.props.date:df.formatDate(this)} {this.props.time ? this.props.time:df.formatTime(this)}</Text>
           </View>
         </View>
       </TouchableHighlight>
 
      <TouchableHighlight onPress={() => this.nav('Location')}>
-      <View style={styles.locViewBox}>
+      <View style={defaultStyles.locViewBox}>
           <View>
-            <Text style={styles.locViewLabel}>Pick a Location:</Text>
+            <Text style={defaultStyles.locViewLabel}>Pick a Location:</Text>
           </View>
           <View>
-            <Text style={styles.locViewNext}>{this.props.locName} </Text>
+            <Text style={[defaultStyles.locViewLabel, styles.location]}>{this.props.locName} </Text>
           </View>
         </View>
     </TouchableHighlight>
     <View>
-    <View style={styles.smallSubContainer}>
+    <View style={defaultStyles.smallSubContainer}> 
        <TextInput
-          style={styles.smallSubmit}
+          style={defaultStyles.smallSubmit} 
           autoCapitalize="none"
           placeholder={this.props.price ? this.props.price : '$'}
           placeholderTextColor='white'
@@ -155,7 +152,7 @@ onBlur () {
       </View>
       <View>
        <TextInput
-          style={styles.smallSubmit}
+          style={defaultStyles.smallSubmit} 
           autoCapitalize="none"
           placeholder={this.props.capacity ? this.props.capacity : 'Capacity'}
           placeholderTextColor='white'
@@ -167,7 +164,7 @@ onBlur () {
 
      <View>
       <TextInput
-        style={this.state.flag ? styles.bigInput : styles.desc}
+        style={this.state.flag ? defaultStyles.bigInput : defaultStyles.desc}
         autoCapitalize="none"
         placeholder={this.props.descText ? this.props.deskzcText : "Enter roam description"}
         autoCorrect={false}
@@ -179,12 +176,12 @@ onBlur () {
         value={this.state.descText}
       />
     </View>
-    <View style={styles.startRoam}>
+    <View style={defaultStyles.startRoam}>
       <TouchableHighlight
-          style={styles.button}
+          style={defaultStyles.button}
           onPress={() => this.handleSubmit()}
           underlayColor="white" >
-            <Text style={styles.buttonText}> Start roam </Text>
+            <Text style={defaultStyles.buttonText}> Start roam </Text>
       </TouchableHighlight>
 
     </View>
@@ -193,4 +190,12 @@ onBlur () {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  location: {
+    marginLeft: 18,
+    fontSize: 18
+  }
+})
+
 module.exports = Host;

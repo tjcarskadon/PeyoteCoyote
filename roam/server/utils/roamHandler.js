@@ -17,6 +17,7 @@ module.exports = (data, res) => {
 
   console.log('data.type: ', data.type);
   if (data.type === 'roam') {
+
     //match user w/ a roam or create an auto roam
     roamMatch(data, res);
 
