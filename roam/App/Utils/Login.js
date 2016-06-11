@@ -18,7 +18,8 @@ module.exports = (cb, authToken) => {
         // this.setState({
         //   isLoading: true,
         // });
-        fetch('http://107.170.251.113:3000/signin', {
+        // fetch('http://107.170.251.113:3000/signin', {
+        fetch('http://localhost:3000/signin', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -35,7 +36,8 @@ module.exports = (cb, authToken) => {
         .then((res) => {
           //if there is no user, create an account for the user
           if(res.message === 'Incorrect email/password combination!'){
-            fetch('http://107.170.251.113:3000/signup', {
+            // fetch('http://107.170.251.113:3000/signup', {
+            fetch('http://localhost:3000/signup', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
